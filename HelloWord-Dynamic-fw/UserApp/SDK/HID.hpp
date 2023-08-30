@@ -1,0 +1,12 @@
+//
+// Created by 19254 on 2023/8/28.
+//
+
+#ifndef HELLOWORD_DYNAMIC_FW_HID_HPP
+#define HELLOWORD_DYNAMIC_FW_HID_HPP
+
+namespace SDK {
+
+}
+
+#endif //HELLOWORD_DYNAMIC_FW_HID_HPP

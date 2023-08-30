@@ -1,0 +1,22 @@
+Index: Platform/Utils/timer.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"timer.hpp\"\r\n\r\nstatic TimerCallback_t timerCallbacks[5];\r\n\r\nTimer::Timer(TIM_HandleTypeDef *_htim, uint32_t _freqHz)\r\n{\r\n    htim7.Instance = TIM7;\r\n    htim10.Instance = TIM10;\r\n    htim11.Instance = TIM11;\r\n    htim13.Instance = TIM13;\r\n    htim14.Instance = TIM14;\r\n\r\n    if (!(_htim->Instance == TIM7 ||\r\n          _htim->Instance == TIM10 ||\r\n          _htim->Instance == TIM11 ||\r\n          _htim->Instance == TIM13 ||\r\n          _htim->Instance == TIM14))\r\n    {\r\n        Error_Handler();\r\n    }\r\n\r\n    if (_freqHz < 1) _freqHz = 1;\r\n    else if (_freqHz > 10000000) _freqHz = 10000000;\r\n\r\n    htim = _htim;\r\n    freq = _freqHz;\r\n\r\n    CalcRegister(freq);\r\n\r\n    HAL_TIM_Base_DeInit(_htim);\r\n    _htim->Init.Prescaler = PSC - 1;\r\n    _htim->Init.CounterMode = TIM_COUNTERMODE_UP;\r\n    _htim->Init.Period = ARR - 1;\r\n    _htim->Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;\r\n    _htim->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;\r\n    if (HAL_TIM_Base_Init(_htim) != HAL_OK)\r\n    {\r\n        Error_Handler();\r\n    }\r\n}\r\n\r\nvoid Timer::Start()\r\n{\r\n    HAL_TIM_Base_Start_IT(htim);\r\n}\r\n\r\nvoid Timer::CalcRegister(uint32_t _freq)\r\n{\r\n    float psc = 0.5;\r\n    float arr;\r\n\r\n    do\r\n    {\r\n        psc *= 2;\r\n        arr = 84000000.0f / psc / (float) _freq;\r\n    } while (arr > 65535);\r\n\r\n    if (htim->Instance == TIM7 || htim->Instance == TIM13 || htim->Instance == TIM14) // APB1 @84MHz\r\n    {\r\n        PSC = (uint16_t) round((double) psc);\r\n        ARR = (uint16_t) (84000000.0f / (float) _freq / psc);\r\n    } else if (htim->Instance == TIM10 || htim->Instance == TIM11) // APB2 @168MHz\r\n    {\r\n        PSC = (uint16_t) round((double) psc) * 2;\r\n        ARR = (uint16_t) (84000000.0f / (float) _freq / psc);\r\n    }\r\n}\r\n\r\n\r\nvoid Timer::SetCallback(TimerCallback_t _timerCallback)\r\n{\r\n    if (htim->Instance == TIM7)\r\n    {\r\n        timerCallbacks[0] = _timerCallback;\r\n    } else if (htim->Instance == TIM10)\r\n    {\r\n        timerCallbacks[1] = _timerCallback;\r\n    } else if (htim->Instance == TIM11)\r\n    {\r\n        timerCallbacks[2] = _timerCallback;\r\n    } else if (htim->Instance == TIM13)\r\n    {\r\n        timerCallbacks[3] = _timerCallback;\r\n    } else if (htim->Instance == TIM14)\r\n    {\r\n        timerCallbacks[4] = _timerCallback;\r\n    }\r\n}\r\n\r\n\r\nextern \"C\"\r\nvoid OnTimerCallback(TIM_TypeDef *timInstance)\r\n{\r\n    if (timInstance == TIM7)\r\n    {\r\n        timerCallbacks[0]();\r\n    } else if (timInstance == TIM10)\r\n    {\r\n        timerCallbacks[1]();\r\n    } else if (timInstance == TIM11)\r\n    {\r\n        timerCallbacks[2]();\r\n    } else if (timInstance == TIM13)\r\n    {\r\n        timerCallbacks[3]();\r\n    } else if (timInstance == TIM14)\r\n    {\r\n        timerCallbacks[4]();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Platform/Utils/timer.cpp b/Platform/Utils/timer.cpp
+--- a/Platform/Utils/timer.cpp	(revision d2d3402be4e0dfe7a27baf2be3b4e97ef9436d64)
++++ b/Platform/Utils/timer.cpp	(date 1693321364214)
+@@ -28,9 +28,9 @@
+     CalcRegister(freq);
+ 
+     HAL_TIM_Base_DeInit(_htim);
+-    _htim->Init.Prescaler = PSC - 1;
++    _htim->Init.Prescaler = PSC-1;
+     _htim->Init.CounterMode = TIM_COUNTERMODE_UP;
+-    _htim->Init.Period = ARR - 1;
++    _htim->Init.Period = ARR-1;
+     _htim->Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+     _htim->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+     if (HAL_TIM_Base_Init(_htim) != HAL_OK)
