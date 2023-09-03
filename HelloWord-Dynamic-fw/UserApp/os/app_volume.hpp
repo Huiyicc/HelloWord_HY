@@ -11,7 +11,7 @@ private:
     void drawA();
 
 public:
-    AppVolume() { AppID = APPID_HELLO; }
+    AppVolume() { AppID = APPID_VOLUME; }
 
     // 全局注册后只会调用一次,用于初始化,自行处理静态数据
     void Init() override;

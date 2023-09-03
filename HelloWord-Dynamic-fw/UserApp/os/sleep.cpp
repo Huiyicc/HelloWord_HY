@@ -11,28 +11,36 @@ std::map<unsigned char, SysCallFunc> g_SysWakeUp = {};
 std::map<unsigned char, SysCallFunc> g_SysSleep = {};
 // 创建一个5秒的定时器，周期为5000毫秒，优先级为0
 // 当两次定时,也就是10秒内没有收到任何按键事件时，触发休眠事件
-TimerHandle_t g_timer_sleep;
+//TimerHandle_t g_timer_sleep;
+// false:未休眠,true:已休眠
 bool g_sleep_status = false;
+int g_sleep_time = 0;
 
 void timerSleepCallback(TimerHandle_t xTimer) {
-    // 状态为false,无操作,下一次定时将会休眠
-    if (!g_sleep_status) {
-        g_sleep_status = true;
+    if (g_sleep_status) {
         return;
     }
-    // 休眠事件
-    for (auto &item: g_SysSleep) {
-        if (item.second) {
-            if (!item.second(g_sysCtx)) {
-                return;
+    // 100 * 100
+    // 叠加状态
+    g_sleep_time++;
+    // 如果大于x秒,则休眠
+    if ((g_sleep_time*100) >= 10000) {
+        // 休眠事件
+        g_sleep_status = true;
+        g_sleep_time = 0;
+        for (auto &item: g_SysSleep) {
+            if (item.second) {
+                if (!item.second(g_sysCtx)) {
+                    return;
+                }
             }
         }
+        g_sysCtx->Device.oled->Clear();
+        g_sysCtx->Device.oled->SetPowerSave(1);
+        // 睡眠模式
+        __WFI();
+        return;
     }
-    g_sysCtx->Device.oled->Clear();
-    g_sysCtx->Device.oled->SetPowerSave(1);
-    // 睡眠模式
-    __WFI();
-    xTimerStop(g_timer_sleep, 0);
 }
 
 // 延迟系统休眠
@@ -42,26 +50,25 @@ void OSDelaySleep() {
         __WFE();
         g_sysCtx->Device.oled->Clear();
         g_sysCtx->Device.oled->SetPowerSave(0);
-        OSWakeUp();
+        // 重置状态
+        for (auto &item: g_SysWakeUp) {
+            if (item.second) {
+                if (!item.second(g_sysCtx)) {
+                    return;
+                }
+            }
+        }
         AppChange(g_sysCtx->Apps.Status);
-        xTimerReset(g_timer_sleep, 0);
+        //xTimerReset(g_timer_sleep, 0);
         g_sleep_status = false;
+        g_sleep_time = 0;
         return;
     }
     // 否则延迟休眠
     g_sleep_status = false;
+    g_sleep_time = 0;
 }
 
-void OSWakeUp() {
-    // 重置状态
-    for (auto &item: g_SysWakeUp) {
-        if (item.second) {
-            if (!item.second(g_sysCtx)) {
-                return;
-            }
-        }
-    }
-}
 
 int RegisterWakeUpCallBack(SysCallFunc func) {
     if (func == nullptr) {
@@ -93,7 +100,7 @@ int RegisterSleepCallBack(SysCallFunc func) {
 
 void SleepTimerInit() {
     // 启动休眠定时器
-    g_timer_sleep = xTimerCreate("SleepTimer", pdMS_TO_TICKS(5000),
-                                 pdTRUE, nullptr, timerSleepCallback);
-    xTimerStart(g_timer_sleep, 0);
+//    g_timer_sleep = xTimerCreate("SleepTimer", pdMS_TO_TICKS(5000),
+//                                 pdTRUE, nullptr, timerSleepCallback);
+//    xTimerStart(g_timer_sleep, 0);
 }

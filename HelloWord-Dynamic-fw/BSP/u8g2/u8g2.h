@@ -2189,6 +2189,7 @@ void u8g2_SetupBuffer_Utf8(u8g2_t* u8g2, const u8g2_cb_t* u8g2_cb);
 /*==========================================*/
 
 /* start font list */
+extern const uint8_t hwd_hy_U24[] U8G2_FONT_SECTION("hwd_hy_U24");
 extern const uint8_t u8g2_font_u8glib_4_tf[] U8G2_FONT_SECTION("u8g2_font_u8glib_4_tf");
 extern const uint8_t u8g2_font_u8glib_4_tr[] U8G2_FONT_SECTION("u8g2_font_u8glib_4_tr");
 extern const uint8_t u8g2_font_u8glib_4_hf[] U8G2_FONT_SECTION("u8g2_font_u8glib_4_hf");

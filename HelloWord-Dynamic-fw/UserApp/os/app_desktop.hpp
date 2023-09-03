@@ -8,16 +8,23 @@
 #include <string>
 
 struct desktopCallType {
-    std::string name;
-    void *icon;
+    const char* name;
+    const char* icon;
     int AppID;
 };
 
 // 桌面应用
 class AppDesktop: public AppBase {
 private:
-    static std::vector<desktopCallType> *m_menuList;
-    int DividesNum = 10;
+    unsigned char m_menuIndex = 0;
+    //std::vector<desktopCallType> *m_menuList;
+    unsigned char m_menuNum = 4;
+    desktopCallType* m_menuList= nullptr;
+    unsigned char m_dividesNum = 10;
+
+    float m_shifting = 0;
+    unsigned char* getIndexArr(unsigned char*size);
+
 public:
     KnobStatus* m_knobStatus = nullptr;
 
@@ -34,6 +41,15 @@ public:
 
     // 退出事件
     void Out() override;
+
+    void SetShifting(float shifting);
+
+    void MenuUp();
+
+    void MenuDown();
+
+    const desktopCallType* GetDesktopInfo();
+
 };
 
 

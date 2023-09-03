@@ -5,9 +5,10 @@
 #ifndef HELLOWORD_DYNAMIC_FW_CTRL_H
 #define HELLOWORD_DYNAMIC_FW_CTRL_H
 #include "os_define.hpp"
+#include "timers.h"
 
 void CtrlInit();
-int RegisterKNobCallback(KnobCallback callback);
-
+bool RegisterKNobCallback(KnobCallback callback);
+void taskCtrlLoop(TimerHandle_t);
 
 #endif //HELLOWORD_DYNAMIC_FW_CTRL_H

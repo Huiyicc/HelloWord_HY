@@ -5,6 +5,7 @@
 #ifndef HELLOWORD_DYNAMIC_FW_SLEEP_HPP
 #define HELLOWORD_DYNAMIC_FW_SLEEP_HPP
 #include "os_define.hpp"
+#include "timers.h"
 
 // 初始化休眠定时器,不要多次调用
 void SleepTimerInit();
@@ -16,6 +17,6 @@ int RegisterWakeUpCallBack(SysCallFunc func);
 
 // 延迟系统休眠
 void OSDelaySleep();
-
+void timerSleepCallback(TimerHandle_t xTimer);
 
 #endif //HELLOWORD_DYNAMIC_FW_SLEEP_HPP

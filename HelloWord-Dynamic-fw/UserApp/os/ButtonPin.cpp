@@ -10,7 +10,7 @@
 #include "sleep.hpp"
 
 ButtonPinCall ButtonPin;
-TimerHandle_t g_timer_button;
+//TimerHandle_t g_timer_button;
 
 // 上一个按键状态
 uint16_t lastButtonPin = 0;
@@ -76,7 +76,7 @@ void ButtonTask(TimerHandle_t xTimer) {
                     ButtonPin(ButtonPinCallType::RightButtonLongPress);
                 }
             }
-            isTrigger=true;
+            isTrigger = true;
             return;
         }
     }
@@ -84,20 +84,32 @@ void ButtonTask(TimerHandle_t xTimer) {
 }
 
 // 注册按键回调
-bool RegisterButtonPinCall(unsigned char tag, ButtonPinCall call) {
-    if (g_sysCtx->ButtonPinMap.find(tag) == g_sysCtx->ButtonPinMap.end()) {
-        g_sysCtx->ButtonPinMap[tag] = call;
-        return true;
+bool RegisterButtonPinCall(ButtonPinCall call) {
+    if (!call) {
+        return false;
     }
-    return false;
+    g_sysCtx->ButtonPins.PushBack(call);
+    return true;
 }
 
 // 按键回调
 void privateCall(ButtonPinCallType type) {
-    for (auto &it: g_sysCtx->ButtonPinMap) {
-        if (it.second != nullptr) {
-            it.second(type);
+//    for (unsigned char i = 0; i < g_sysCtx->ButtonPinsSize; ++i) {
+//        if (g_sysCtx->ButtonPins[i] != nullptr) {
+//            g_sysCtx->ButtonPins[i](type);
+//        }
+//    }
+//    for (auto &it: g_sysCtx->ButtonPins) {
+//        if (it) {
+//            it(type);
+//        }
+//    }
+    auto ptr = g_sysCtx->ButtonPins.GetHeadPtr();
+    while (ptr) {
+        if (ptr->val) {
+            ptr->val(type);
         }
+        ptr = ptr->pNext;
     }
 }
 
@@ -114,12 +126,15 @@ void GPIO_Init(void) {
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
+void ButtonPinDelaySleep(ButtonPinCallType type) {
+    OSDelaySleep();
+}
+
 // 初始化按键回调
 void ButtonPinInit() {
     GPIO_Init();
     ButtonPin = privateCall;
-    g_sysCtx->ButtonPinMap[SLEEPID_BUTTONPIN] = [](ButtonPinCallType type) { OSDelaySleep(); };
+    RegisterButtonPinCall(ButtonPinDelaySleep);
     // 设置扫描定时器,200ms扫描一次
-    g_timer_button = xTimerCreate("ButtonTimer", pdMS_TO_TICKS(100), pdTRUE, nullptr, ButtonTask);
-    xTimerStart(g_timer_button, 0);
+    //xTimerStart(xTimerCreate("ButtonTimer", pdMS_TO_TICKS(100), pdTRUE, nullptr, ButtonTask), 0);
 }

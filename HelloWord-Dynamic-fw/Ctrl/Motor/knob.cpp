@@ -60,7 +60,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
             motor->config.pidAngle.p = 100;
-            motor->config.pidAngle.i = 0;
+            motor->config.pidAngle.i = 0.3;
             motor->config.pidAngle.d = 3;
             motor->target = deviation;
             lastAngle = deviation;
@@ -123,6 +123,7 @@ void KnobSimulator::Tick() {
         }
             break;
         case MODE_ENCODER: {
+            // TODO: 有反复弹跳的BUG,待修复
             // 当前位置
             auto a = GetPosition();
             // 当前位置与每个刻度的距离
@@ -133,12 +134,10 @@ void KnobSimulator::Tick() {
                 motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
                 motor->target = 0;
                 lastAngle = a;
-
                 break;
             }
             motor->config.controlMode = Motor::ControlMode_t::ANGLE;
             motor->target = lastAngle;
-
         }
             break;
         case MODE_DAMPED:
@@ -206,3 +205,4 @@ void KnobSimulator::SetEnable(bool _en) {
     motor->SetEnable(_en);
 }
 
+KnobSimulator::Mode_t KnobSimulator::GetMode() { return mode; }
