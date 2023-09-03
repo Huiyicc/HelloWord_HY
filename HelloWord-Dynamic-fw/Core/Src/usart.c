@@ -21,7 +21,7 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "stdio.h"
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart2;
@@ -152,6 +152,22 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+//重定向scanf
+
+#pragma import(__use_no_semihosting)
+//标准库需要的支持函数
+struct __FILE {
+    int handle;
+};
+FILE __stdout;
+
+//重定义fputc函数
+int fputc(int ch, FILE *f){
+    while((USART2->SR&0X40)==0);//循环发送,直到发送完毕
+    USART2->DR = (uint32_t) ch;
+    return ch;
+}
 
 /* USER CODE END 1 */
 

@@ -62,14 +62,14 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidAngle.p = 100;
             motor->config.pidAngle.i = 0.3;
             motor->config.pidAngle.d = 3;
-            motor->target = deviation;
-            lastAngle = deviation;
+            motor->target = zeroPosition;
+            lastAngle = zeroPosition;
             encoderDistance = _2PI / float(encoderDivides);
-            auto m = fmodf(motor->target, motor->target);
-            if (fabs(m) < filterateMax) {
-                motor->target += m;
-            }
-            lastAngle = motor->target;
+//            auto m = fmodf(motor->target, motor->target);
+//            if (fabs(m) < filterateMax) {
+//                motor->target += m;
+//            }
+//            lastAngle = motor->target;
         }
             break;
         case MODE_SPRING: {
@@ -123,21 +123,27 @@ void KnobSimulator::Tick() {
         }
             break;
         case MODE_ENCODER: {
-            // TODO: 有反复弹跳的BUG,待修复
             // 当前位置
             auto a = GetPosition();
-            // 当前位置与每个刻度的距离
-            auto shifting = fmodf(a, encoderDistance);
-            // 抖动
-            if (fabsf(shifting) < filterateMax) {
-                // 无需调整
+            if (std::fabs(a) < filterateMax) {
                 motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
                 motor->target = 0;
                 lastAngle = a;
+                encoderPosition = GetEncoderModePos();
+                break;
+            } else{
+                auto m = fmod(a,encoderDistance);
+                if (fabs(m)<filterateMax){
+                    motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                    motor->target = 0;
+                    lastAngle = a;
+                    encoderPosition = GetEncoderModePos();
+                    break;
+                }
+                motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+                motor->target = lastAngle+zeroPosition;
                 break;
             }
-            motor->config.controlMode = Motor::ControlMode_t::ANGLE;
-            motor->target = lastAngle;
         }
             break;
         case MODE_DAMPED:

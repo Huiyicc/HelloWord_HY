@@ -65,14 +65,14 @@ void CommunicationTask(void *ctx)
     }
 }
 
-//extern "C" {
-//int _write(int file, const char *data, int len);
-//}
-//
-//// @brief This is what printf calls internally
-//int _write(int file, const char *data, int len)
-//{
-//    usb_stream_output_ptr->process_bytes((uint8_t *) data, len, nullptr);
-//    uart2_stream_output_ptr->process_bytes((uint8_t *) data, len, nullptr);
-//    return len;
-//}
+extern "C" {
+int _write(int file, const char *data, int len);
+}
+
+// @brief This is what printf calls internally
+int _write(int file, const char *data, int len)
+{
+    //usb_stream_output_ptr->process_bytes((uint8_t *) data, len, nullptr);
+    uart2_stream_output_ptr->process_bytes((uint8_t *) data, len, nullptr);
+    return len;
+}

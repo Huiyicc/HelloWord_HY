@@ -41,6 +41,7 @@ void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

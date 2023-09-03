@@ -92,16 +92,53 @@
 
 /** Usb HID report descriptor. */
 __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DESC_SIZE] __ALIGN_END = {
-        0x05, 0x0c,                    // USAGE_PAGE (Consumer Devices)
-        0x09, 0x01,                    // USAGE (Consumer Control)
-        0xa1, 0x01,                    // COLLECTION (Application)
-        0x09, 0xe0,                    //   USAGE (Volume)
-        0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
-        0x25, 0x64,                    //   LOGICAL_MAXIMUM (100)
-        0x75, 0x08,                    //   REPORT_SIZE (8)
-        0x95, 0x01,                    //   REPORT_COUNT (1)
-        0x81, 0x22,                     //   INPUT (Data,Var,Abs,NPrf)
-        0xC0,
+        /* USER CODE BEGIN 0 */
+        0x05, 0x8c, // USAGE_PAGE (ST Page) /
+        0x09, 0x01, // USAGE (Demo Kit) /
+        0xa1, 0x01, // COLLECTION (Application) /
+        /* 6 */
+        // The Input report
+        0x09,0x03, // USAGE ID - Vendor defined
+        0x15,0x00, // LOGICAL_MINIMUM (0)
+        0x26,0x00, 0xFF, // LOGICAL_MAXIMUM (255)
+        0x75,0x08, // REPORT_SIZE (8)
+        0x95,CUSTOM_HID_EPIN_SIZE, //0x95,0x16, REPORT_COUNT (20)
+        0x81,0x02, // INPUT (Data,Var,Abs)
+        //19
+        // The Output report
+        0x09,0x04, // USAGE ID - Vendor defined
+        0x15,0x00, // LOGICAL_MINIMUM (0)
+        0x26,0x00,0xFF, // LOGICAL_MAXIMUM (255)
+        0x75,0x08, // REPORT_SIZE (8)
+        0x95,CUSTOM_HID_EPOUT_SIZE, //0x95,0x16, REPORT_COUNT (20)
+        0x91,0x02, // OUTPUT (Data,Var,Abs)
+        //32
+        /* USER CODE END 0 */
+        0xC0    /*     END_COLLECTION	             */
+
+//        0x05, 0x0C,        // Usage Page (Consumer)
+//        0x09, 0x01,        // Usage (Consumer Control)
+//        0xA1, 0x01,        // Collection (Application)
+//        0xA1, 0x00,        //   Collection (Physical)
+//        0x09, 0xE9,        //     Usage (Volume Increment)
+//        0x09, 0xEA,        //     Usage (Volume Decrement)
+//        0x09, 0xE2,        //     Usage (Mute)
+//        0x09, 0xCD,        //     Usage (Play/Pause)
+//        0x35, 0x00,        //     Physical Minimum (0)
+//        0x45, 0x07,        //     Physical Maximum (7)
+//        0x15, 0x00,        //     Logical Minimum (0)
+//        0x25, 0x01,        //     Logical Maximum (1)
+//        0x75, 0x01,        //     Report Size (1)
+//        0x95, 0x04,        //     Report Count (4)
+//        0x81, 0x02,        //     Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+//        0x75, 0x01,        //     Report Size (1)
+//        0x95, 0x04,        //     Report Count (4)
+//        0x81, 0x01,        //     Input (Const,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
+//        0xC0,              //   End Collection
+//        0xC0,              // End Collection
+
+// 38 bytes
+
 
 //                0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
 //                0x85, 0x01,                    //   REPORT_ID (1)

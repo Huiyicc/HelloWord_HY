@@ -102,7 +102,7 @@ void InitOs() {
 
 /* Default Entry -------------------------------------------------------*/
 void Main(void) {
-    //InitCommunication();
+    InitCommunication();
     InitOs();
 }
 

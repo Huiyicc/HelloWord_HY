@@ -39,14 +39,15 @@ public:
 
     Mode_t GetMode();
 
-    float deviation = -2.6;
+    float deviation = -3.7;
     float filterateMax = 0.04;
     float encoderDistance = 0;
+    float encoderPosition = 0;
 private:
     Motor *motor{};
     Mode_t mode = MODE_DISABLE;
 
-    float zeroPosition = 0;
+    float zeroPosition = -3.7;
     float limitPositionMax = 5.1;
     float limitPositionMin = 3.3;
     int encoderDivides = 5;

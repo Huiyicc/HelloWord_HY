@@ -22,56 +22,28 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="修复encode模式电机抖动的问题">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/CList.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/CList.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_updown.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_windows.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/STM32F405.svd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/build_end.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/uf2conv.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/uf2families.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/money-credit-card.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/money-credit-card.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/screen.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/settings-fill.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/亮度+.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/亮度+.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/箭头_上下切换.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/箭头_上下切换.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/箭头_左右切换.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/箭头_左右切换.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/音量.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/音量.png" afterDir="false" />
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="重构大部分内存申请逻辑,优化占用">
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/utils.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/u8g2/u8g2.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/u8g2/u8g2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/u8g2/u8g2_fonts.c" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/u8g2/u8g2_fonts.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/usart.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/usart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/communication.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Communication/communication.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/STM32F405RGTx_FLASH.ld" beforeDir="false" afterPath="$PROJECT_DIR$/STM32F405RGTx_FLASH.ld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_desc.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_desc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ButtonPin.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ButtonPin.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ButtonPin.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ButtonPin.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_hello.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_hello.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/apps.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/apps.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +331,7 @@
       <workItem from="1693558214914" duration="13000" />
       <workItem from="1693559582518" duration="29242000" />
       <workItem from="1693677791214" duration="164000" />
-      <workItem from="1693708481999" duration="5428000" />
+      <workItem from="1693708481999" duration="32336000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -377,7 +349,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693404325265</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="重构大部分内存申请逻辑,优化占用">
+      <option name="closed" value="true" />
+      <created>1693717257927</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1693717257928</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,15 +383,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="暂存" />
     <MESSAGE value="修复encode模式电机抖动的问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复encode模式电机抖动的问题" />
+    <MESSAGE value="重构大部分内存申请逻辑,优化占用" />
+    <option name="LAST_COMMIT_MESSAGE" value="重构大部分内存申请逻辑,优化占用" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/UserApp/os/ButtonPin.cpp</url>
-          <line>52</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/UserApp/os/sleep.cpp</url>
+          <line>49</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/UserApp/os/app_desktop.cpp</url>
+          <line>88</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -422,6 +408,11 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
+        <watch expression="this" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

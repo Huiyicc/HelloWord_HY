@@ -4,6 +4,7 @@
 #include "ctrl.hpp"
 #include "timers.h"
 #include "sleep.hpp"
+#include "SDK/utils.hpp"
 
 
 Timer timerCtrlLoop(&htim7, 5000);
@@ -34,69 +35,13 @@ bool RegisterKNobCallback(KnobCallback callback) {
         return false;
     }
     g_sysCtx->Device.ctrl.CallBacks.PushBack(callback);
-//    g_sysCtx->Device.ctrl.CallBacksSize++;
-//    auto tmp = (KnobCallback *) realloc(g_sysCtx->Device.ctrl.CallBacks,
-//                                        sizeof(KnobCallback) * g_sysCtx->Device.ctrl.CallBacksSize);
-//    if (tmp) {
-//        g_sysCtx->Device.ctrl.CallBacks = tmp;
-//        g_sysCtx->Device.ctrl.CallBacks[g_sysCtx->Device.ctrl.CallBacksSize - 1] = callback;
-//        return true;
-//    }
-//    return false;
-//    auto ritem = g_sysCtx->Device.ctrl.CallBacks.rbegin();
-//    if (ritem == g_sysCtx->Device.ctrl.CallBacks.rend()) {
-//        g_sysCtx->Device.ctrl.CallBacks[0] = callback;
-//        return 0;
-//    }
-//    g_sysCtx->Device.ctrl.CallBacks[ritem->first + 1] = callback;
-//    return ritem->first + 1;
+    return true;
 }
 
 osThreadId_t taskCtrlLoopHandle;
 double lastPosition = 0;
 int lastEncodePosition = 0;
 KnobStatus *knobStatus = nullptr;
-
-//void taskCtrlLoop(TimerHandle_t) {
-//    // 限幅滤波法
-//    // 后续优化吧,懒得写了
-//    auto l = g_sysCtx->Device.ctrl.knob.GetPosition();
-//    // 抖动容错
-//    if (std::abs(l - knobStatus->LastPositionRaw) < g_sysCtx->Device.ctrl.knob.filterateMax) {
-//        if (std::fabs(lastPosition - l) < g_sysCtx->Device.ctrl.knob.filterateMax) {
-//            return;
-//        }
-//    }
-//    if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER) {
-//        auto e = g_sysCtx->Device.ctrl.knob.GetEncoderModePos();
-//        knobStatus->LastEncoderPosition = lastEncodePosition;
-//        knobStatus->EncoderPosition = e;
-//        lastEncodePosition = e;
-//    }
-//    lastPosition = l;
-//    knobStatus->LastPositionRaw = knobStatus->PositionRaw;
-//    knobStatus->PositionRaw = l;
-//    knobStatus->LastPosition = knobStatus->Position;
-//    knobStatus->Position = l + g_sysCtx->Device.ctrl.knob.deviation;
-//
-//    // 步数 6.3
-//    // 角度 = (步数 / 步数每圈) * 360°
-//    knobStatus->Angle = (knobStatus->Position / _2PI) * 360;
-//
-//    // 唤醒事件
-//    OSDelaySleep();
-//    for (int i = 0; i < g_sysCtx->Device.ctrl.CallBacksSize; ++i) {
-//        if (g_sysCtx->Device.ctrl.CallBacks[i]) {
-//            g_sysCtx->Device.ctrl.CallBacks[i](knobStatus);
-//        }
-//    }
-////    for (auto &iter: g_sysCtx->Device.ctrl.CallBacks) {
-////        if (iter.second) {
-////            iter.second(&knobStatus);
-////        }
-////    }
-//
-//}
 
 void taskCtrlLoop(void *) {
     for (;;) {
@@ -111,10 +56,9 @@ void taskCtrlLoop(void *) {
             }
         }
         if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER) {
-            auto e = g_sysCtx->Device.ctrl.knob.GetEncoderModePos();
             knobStatus->LastEncoderPosition = lastEncodePosition;
-            knobStatus->EncoderPosition = e;
-            lastEncodePosition = e;
+            knobStatus->EncoderPosition = g_sysCtx->Device.ctrl.knob.encoderPosition;
+            lastEncodePosition = knobStatus->EncoderPosition;
         }
         lastPosition = l;
         knobStatus->LastPositionRaw = knobStatus->PositionRaw;
@@ -125,7 +69,7 @@ void taskCtrlLoop(void *) {
         // 步数 6.3
         // 角度 = (步数 / 步数每圈) * 360°
         knobStatus->Angle = (knobStatus->Position / _2PI) * 360;
-
+        Println("%f", l);
         // 唤醒事件
         OSDelaySleep();
         auto ptr = g_sysCtx->Device.ctrl.CallBacks.GetHeadPtr();

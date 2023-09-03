@@ -24,6 +24,10 @@ public:
 
     // 退出事件
     void Out() override;
+
+    void VolumeUP();
+    void VolumeDOWN();
+
 };
 
 

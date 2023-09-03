@@ -52,7 +52,10 @@ inline void AppUnRegister(unsigned char appid) {
 
 // 切换App
 inline void AppChange(unsigned char appid) {
-    if (appid==g_sysCtx->Apps.Status) { return;}
+    if (appid==g_sysCtx->Apps.Status) {
+        g_sysCtx->Apps.AppsMap[g_sysCtx->Apps.Status]->ReView();
+        return;
+    }
     auto iter = g_sysCtx->Apps.AppsMap.find(appid);
     if (iter == g_sysCtx->Apps.AppsMap.end()) { return; }
     if (g_sysCtx->Apps.Status > 0) {

@@ -16,6 +16,7 @@ struct desktopCallType {
 // 桌面应用
 class AppDesktop: public AppBase {
 private:
+    unsigned char m_status=0; // 0:正常 1:上移 2:下移
     unsigned char m_menuIndex = 0;
     //std::vector<desktopCallType> *m_menuList;
     unsigned char m_menuNum = 4;
@@ -44,9 +45,12 @@ public:
 
     void SetShifting(float shifting);
 
-    void MenuUp();
+    void MenuDec();
 
-    void MenuDown();
+    void MenuAdd();
+
+    unsigned char GetMenuIndex();
+    const float* GetShifting(){return &m_shifting;};
 
     const desktopCallType* GetDesktopInfo();
 
