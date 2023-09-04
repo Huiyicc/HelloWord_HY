@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="优化电机逻辑,优化菜单动画&#10;菜单动画待修复">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="完善HID描述符与协议&#10;除亮度调节以外的功能都实现">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -339,7 +339,7 @@
       <workItem from="1693558214914" duration="13000" />
       <workItem from="1693559582518" duration="29242000" />
       <workItem from="1693677791214" duration="164000" />
-      <workItem from="1693708481999" duration="76449000" />
+      <workItem from="1693708481999" duration="77103000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -373,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693750282335</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="完善HID描述符与协议&#10;除亮度调节以外的功能都实现">
+      <option name="closed" value="true" />
+      <created>1693842439511</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693842439511</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +409,8 @@
     <MESSAGE value="修复encode模式电机抖动的问题" />
     <MESSAGE value="重构大部分内存申请逻辑,优化占用" />
     <MESSAGE value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
+    <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
