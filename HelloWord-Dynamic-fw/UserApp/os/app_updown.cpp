@@ -4,8 +4,10 @@
 
 #include "app_updown.hpp"
 #include "ButtonPin.hpp"
+#include "ctrl.hpp"
+#include "SDK/usbproto.hpp"
 
-void appUpDownButtonPinCallback(enum ButtonPinCallType type){
+void appUpDownButtonPinCallback(enum ButtonPinCallType type) {
     if (g_sysCtx->Apps.Status != APPID_UPDOWN) {
         return;
     }
@@ -18,13 +20,30 @@ void appUpDownButtonPinCallback(enum ButtonPinCallType type){
     }
 }
 
+void appUpDownKNobCallback(KnobStatus *status) {
+    if (g_sysCtx->Apps.Status != APPID_UPDOWN) {
+        return;
+    }
+    auto x = status->PositionRaw - status->LastPositionRaw;
+    if (fabs(x) < 0.1) {
+        return;
+    }
+    if (status->Position > status->LastPosition) {
+        HYSDK::USB::SendMouseUP();
+    } else {
+        HYSDK::USB::SendMouseDOWN();
+    }
+}
+
 // 全局注册后只会调用一次,用于初始化,自行处理静态数据
 void AppUpDown::Init() {
     RegisterButtonPinCall(appUpDownButtonPinCallback);
+    RegisterKNobCallback(appUpDownKNobCallback);
 };
 
 // 进入事件
 void AppUpDown::In() {
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
     ReView();
 };
 
@@ -49,3 +68,4 @@ void AppUpDown::drawA() {
 void AppUpDown::Out() {
 
 };
+

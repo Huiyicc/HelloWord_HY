@@ -27,11 +27,15 @@ void appVolumeKNobCallback(KnobStatus *status) {
     if (g_sysCtx->Apps.Status != APPID_VOLUME) {
         return;
     }
+    auto x = status->PositionRaw - status->LastPositionRaw;
+    if (fabs(x) < 0.1) {
+        return;
+    }
     auto _this = ((AppVolume *)(g_sysCtx->Apps.AppsMap[APPID_VOLUME]));
     if (status->Position > status->LastPosition) {
-        _this->VolumeDOWN();
-    } else {
         _this->VolumeUP();
+    } else {
+        _this->VolumeDOWN();
     }
 }
 
@@ -43,7 +47,8 @@ void AppVolume::Init() {
 
 // 进入事件
 void AppVolume::In() {
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
     ReView();
 };
 
@@ -70,22 +75,29 @@ void AppVolume::Out() {
 };
 
 void AppVolume::VolumeUP() {
-    //音量减
-    uint8_t   HID_report[4];
-    HID_report[0]=0x02;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,1);
-    HAL_Delay(20);
-    HID_report[0]=0x00;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,1);
+    //音量加
+    uint8_t   HID_report[5]={0};
+    HID_report[0]=0x01;
+    HID_report[1]=0x01;
+    osDelay(40);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
+    osDelay(50);
+    HID_report[0]=0x01;
+    HID_report[1]=0x00;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
+
 
 }
 void AppVolume::VolumeDOWN() {
-    //音量加
-    uint8_t   HID_report[4];
-    HID_report[0]=0x01;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,1);
-    HAL_Delay(20);
-    HID_report[0]=0x00;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,1);
 
+    //音量减
+    uint8_t   HID_report[5]={0};
+    HID_report[0]=0x01;
+    HID_report[1]=0x02;
+    osDelay(40);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
+    osDelay(50);
+    HID_report[0]=0x01;
+    HID_report[1]=0x00;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
 }

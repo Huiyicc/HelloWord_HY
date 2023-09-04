@@ -133,7 +133,7 @@ unsigned char *AppDesktop::getIndexArr(unsigned char *size) {
     unsigned char i = 0;
     // 当前为第一个
     if (m_menuIndex == 0) {
-        if (m_status == 2) {
+        if (m_status == 1) {
             arr[i] = m_menuNum - 2;
             i++;
         }
@@ -143,7 +143,7 @@ unsigned char *AppDesktop::getIndexArr(unsigned char *size) {
         i++;
         arr[i] = 1;
         i++;
-        if (m_status == 1) {
+        if (m_status == 2) {
             arr[i] = 2;
             i++;
         }
@@ -153,7 +153,7 @@ unsigned char *AppDesktop::getIndexArr(unsigned char *size) {
 
     // 当前为最后一个
     if (m_menuIndex == m_menuNum - 1) {
-        if (m_status == 2) {
+        if (m_status == 1) {
             arr[i] = m_menuNum - 3;
             i++;
         }
@@ -163,7 +163,7 @@ unsigned char *AppDesktop::getIndexArr(unsigned char *size) {
         i++;
         arr[i] = 0;
         i++;
-        if (m_shifting < 0) {
+        if (m_status == 2) {
             arr[i] = 1;
             i++;
         }
@@ -172,7 +172,7 @@ unsigned char *AppDesktop::getIndexArr(unsigned char *size) {
     }
 
     // 当前为中间
-    if (m_status == 2) {
+    if (m_status == 1) {
         if (m_menuIndex == 1) {
             arr[i] = m_menuNum - 1;
         } else {
@@ -186,7 +186,7 @@ unsigned char *AppDesktop::getIndexArr(unsigned char *size) {
     i++;
     arr[i] = m_menuIndex + 1;
     i++;
-    if (m_status == 1) {
+    if (m_status == 2) {
         if (m_menuIndex + 1 == m_menuNum - 1) {
             arr[i] = 0;
         } else {
@@ -203,6 +203,7 @@ void AppDesktop::SetShifting(float shifting) {
 }
 
 void AppDesktop::MenuDec() {
+    // 上翻
     m_status = 2;
     Easing_Strat(EasingType_Cube_InOut, 50, 5, 0, 1, EasingCallBack, false, 1, (void *) this);
     m_status = 0;
@@ -217,6 +218,7 @@ void AppDesktop::MenuDec() {
 }
 
 void AppDesktop::MenuAdd() {
+    // 往下滚动
     m_status = 1;
     Easing_Strat(EasingType_Cube_InOut, 50, 5, 0, 1, EasingCallBack, false, 0, (void *) this);
     m_status = 0;

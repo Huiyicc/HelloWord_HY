@@ -9,11 +9,19 @@ public:
     KnobSimulator() = default;;
 
     enum Mode_t {
+        // 关闭模式
         MODE_DISABLE = 0,
+        // 惯性模式
         MODE_INERTIA,
+        // 编码器模式
         MODE_ENCODER,
+        // 弹簧模式
         MODE_SPRING,
+        // 阻尼模式
         MODE_DAMPED,
+        // 拨杆模式
+        MODE_PADDLE,
+        // 旋转模式
         MODE_SPIN
     };
 

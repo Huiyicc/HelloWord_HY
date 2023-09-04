@@ -10,6 +10,7 @@
 #include "os/ctrl.hpp"
 #include "os/sleep.hpp"
 #include "os/ButtonPin.hpp"
+#include "SDK/utils.hpp"
 
 SysContext *g_sysCtx = nullptr;
 

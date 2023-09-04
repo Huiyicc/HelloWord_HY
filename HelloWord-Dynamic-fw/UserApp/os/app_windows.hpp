@@ -13,6 +13,9 @@ private:
 
 public:
 
+    unsigned char IsSend=1;
+    unsigned char IsPrepare = 0;
+
     AppWindows() { AppID = APPID_WINDOW; }
 
     // 全局注册后只会调用一次,用于初始化,自行处理静态数据

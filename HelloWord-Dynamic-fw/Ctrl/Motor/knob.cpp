@@ -92,7 +92,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidVelocity.p = 0.1;
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
-            motor->target = 0;
+            motor->target = zeroPosition;
         }
             break;
         case MODE_SPIN: {
@@ -103,6 +103,19 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
             motor->target = 20;
+        }
+            break;
+        case MODE_PADDLE: {
+            motor->SetEnable(true);
+            motor->SetTorqueLimit(1.0);
+            motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+            motor->config.pidVelocity.p = 0.02;
+            motor->config.pidVelocity.i = 0.0;
+            motor->config.pidVelocity.d = 0.0;
+            motor->config.pidAngle.p = 100;
+            motor->config.pidAngle.i = 0.3;
+            motor->config.pidAngle.d = 3;
+            motor->target = zeroPosition;
         }
             break;
     }
@@ -164,6 +177,28 @@ void KnobSimulator::Tick() {
         case MODE_DISABLE:
         case MODE_SPRING:
         case MODE_SPIN:
+            break;
+        case MODE_PADDLE:{
+            auto a = GetPosition();
+            auto fa = std::fabs(a);
+            if (fa < filterateMax || reset) {
+                if (fa>filterateMax) {
+                    reset= true;
+                    motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+                    motor->target = zeroPosition;
+                    break;
+                }
+                if (reset&&fa<0.01) {
+                    reset = false;
+                    motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                    motor->target = 0;
+                    lastAngle = a;
+                }
+                break;
+            }
+            motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+            motor->target = zeroPosition;
+        }
             break;
     }
 
