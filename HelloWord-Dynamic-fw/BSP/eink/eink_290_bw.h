@@ -40,7 +40,7 @@ public:
     void DeepSleep();
     void DrawBitmap(const unsigned char* datas);
 
-    static uint8_t buffer[EPD_HEIGHT * EPD_WIDTH / 8];
+    static uint8_t* buffer;
 
 
 private:
@@ -49,5 +49,6 @@ private:
     void WaitUntilIdle();
     void SpiTransfer(unsigned char data);
 };
+
 
 #endif

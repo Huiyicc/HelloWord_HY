@@ -1,0 +1,3 @@
+# hid_msg.options
+Version.GitVer   max_size:16
+Version.GitBranch   max_size:16

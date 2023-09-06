@@ -79,9 +79,9 @@ void AppVolume::VolumeUP() {
     uint8_t   HID_report[5]={0};
     HID_report[0]=0x01;
     HID_report[1]=0x01;
-    osDelay(40);
+    osDelay(3);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
-    osDelay(50);
+    osDelay(3);
     HID_report[0]=0x01;
     HID_report[1]=0x00;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
@@ -94,9 +94,9 @@ void AppVolume::VolumeDOWN() {
     uint8_t   HID_report[5]={0};
     HID_report[0]=0x01;
     HID_report[1]=0x02;
-    osDelay(40);
+    osDelay(3);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
-    osDelay(50);
+    osDelay(3);
     HID_report[0]=0x01;
     HID_report[1]=0x00;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);

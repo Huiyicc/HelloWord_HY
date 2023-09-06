@@ -42,9 +42,9 @@ void appWindowsKNobCallback(KnobStatus *status) {
                 keyBoardData[1] = ((1 << ((0x84 & 0x0f) - 1)));
                 keyBoardData[3] = HYSDK::USB::KeyCode_t::TAB;
                 USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardData,9);
-                HAL_Delay(20);
+                HAL_Delay(3);
                 USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardDataEmpty,9);
-                HAL_Delay(50);
+                HAL_Delay(3);
 
                 break;
             case 2:
@@ -53,9 +53,9 @@ void appWindowsKNobCallback(KnobStatus *status) {
                 keyBoardData[1] = ((1 << ((0x84 & 0x0f) - 1)));
                 keyBoardData[3] = HYSDK::USB::KeyCode_t::D;
                 USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardData,9);
-                HAL_Delay(20);
+                HAL_Delay(3);
                 USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardDataEmpty,9);
-                HAL_Delay(50);
+                HAL_Delay(3);
 
                 break;
             default:

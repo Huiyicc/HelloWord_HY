@@ -1,14 +1,21 @@
 #include <cstdio>
+#include <cstring>
 #include "eink_290_bw.h"
 #include "pgmspace.h"
 #include "stm32f4xx_hal.h"
 #include "spi.h"
+#include "FreeRTOS.h"
 
 
-  uint8_t Eink290BW::buffer[EPD_HEIGHT * EPD_WIDTH / 8];
+uint8_t *Eink290BW::buffer = nullptr;
 
-void Eink290BW::Init()
-{
+void Eink290BW::Init() {
+    if (buffer != nullptr) {
+        vPortFree(buffer);
+    }
+    buffer = (uint8_t *) pvPortMalloc(EPD_HEIGHT * EPD_WIDTH / 8);
+    memset(buffer, 0x0, EPD_HEIGHT * EPD_WIDTH / 8);
+
     HAL_GPIO_WritePin(EINK_RST_GPIO_Port, EINK_RST_Pin, GPIO_PIN_RESET);
     HAL_Delay(200);
     HAL_GPIO_WritePin(EINK_RST_GPIO_Port, EINK_RST_Pin, GPIO_PIN_SET);
@@ -59,16 +66,14 @@ void Eink290BW::Init()
     printf("e-Paper init OK!");
 }
 
-void Eink290BW::DrawBitmap(const unsigned char* datas)
-{
+void Eink290BW::DrawBitmap(const unsigned char *datas) {
     SendCommand(WRITE_RAM);   //write RAM for black(0)/white (1)
 
     for (int i = 0; i < SCREEN_BUFFER_SIZE; i++)
         SendData(PGM_READ_BYTES(&datas[i]));
 }
 
-void Eink290BW::Update()
-{
+void Eink290BW::Update() {
     SendCommand(DISPLAY_UPDATE_CONTROL_1);
     SendData(0x40);
 
@@ -78,33 +83,28 @@ void Eink290BW::Update()
     WaitUntilIdle();
 }
 
-void Eink290BW::DeepSleep()
-{
+void Eink290BW::DeepSleep() {
     SendCommand(0x10); //enter deep sleep
     SendData(0x01);
 }
 
 
-void Eink290BW::SendCommand(unsigned char command)
-{
+void Eink290BW::SendCommand(unsigned char command) {
     HAL_GPIO_WritePin(EINK_DC_GPIO_Port, EINK_DC_Pin, GPIO_PIN_RESET);
     SpiTransfer(command);
 }
 
-void Eink290BW::SendData(unsigned char data)
-{
+void Eink290BW::SendData(unsigned char data) {
     HAL_GPIO_WritePin(EINK_DC_GPIO_Port, EINK_DC_Pin, GPIO_PIN_SET);
     SpiTransfer(data);
 }
 
-void Eink290BW::WaitUntilIdle()
-{
+void Eink290BW::WaitUntilIdle() {
     while (HAL_GPIO_ReadPin(EINK_BUSY_GPIO_Port, EINK_BUSY_Pin) == GPIO_PIN_SET)
         HAL_Delay(100);
 }
 
-void Eink290BW::SpiTransfer(unsigned char data)
-{
+void Eink290BW::SpiTransfer(unsigned char data) {
     HAL_GPIO_WritePin(EINK_CS_GPIO_Port, EINK_CS_Pin, GPIO_PIN_RESET);
     HAL_SPI_Transmit(&hspi2, &data, 1, 5);
     HAL_GPIO_WritePin(EINK_CS_GPIO_Port, EINK_CS_Pin, GPIO_PIN_SET);

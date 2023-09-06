@@ -41,14 +41,14 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             break;
         case MODE_INERTIA: {
             motor->SetEnable(true);
-            motor->SetTorqueLimit(0.5);
+            motor->SetTorqueLimit(1.5);
             motor->config.controlMode = Motor::VELOCITY;
-            motor->config.pidVelocity.p = 0.1;
+            motor->config.pidVelocity.p = 0.3;
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
-            motor->config.pidAngle.p = 40;
+            motor->config.pidAngle.p = 20;
             motor->config.pidAngle.i = 0;
-            motor->config.pidAngle.d = 2;
+            motor->config.pidAngle.d = 0.7;
             motor->target = 0;
         }
             break;
@@ -138,21 +138,25 @@ void KnobSimulator::Tick() {
         case MODE_ENCODER: {
             // µ±«∞Œª÷√
             auto a = GetPosition();
-            if (std::fabs(a) < filterateMax) {
+            if (std::fabs(a) < filterateMax&&!reset) {
                 motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
                 motor->target = 0;
                 lastAngle = a;
                 encoderPosition = GetEncoderModePos();
                 break;
-            } else{
-                auto m = fmod(a,encoderDistance);
-                if (fabs(m)<filterateMax){
-                    motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
-                    motor->target = 0;
-                    lastAngle = a;
-                    encoderPosition = GetEncoderModePos();
-                    break;
+            } else {
+                auto fm = std::fabs(fmod(a,encoderDistance));
+                if (fm<filterateMax||reset) {
+                    if (reset&&fm<0.01) {
+                        reset = false;
+                        motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                        motor->target = 0;
+                        lastAngle = a;
+                        encoderPosition = GetEncoderModePos();
+                        break;
+                    }
                 }
+                reset = true;
                 motor->config.controlMode = Motor::ControlMode_t::ANGLE;
                 motor->target = lastAngle+zeroPosition;
                 break;

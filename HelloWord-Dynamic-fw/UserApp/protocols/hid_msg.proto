@@ -1,0 +1,42 @@
+// 下位机:nanopb
+
+syntax = "proto2";
+
+package hid.msg;
+
+// 消息ID
+enum MessageId {
+  // 获取版本
+  VERSION = 1;
+  // 获取配置
+  MOTOR_GET_CONFIG = 2;
+}
+
+// 扩展发来的消息
+message CtrlMessage {
+  required MessageId id = 1;
+  oneof payload {
+    Nil nil = 2;
+    Version version = 3;
+  }
+}
+
+// 上位机发来的消息
+message PcMessage {
+  required MessageId id = 1;
+  oneof payload {
+    Nil nil = 2;
+  }
+}
+
+message Nil {}
+
+// 版本号消息
+message Version {
+  // git版本号
+  required string GitVer = 1;
+  // githash
+  required string GitHash = 2;
+  // git分支
+  required string GitBranch = 3;
+}

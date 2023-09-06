@@ -208,9 +208,7 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
         0x95, CUSTOM_HID_EPOUT_SIZE, //0x95,0x16, REPORT_COUNT (20)
         0x91, 0x02, // OUTPUT (Data,Var,Abs)
         /* USER CODE END 0 */
-        0xC0    /*     END_COLLECTION	             */
-
-
+        0xC0,    /*     END_COLLECTION	             */
 
 
 //        0x06, 0x00, 0xFF,  // Usage Page (Vendor Defined 0xFF00)
@@ -350,13 +348,12 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state) {
     for (char i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++) {
         USB_Recive_Buffer[i] = hhid->Report_buf[i];  //把接收到的数据送到自定义的缓存区保存（Report_buf[i]为USB的接收缓存区）
     }
-    if (USBDataEvent) {
-        USBDataEvent();
-    }
 
     /* Start next USB packet transfer once data processing is completed */
     USBD_CUSTOM_HID_ReceivePacket(&hUsbDeviceFS);
-
+    if (USBDataEvent) {
+        USBDataEvent();
+    }
     return (USBD_OK);
     /* USER CODE END 6 */
 }

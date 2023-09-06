@@ -5,13 +5,27 @@
 #include "app_light.hpp"
 #include "ButtonPin.hpp"
 
-void appLightButtonPinCallback(enum ButtonPinCallType type){
+static unsigned char tmpee[4736] = {0};
+
+void appLightButtonPinCallback(enum ButtonPinCallType type) {
     if (g_sysCtx->Apps.Status != APPID_LIGHT) {
         return;
     }
     switch (type) {
         case ButtonPinCallType::LeftButtonLongPress:
             AppChange(APPID_DESKTOP);
+            break;
+        case ButtonPinCallType::RightButtonLongPress:{
+            for (int i = 0; i < (4736 / 2); ++i) {
+                tmpee[i] = tmpee[i] == 0xff ? 0x00 : 0xff;
+            }
+            unsigned char tc=tmpee[1];
+            for (int i = (4736 / 2)-1; i < 4736; ++i) {
+                tmpee[i] = tc==0xff ? 0x00 : 0xff;
+            }
+            g_sysCtx->Device.eink->DrawBitmap(tmpee);
+            g_sysCtx->Device.eink->Update();
+        }
             break;
         default:
             break;

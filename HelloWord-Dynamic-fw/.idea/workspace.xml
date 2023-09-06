@@ -31,26 +31,48 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/usbproto.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/usbproto.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/usbd.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/git.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.options" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_common.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_common.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_decode.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_decode.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_encode.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_encode.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/proto_tools.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/protocols/proto_tools.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/buildprotoc.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/proto/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/proto/main.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists_template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_desc.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_desc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/money-credit-card.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/money-credit-card.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/money-credit-card.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/money-credit-card.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/screen.psd" beforeDir="false" afterPath="$PROJECT_DIR$/assets/screen.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/settings-fill.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/settings-fill.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/亮度+.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/亮度+.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/亮度+.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/亮度+.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/箭头_上下切换.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_上下切换.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/箭头_上下切换.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_上下切换.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/箭头_左右切换.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_左右切换.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/箭头_左右切换.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_左右切换.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/音量.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/音量.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/音量.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/音量.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +92,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -98,35 +121,36 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "cmake.loaded.for.project": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "structure.view.defaults.are.configured": "true",
-    "two.files.diff.last.used.file": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/UserApp/protocols&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp" />
       <recent name="E:\OnWorking\HelloWord-Keyboard\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
-      <recent name="E:\OnWorking\_Private\HelloWord-dev\2.Firmware\HelloWord-Dynamic-fw\3rdParty\MonoUI" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\OnWorking\_Private\HelloWord-dev\2.Firmware\HelloWord-Dynamic-fw\3rdParty\u8g2" />
@@ -136,7 +160,7 @@
       <recent name="E:\OnWorking\_Private\REF-STM32F4-dev\2.Firmware\REF-STM32F4-fw\3rdParty\fibre\inc" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf">
     <configuration default="true" type="lua.app" factoryName="Lua Application">
       <option name="program" value="lua.exe" />
       <option name="file" value="" />
@@ -151,6 +175,9 @@
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
+      <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -283,6 +310,15 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
+      <item itemvalue="OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -339,7 +375,9 @@
       <workItem from="1693558214914" duration="13000" />
       <workItem from="1693559582518" duration="29242000" />
       <workItem from="1693677791214" duration="164000" />
-      <workItem from="1693708481999" duration="77103000" />
+      <workItem from="1693708481999" duration="77122000" />
+      <workItem from="1693891409870" duration="9895000" />
+      <workItem from="1693923596371" duration="19854000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -381,7 +419,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693842439511</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="完善HID描述符与协议&#10;除亮度调节以外的功能都实现">
+      <option name="closed" value="true" />
+      <created>1693842459208</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693842459208</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,6 +460,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/test/proto/main.cpp</url>
+          <line>47</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -422,6 +475,11 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
+        <watch expression="USB_Recive_Buffer" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
