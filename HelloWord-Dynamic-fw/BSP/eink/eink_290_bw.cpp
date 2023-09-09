@@ -7,14 +7,14 @@
 #include "FreeRTOS.h"
 
 
-uint8_t *Eink290BW::buffer = nullptr;
+//uint8_t *Eink290BW::buffer = nullptr;
 
 void Eink290BW::Init() {
-    if (buffer != nullptr) {
-        vPortFree(buffer);
-    }
-    buffer = (uint8_t *) pvPortMalloc(EPD_HEIGHT * EPD_WIDTH / 8);
-    memset(buffer, 0x0, EPD_HEIGHT * EPD_WIDTH / 8);
+//    if (buffer != nullptr) {
+//        vPortFree(buffer);
+//    }
+//    buffer = (uint8_t *) pvPortMalloc(EPD_HEIGHT * EPD_WIDTH / 8);
+//    memset(buffer, 0x0, EPD_HEIGHT * EPD_WIDTH / 8);
 
     HAL_GPIO_WritePin(EINK_RST_GPIO_Port, EINK_RST_Pin, GPIO_PIN_RESET);
     HAL_Delay(200);

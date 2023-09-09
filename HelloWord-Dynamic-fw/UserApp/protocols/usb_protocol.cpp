@@ -64,8 +64,8 @@ uint8_t* OnBulkPacket(const uint8_t* _buffer, size_t _bufferLength,
 
     if (_bufferLength == 3)
     {
-        g_sysCtx->Device.eink->DrawBitmap(Eink290BW::buffer);
-        g_sysCtx->Device.eink->Update();
+        //g_sysCtx->Device.eink->DrawBitmap(Eink290BW::buffer);
+        //g_sysCtx->Device.eink->Update();
     }
 
     if (_readDataLength > 0) // Host Read
@@ -73,7 +73,7 @@ uint8_t* OnBulkPacket(const uint8_t* _buffer, size_t _bufferLength,
         return nullptr;
     } else // Host Write
     {
-        memcpy(Eink290BW::buffer + _packetWriteAddressOffset, _buffer, _bufferLength);
+        //memcpy(Eink290BW::buffer + _packetWriteAddressOffset, _buffer, _bufferLength);
         return nullptr;
     }
 }

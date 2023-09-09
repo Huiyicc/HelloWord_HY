@@ -47,6 +47,7 @@ void helloWord() {
     g_sysCtx->Device.oled->DrawStr(6 + 3, 15, "HY");
     OLED_SEND_BUFFER();
     g_sysCtx->Device.eink->Init();
+    g_sysCtx->Device.eink->DeepSleep();
     CtrlInit();
     ButtonPinInit();
     //SleepTimerInit();
@@ -103,7 +104,7 @@ void InitOs() {
 
 /* Default Entry -------------------------------------------------------*/
 void Main(void) {
-    InitCommunication();
+    //InitCommunication();
     InitOs();
 }
 

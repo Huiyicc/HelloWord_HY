@@ -10,6 +10,8 @@ enum MessageId {
   VERSION = 1;
   // 获取配置
   MOTOR_GET_CONFIG = 2;
+  // 设置水墨屏
+  EINK_SET_IMAGE = 3;
 }
 
 // 扩展发来的消息
@@ -26,6 +28,7 @@ message PcMessage {
   required MessageId id = 1;
   oneof payload {
     Nil nil = 2;
+    Eink eink = 3;
   }
 }
 
@@ -39,4 +42,9 @@ message Version {
   required string GitHash = 2;
   // git分支
   required string GitBranch = 3;
+}
+
+message Eink {
+  required uint32 bits_size = 1;
+  required string bits = 2;
 }

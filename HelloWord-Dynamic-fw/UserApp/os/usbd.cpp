@@ -12,8 +12,13 @@
 #include "usbd_customhid.h"
 #include "usb_device.h"
 #include "cmsis_os.h"
+#include "os_define.hpp"
+#include "eink_290_bw.h"
 
 unsigned char USB_Recive_Buffer[65]; //USB接收缓存
+unsigned char USB_Recive_Tmp_Buffer[5000]; //USB发送缓存
+unsigned int rec_offset = 0; //EINK偏移量
+unsigned char eink_status = 0;
 
 bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *arg) {
     char *_str = (char *) *arg;
@@ -22,6 +27,7 @@ bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *a
 
     return pb_encode_string(stream, (uint8_t *) _str, strlen(_str));
 }
+
 
 void HID_SendVersion() {
     uint8_t lBuffer[65] = {0};
@@ -68,12 +74,49 @@ void Usb_DataEvent() {
         memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
         return;
     }
-    if (USB_Recive_Buffer[1] != 0) {
-        // TODO:这种情况待处理
+    if (USB_Recive_Buffer[1] == 1) {
+        // 拼接数据
+        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+        rec_offset += USB_Recive_Buffer[2] - 1;
+        eink_status = 0;
         return;
     }
+    if (USB_Recive_Buffer[1] == 2) {
+        // 图像模式
+        // 拼接数据
+        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+        rec_offset += USB_Recive_Buffer[2] - 1;
+        eink_status = 1;
+        return;
+    }
+    if (USB_Recive_Buffer[1] == 0 && rec_offset != 0) {
+        // 上一次数据未处理完
+        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+        rec_offset += USB_Recive_Buffer[2] - 1;
+    }
     // 初始化解包上下文
-    pb_istream_t stream = pb_istream_from_buffer(&USB_Recive_Buffer[3], size_t(USB_Recive_Buffer[2] - 1));
+    pb_istream_t stream;
+    //stream.callback = de_callback;
+    if (rec_offset == 0) {
+        stream = pb_istream_from_buffer(&USB_Recive_Buffer[3], size_t(USB_Recive_Buffer[2] - 1));
+        eink_status = 0;
+    } else if (rec_offset != 0 && USB_Recive_Buffer[1] == 0 && eink_status != 1) {
+        stream = pb_istream_from_buffer(USB_Recive_Tmp_Buffer, size_t(rec_offset));
+        rec_offset = 0;
+    } else if (eink_status == 1) {
+        eink_status = 0;
+        int maxsize = (EPD_HEIGHT * EPD_WIDTH / 8);
+        if (rec_offset != maxsize) {
+            return;
+        }
+        g_sysCtx->Device.eink->Init();
+        g_sysCtx->Device.eink->DrawBitmap(USB_Recive_Tmp_Buffer);
+        g_sysCtx->Device.eink->Update();
+        g_sysCtx->Device.eink->DeepSleep();
+        return;
+    } else {
+        return;
+    }
 
     hid_msg_PcMessage msg;
     pb_decode(&stream, hid_msg_PcMessage_fields, &msg);
@@ -83,11 +126,23 @@ void Usb_DataEvent() {
             HID_SendVersion();
         }
             break;
+//        case hid_msg_MessageId_EINK_SET_IMAGE:
+//            if (msg.which_payload != hid_msg_PcMessage_eink_tag) {
+//                return;
+//            }
+//            if (msg.payload.eink.bits_size != (EPD_HEIGHT * EPD_WIDTH / 8)) {
+//                return;
+//            };
+//
+//            //memcpy(g_sysCtx->Device.eink->buffer,*(uint8_t **) msg.payload.eink.bits.arg,EPD_HEIGHT * EPD_WIDTH / 8);
+//            g_sysCtx->Device.eink->DrawBitmap(g_sysCtx->Device.eink->buffer);
+//            g_sysCtx->Device.eink->Update();
+//            break;
         default:
-            // 解包失败
             memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
             break;
     }
+
 
 }
 

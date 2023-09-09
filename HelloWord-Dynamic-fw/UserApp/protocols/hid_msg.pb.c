@@ -18,5 +18,8 @@ PB_BIND(hid_msg_Nil, hid_msg_Nil, AUTO)
 PB_BIND(hid_msg_Version, hid_msg_Version, AUTO)
 
 
+PB_BIND(hid_msg_Eink, hid_msg_Eink, AUTO)
+
+
 
 

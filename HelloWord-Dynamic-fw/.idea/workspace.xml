@@ -31,48 +31,20 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/git.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.options" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_common.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_common.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_decode.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_decode.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_encode.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/pb_encode.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/proto_tools.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/protocols/proto_tools.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/buildprotoc.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/proto/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/proto/main.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists_template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/STM32F405RGTx_FLASH.ld" beforeDir="false" afterPath="$PROJECT_DIR$/STM32F405RGTx_FLASH.ld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/money-credit-card.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/money-credit-card.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/money-credit-card.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/money-credit-card.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/screen.psd" beforeDir="false" afterPath="$PROJECT_DIR$/assets/screen.psd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/settings-fill.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/settings-fill.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/亮度+.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/亮度+.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/亮度+.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/亮度+.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/箭头_上下切换.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_上下切换.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/箭头_上下切换.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_上下切换.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/箭头_左右切换.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_左右切换.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/箭头_左右切换.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/箭头_左右切换.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/音量.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/音量.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/音量.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/音量.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.options" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.options" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/usb_protocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/usb_protocol.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,11 +142,6 @@
       <option name="charset" value="UTF-8" />
       <option name="showConsole" value="true" />
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
@@ -378,6 +345,8 @@
       <workItem from="1693708481999" duration="77122000" />
       <workItem from="1693891409870" duration="9895000" />
       <workItem from="1693923596371" duration="19854000" />
+      <workItem from="1694094618926" duration="24982000" />
+      <workItem from="1694232550199" duration="117000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -478,6 +447,8 @@
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
         <watch expression="USB_Recive_Buffer" language="ObjectiveC" />
+        <watch expression="USB_Recive_Tmp_Buffer" />
+        <watch expression="msg" />
       </configuration>
     </watches-manager>
   </component>
