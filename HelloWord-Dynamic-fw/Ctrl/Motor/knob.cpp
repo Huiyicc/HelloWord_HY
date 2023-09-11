@@ -45,10 +45,10 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.controlMode = Motor::VELOCITY;
             motor->config.pidVelocity.p = 0.3;
             motor->config.pidVelocity.i = 0.0;
-            motor->config.pidVelocity.d = 0.0;
-            motor->config.pidAngle.p = 20;
+            motor->config.pidVelocity.d = 0.1;
+            motor->config.pidAngle.p = 10;
             motor->config.pidAngle.i = 0;
-            motor->config.pidAngle.d = 0.7;
+            motor->config.pidAngle.d = 0.1;
             motor->target = 0;
         }
             break;
@@ -126,11 +126,39 @@ void KnobSimulator::Tick() {
     switch (mode) {
         case MODE_INERTIA: {
             auto v = GetVelocity();
-            if (v > 1 || v < -1) {
-                if (std::abs(v - lastVelocity) > 0.3)
-                    motor->target = v;
-            } else {
+
+            motor->target = 0 ;
+            float a = v - lastVelocity;
+            if (v == 0.0f) {
+                motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
                 motor->target = 0;
+                break;
+            } else if (v > 0.0f) {
+                if (a > 1.0f || v > maxVelocity) {
+                    motor->target = v;
+                    maxVelocity = v;
+                } else if (a < -2.0f) {
+                    motor->target += a;
+                    if (motor->target < 1.0f) {
+                        motor->target = 0.0f;
+                        maxVelocity = 0.0f;
+                    }
+                } else {
+                    motor->target -= 0.001f;
+                }
+            } else if (v < 0.0f) {
+                if (a < -1.0f || v < maxVelocity) {
+                    motor->target = v;
+                    maxVelocity = v;
+                } else if (a > 2.0f) {
+                    motor->target += a;
+                    if (motor->target > -1.0f) {
+                        motor->target = 0.0f;
+                        maxVelocity = 0.0f;
+                    }
+                } else {
+                    motor->target += 0.001f;
+                }
             }
             lastVelocity = v;
         }
@@ -251,3 +279,15 @@ void KnobSimulator::SetEnable(bool _en) {
 }
 
 KnobSimulator::Mode_t KnobSimulator::GetMode() { return mode; }
+
+void KnobSimulator::SetVelocityPID(float p,float i,float d) {
+    motor->config.pidVelocity.p = p;
+    motor->config.pidVelocity.i = i;
+    motor->config.pidVelocity.d = d;
+}
+
+void KnobSimulator::SetAnglePID(float p,float i,float d) {
+    motor->config.pidAngle.p =p;
+    motor->config.pidAngle.i = i;
+    motor->config.pidAngle.d = d;
+}

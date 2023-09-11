@@ -1,6 +1,7 @@
 //
 // Created by 19254 on 2023/8/28.
 //
+#include <string>
 #include "ctrl.hpp"
 #include "timers.h"
 #include "sleep.hpp"
@@ -49,9 +50,13 @@ void taskCtrlLoop(void *) {
         // 限幅滤波法
         // 后续优化吧,懒得写了
         auto l = g_sysCtx->Device.ctrl.knob.GetPosition();
+//        OLED_CLEAR_BUFFER()
+//        OLED_DEVICES()->SetDrawColor(1);
+//        OLED_DEVICES()->DrawStr(0, 10, std::to_string(g_sysCtx->Device.ctrl.knob.GetVelocity()).c_str());
+//        OLED_SEND_BUFFER();
         // 抖动容错
         if (std::abs(l - knobStatus->LastPositionRaw) < g_sysCtx->Device.ctrl.knob.filterateMax) {
-            if (std::fabs(lastPosition-l) < g_sysCtx->Device.ctrl.knob.filterateMax){
+            if (std::fabs(lastPosition - l) < g_sysCtx->Device.ctrl.knob.filterateMax) {
                 continue;
             }
         }
@@ -72,6 +77,7 @@ void taskCtrlLoop(void *) {
         Println("%f", l);
         // 唤醒事件
         OSDelaySleep();
+        knobStatus->Velocity = g_sysCtx->Device.ctrl.knob.GetVelocity();
         auto ptr = g_sysCtx->Device.ctrl.CallBacks.GetHeadPtr();
         while (ptr) {
             if (ptr->val) {
@@ -90,7 +96,7 @@ void CtrlInit() {
     g_sysCtx->Device.ctrl.knob.SetEnable(true);
     g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
     g_sysCtx->Device.ctrl.knob.Tick();
-    knobStatus = (KnobStatus *) pvPortMalloc(sizeof (KnobStatus));
+    knobStatus = (KnobStatus *) pvPortMalloc(sizeof(KnobStatus));
     knobStatus = new(knobStatus) KnobStatus();
     const osThreadAttr_t controlLoopTask_attributes = {
             .name = "ControlLoopTask",

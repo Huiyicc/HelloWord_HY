@@ -126,6 +126,23 @@ void Usb_DataEvent() {
             HID_SendVersion();
         }
             break;
+        case hid_msg_MessageId_MOTOR_SET_CONFIG:{
+            switch (msg.payload.knob.id) {
+                default:
+                    break;
+                case hid_msg_knobMessage_SetPID:{
+                    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(msg.payload.knob.knobModel));
+                    g_sysCtx->Device.ctrl.knob.SetAnglePID(msg.payload.knob.payload.pid.angle.p,
+                                                           msg.payload.knob.payload.pid.angle.i,
+                                                           msg.payload.knob.payload.pid.angle.d);
+                    g_sysCtx->Device.ctrl.knob.SetVelocityPID(msg.payload.knob.payload.pid.velocity.p,
+                                                              msg.payload.knob.payload.pid.velocity.i,
+                                                              msg.payload.knob.payload.pid.velocity.d);
+                }
+                    break;
+            }
+
+        }break;
 //        case hid_msg_MessageId_EINK_SET_IMAGE:
 //            if (msg.which_payload != hid_msg_PcMessage_eink_tag) {
 //                return;

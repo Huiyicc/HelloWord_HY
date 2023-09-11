@@ -46,6 +46,7 @@ struct KnobStatus {
 
     // 角度
     double Angle = 0;
+    double Velocity=0;
 };
 
 typedef void (*KnobCallback)(KnobStatus *status);

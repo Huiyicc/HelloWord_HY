@@ -2,8 +2,10 @@
 // Created by 19254 on 2023/8/30.
 //
 
+#include <string>
 #include "app_light.hpp"
 #include "ButtonPin.hpp"
+#include "ctrl.hpp"
 
 
 void appLightButtonPinCallback(enum ButtonPinCallType type) {
@@ -24,13 +26,23 @@ void appLightButtonPinCallback(enum ButtonPinCallType type) {
     }
 }
 
+void appLightKNobCallback(KnobStatus *status) {
+    if (g_sysCtx->Apps.Status != APPID_LIGHT) {
+        return;
+    }
+
+
+}
+
 // 全局注册后只会调用一次,用于初始化,自行处理静态数据
 void AppLight::Init() {
     RegisterButtonPinCall(appLightButtonPinCallback);
+    RegisterKNobCallback(appLightKNobCallback);
 };
 
 // 进入事件
 void AppLight::In() {
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
     ReView();
 };
 

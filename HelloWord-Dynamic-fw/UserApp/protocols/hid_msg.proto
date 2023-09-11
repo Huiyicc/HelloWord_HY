@@ -12,6 +12,8 @@ enum MessageId {
   MOTOR_GET_CONFIG = 2;
   // 设置水墨屏
   EINK_SET_IMAGE = 3;
+  // 设置电机信息
+  MOTOR_SET_CONFIG = 4;
 }
 
 // 扩展发来的消息
@@ -29,6 +31,7 @@ message PcMessage {
   oneof payload {
     Nil nil = 2;
     Eink eink = 3;
+    knob knob = 4;
   }
 }
 
@@ -48,3 +51,32 @@ message Eink {
   required uint32 bits_size = 1;
   required string bits = 2;
 }
+
+message knob {
+  required knobMessage id = 1;
+  required uint32 knobModel = 2;
+  oneof payload {
+    knobPID pid = 3;
+  }
+}
+
+enum knobMessage {
+  // 设置PID
+  SetPID = 1;
+}
+
+message knobPID {
+  message Velocity {
+    required float p = 1;
+    required float i = 2;
+    required float d = 3;
+  }
+  message Angle {
+    required float p = 1;
+    required float i = 2;
+    required float d = 3;
+  }
+  required Velocity velocity = 4;
+  required Angle angle = 5;
+}
+

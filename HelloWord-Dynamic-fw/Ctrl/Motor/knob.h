@@ -47,8 +47,13 @@ public:
 
     Mode_t GetMode();
 
+    void SetAnglePID(float p,float i,float d);
+
+    void SetVelocityPID(float p,float i,float d);
+
     float deviation = -3.7;
     float filterateMax = 0.04;
+    float filterateVelocityMax = 0.7;
     float encoderDistance = 0;
     float encoderPosition = 0;
 private:
@@ -62,6 +67,7 @@ private:
 
     float lastAngle{};
     float lastVelocity{};
+    float maxVelocity=0;
 
     bool reset = false;
 };

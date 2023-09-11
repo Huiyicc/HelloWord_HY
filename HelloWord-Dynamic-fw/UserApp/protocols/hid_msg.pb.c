@@ -21,5 +21,18 @@ PB_BIND(hid_msg_Version, hid_msg_Version, AUTO)
 PB_BIND(hid_msg_Eink, hid_msg_Eink, AUTO)
 
 
+PB_BIND(hid_msg_knob, hid_msg_knob, AUTO)
+
+
+PB_BIND(hid_msg_knobPID, hid_msg_knobPID, AUTO)
+
+
+PB_BIND(hid_msg_knobPID_Velocity, hid_msg_knobPID_Velocity, AUTO)
+
+
+PB_BIND(hid_msg_knobPID_Angle, hid_msg_knobPID_Angle, AUTO)
+
+
+
 
 
