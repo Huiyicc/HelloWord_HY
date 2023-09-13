@@ -25,14 +25,15 @@ public:
     static const uint8_t LED_NUMBER = 4;
     volatile bool isRgbTxBusy;
 
-    void SetRgbBuffer(uint8_t _keyId, Color_t _color);
+    void SetRgbBuffer(uint8_t _keyId, Color_t& _color);
+    void SetLights(float brightness);
     void SyncLights();
 
 private:
     SPI_HandleTypeDef* spiHandle;
     uint8_t rgbBuffer[LED_NUMBER][3][8]{};
     uint8_t wsCommit[64] = {0};
-    uint8_t brightnessPrediv = 2; // 1/4
+    float brightnessFactor = 0.2f; //0¹ØµÆ,1.0fÈ«ÁÁ¶È
 
 };
 

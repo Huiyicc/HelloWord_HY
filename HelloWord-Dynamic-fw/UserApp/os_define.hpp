@@ -46,7 +46,7 @@ struct KnobStatus {
 
     // 角度
     double Angle = 0;
-    double Velocity=0;
+    double Velocity = 0;
 };
 
 typedef void (*KnobCallback)(KnobStatus *status);
@@ -59,10 +59,22 @@ struct SysDeviceCtrl {
     HYSDK::CList<KnobCallback> CallBacks; //回调通知事件
 };
 
+enum RGBEffect {
+    // 默认渐变
+    Default_ = 0,
+    // 轮询渐变
+    Gradient,
+};
+
+struct SysDeviceRGB {
+    RGB *rgb = nullptr;
+    RGBEffect effect = RGBEffect::Default_;
+};
+
 struct SysDevice {
     BoardConfig_t *boardConfig = nullptr;
     SSD1306 *oled = nullptr;
-    RGB *rgb = nullptr;
+    SysDeviceRGB rgb;
     Eink290BW *eink = nullptr;
     SysDeviceCtrl ctrl;
 };
@@ -81,7 +93,7 @@ struct SysContext {
     SysDevice Device;
     SysApps Apps;
     // 按钮回调事件
-    unsigned char ButtonPinsSize=0;
+    unsigned char ButtonPinsSize = 0;
     HYSDK::CList<ButtonPinCall> ButtonPins;
 };
 

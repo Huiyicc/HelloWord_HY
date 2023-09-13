@@ -24,6 +24,9 @@ PB_BIND(hid_msg_Eink, hid_msg_Eink, AUTO)
 PB_BIND(hid_msg_knob, hid_msg_knob, AUTO)
 
 
+PB_BIND(hid_msg_Utils, hid_msg_Utils, AUTO)
+
+
 PB_BIND(hid_msg_knobPID, hid_msg_knobPID, AUTO)
 
 

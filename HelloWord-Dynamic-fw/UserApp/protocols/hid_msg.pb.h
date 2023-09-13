@@ -18,8 +18,10 @@ typedef enum _hid_msg_MessageId {
     hid_msg_MessageId_MOTOR_GET_CONFIG = 2,
     /* 设置水墨屏 */
     hid_msg_MessageId_EINK_SET_IMAGE = 3,
+    /* 保留字段 */
+    hid_msg_MessageId_DEV_UTILS = 4,
     /* 设置电机信息 */
-    hid_msg_MessageId_MOTOR_SET_CONFIG = 4
+    hid_msg_MessageId_MOTOR_SET_CONFIG = 5
 } hid_msg_MessageId;
 
 typedef enum _hid_msg_knobMessage {
@@ -57,6 +59,12 @@ typedef struct _hid_msg_Eink {
     pb_callback_t bits;
 } hid_msg_Eink;
 
+typedef struct _hid_msg_Utils {
+    uint32_t id;
+    uint32_t uData;
+    float fData;
+} hid_msg_Utils;
+
 typedef struct _hid_msg_knobPID_Velocity {
     float p;
     float i;
@@ -89,6 +97,7 @@ typedef struct _hid_msg_PcMessage {
     pb_size_t which_payload;
     union {
         hid_msg_Nil nil;
+        hid_msg_Utils utils;
         hid_msg_Eink eink;
         hid_msg_knob knob;
     } payload;
@@ -121,6 +130,7 @@ extern "C" {
 
 
 
+
 /* Initializer values for message structs */
 #define hid_msg_CtrlMessage_init_default         {_hid_msg_MessageId_MIN, 0, {hid_msg_Nil_init_default}}
 #define hid_msg_PcMessage_init_default           {_hid_msg_MessageId_MIN, 0, {hid_msg_Nil_init_default}}
@@ -128,6 +138,7 @@ extern "C" {
 #define hid_msg_Version_init_default             {{{NULL}, NULL}, {{NULL}, NULL}, {{NULL}, NULL}}
 #define hid_msg_Eink_init_default                {0, {{NULL}, NULL}}
 #define hid_msg_knob_init_default                {_hid_msg_knobMessage_MIN, 0, 0, {hid_msg_knobPID_init_default}}
+#define hid_msg_Utils_init_default               {0, 0, 0}
 #define hid_msg_knobPID_init_default             {hid_msg_knobPID_Velocity_init_default, hid_msg_knobPID_Angle_init_default}
 #define hid_msg_knobPID_Velocity_init_default    {0, 0, 0}
 #define hid_msg_knobPID_Angle_init_default       {0, 0, 0}
@@ -137,6 +148,7 @@ extern "C" {
 #define hid_msg_Version_init_zero                {{{NULL}, NULL}, {{NULL}, NULL}, {{NULL}, NULL}}
 #define hid_msg_Eink_init_zero                   {0, {{NULL}, NULL}}
 #define hid_msg_knob_init_zero                   {_hid_msg_knobMessage_MIN, 0, 0, {hid_msg_knobPID_init_zero}}
+#define hid_msg_Utils_init_zero                  {0, 0, 0}
 #define hid_msg_knobPID_init_zero                {hid_msg_knobPID_Velocity_init_zero, hid_msg_knobPID_Angle_init_zero}
 #define hid_msg_knobPID_Velocity_init_zero       {0, 0, 0}
 #define hid_msg_knobPID_Angle_init_zero          {0, 0, 0}
@@ -150,6 +162,9 @@ extern "C" {
 #define hid_msg_CtrlMessage_version_tag          3
 #define hid_msg_Eink_bits_size_tag               1
 #define hid_msg_Eink_bits_tag                    2
+#define hid_msg_Utils_id_tag                     1
+#define hid_msg_Utils_uData_tag                  2
+#define hid_msg_Utils_fData_tag                  3
 #define hid_msg_knobPID_Velocity_p_tag           1
 #define hid_msg_knobPID_Velocity_i_tag           2
 #define hid_msg_knobPID_Velocity_d_tag           3
@@ -163,8 +178,9 @@ extern "C" {
 #define hid_msg_knob_pid_tag                     3
 #define hid_msg_PcMessage_id_tag                 1
 #define hid_msg_PcMessage_nil_tag                2
-#define hid_msg_PcMessage_eink_tag               3
-#define hid_msg_PcMessage_knob_tag               4
+#define hid_msg_PcMessage_utils_tag              3
+#define hid_msg_PcMessage_eink_tag               4
+#define hid_msg_PcMessage_knob_tag               5
 
 /* Struct field encoding specification for nanopb */
 #define hid_msg_CtrlMessage_FIELDLIST(X, a) \
@@ -179,11 +195,13 @@ X(a, STATIC,   ONEOF,    MESSAGE,  (payload,version,payload.version),   3)
 #define hid_msg_PcMessage_FIELDLIST(X, a) \
 X(a, STATIC,   REQUIRED, UENUM,    id,                1) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (payload,nil,payload.nil),   2) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,eink,payload.eink),   3) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,knob,payload.knob),   4)
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,utils,payload.utils),   3) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,eink,payload.eink),   4) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,knob,payload.knob),   5)
 #define hid_msg_PcMessage_CALLBACK NULL
 #define hid_msg_PcMessage_DEFAULT (const pb_byte_t*)"\x08\x01\x00"
 #define hid_msg_PcMessage_payload_nil_MSGTYPE hid_msg_Nil
+#define hid_msg_PcMessage_payload_utils_MSGTYPE hid_msg_Utils
 #define hid_msg_PcMessage_payload_eink_MSGTYPE hid_msg_Eink
 #define hid_msg_PcMessage_payload_knob_MSGTYPE hid_msg_knob
 
@@ -213,6 +231,13 @@ X(a, STATIC,   ONEOF,    MESSAGE,  (payload,pid,payload.pid),   3)
 #define hid_msg_knob_DEFAULT (const pb_byte_t*)"\x08\x01\x00"
 #define hid_msg_knob_payload_pid_MSGTYPE hid_msg_knobPID
 
+#define hid_msg_Utils_FIELDLIST(X, a) \
+X(a, STATIC,   REQUIRED, UINT32,   id,                1) \
+X(a, STATIC,   REQUIRED, UINT32,   uData,             2) \
+X(a, STATIC,   REQUIRED, FLOAT,    fData,             3)
+#define hid_msg_Utils_CALLBACK NULL
+#define hid_msg_Utils_DEFAULT NULL
+
 #define hid_msg_knobPID_FIELDLIST(X, a) \
 X(a, STATIC,   REQUIRED, MESSAGE,  velocity,          4) \
 X(a, STATIC,   REQUIRED, MESSAGE,  angle,             5)
@@ -241,6 +266,7 @@ extern const pb_msgdesc_t hid_msg_Nil_msg;
 extern const pb_msgdesc_t hid_msg_Version_msg;
 extern const pb_msgdesc_t hid_msg_Eink_msg;
 extern const pb_msgdesc_t hid_msg_knob_msg;
+extern const pb_msgdesc_t hid_msg_Utils_msg;
 extern const pb_msgdesc_t hid_msg_knobPID_msg;
 extern const pb_msgdesc_t hid_msg_knobPID_Velocity_msg;
 extern const pb_msgdesc_t hid_msg_knobPID_Angle_msg;
@@ -252,6 +278,7 @@ extern const pb_msgdesc_t hid_msg_knobPID_Angle_msg;
 #define hid_msg_Version_fields &hid_msg_Version_msg
 #define hid_msg_Eink_fields &hid_msg_Eink_msg
 #define hid_msg_knob_fields &hid_msg_knob_msg
+#define hid_msg_Utils_fields &hid_msg_Utils_msg
 #define hid_msg_knobPID_fields &hid_msg_knobPID_msg
 #define hid_msg_knobPID_Velocity_fields &hid_msg_knobPID_Velocity_msg
 #define hid_msg_knobPID_Angle_fields &hid_msg_knobPID_Angle_msg
@@ -262,6 +289,7 @@ extern const pb_msgdesc_t hid_msg_knobPID_Angle_msg;
 /* hid_msg_Version_size depends on runtime parameters */
 /* hid_msg_Eink_size depends on runtime parameters */
 #define hid_msg_Nil_size                         0
+#define hid_msg_Utils_size                       17
 #define hid_msg_knobPID_Angle_size               15
 #define hid_msg_knobPID_Velocity_size            15
 #define hid_msg_knobPID_size                     34

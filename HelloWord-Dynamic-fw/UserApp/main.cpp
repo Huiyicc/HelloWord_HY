@@ -1,30 +1,25 @@
+#include "common_inc.h"
+#include "stm32f4xx_hal.h"
 #include "os/apps.hpp"
 #include "os/app_desktop.hpp"
 #include "os/app_volume.hpp"
 #include "os/app_updown.hpp"
 #include "os/app_light.hpp"
 #include "os/app_windows.hpp"
-#include "usbd_customhid.h"
-#include "usb_device.h"
-#include "os/app_windows.hpp"
 #include "os/ctrl.hpp"
 #include "os/sleep.hpp"
 #include "os/ButtonPin.hpp"
+#include "os/RGB.hpp"
 #include "SDK/utils.hpp"
 
 SysContext *g_sysCtx = nullptr;
 
 void SysTask(TimerHandle_t t) {
+    //RGBTask();
     ButtonTask(t);
     timerSleepCallback(t);
 }
 
-//template<class T>
-//void regApp(void *ptr, unsigned char Appid) {
-//    auto lAppPtr = (T *) pvPortMalloc(sizeof(T));
-//    lAppPtr= new(lAppPtr) T();
-//    AppRegister(lAppPtr);
-//}
 template<class T>
 void regApp() {
     auto lAppPtr = (T *) pvPortMalloc(sizeof(T));
@@ -66,8 +61,10 @@ void InitOs() {
     g_sysCtx->Device.oled = new(g_sysCtx->Device.oled) SSD1306(&hi2c1);
     g_sysCtx->Device.oled->Init();
 
-    g_sysCtx->Device.rgb = (RGB *) pvPortMalloc(sizeof(RGB));
-    g_sysCtx->Device.rgb = new(g_sysCtx->Device.rgb) RGB(&hspi3);
+    //g_sysCtx->Device.rgb = (RGB *) pvPortMalloc(sizeof(RGB));
+    //g_sysCtx->Device.rgb = new(g_sysCtx->Device.rgb) RGB(&hspi3);
+
+     RGBInit();
 
     g_sysCtx->Device.eink = (Eink290BW *) pvPortMalloc(sizeof(Eink290BW));
     g_sysCtx->Device.eink = new(g_sysCtx->Device.eink) Eink290BW();
@@ -108,8 +105,3 @@ void Main(void) {
     InitOs();
 }
 
-//
-extern "C"
-void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
-    g_sysCtx->Device.rgb->isRgbTxBusy = false;
-}

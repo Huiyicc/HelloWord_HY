@@ -16,6 +16,10 @@ std::map<unsigned char, SysCallFunc> g_SysSleep = {};
 bool g_sleep_status = false;
 int g_sleep_time = 0;
 
+bool GetSleepStatus() {
+    return g_sleep_status;
+};
+
 void timerSleepCallback(TimerHandle_t xTimer) {
     if (g_sleep_status) {
         return;

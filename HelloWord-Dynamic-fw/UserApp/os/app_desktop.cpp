@@ -205,7 +205,7 @@ void AppDesktop::SetShifting(float shifting) {
 void AppDesktop::MenuDec() {
     // 上翻
     m_status = 2;
-    Easing_Strat(EasingType_Cube_InOut, 50, 5, 0, 1, EasingCallBack, false, 1, (void *) this);
+    Easing_Strat(EasingType<=0?EasingType_CircularCurve_Out:EasingType, 35, 5, 0, 1, EasingCallBack, false, 1, (void *) this);
     m_status = 0;
     m_shifting=0;
     if (m_menuIndex + 1 == m_menuNum) {
@@ -220,7 +220,7 @@ void AppDesktop::MenuDec() {
 void AppDesktop::MenuAdd() {
     // 往下滚动
     m_status = 1;
-    Easing_Strat(EasingType_Cube_InOut, 50, 5, 0, 1, EasingCallBack, false, 0, (void *) this);
+    Easing_Strat(EasingType<=0?EasingType_CircularCurve_Out:EasingType, 35, 5, 0, 1, EasingCallBack, false, 0, (void *) this);
     m_status = 0;
     m_shifting=0;
     if (m_menuIndex == 0) {

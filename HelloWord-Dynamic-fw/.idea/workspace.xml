@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="更新墨水屏推送协议,增加屏幕睡眠指令">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="优化协议,电机部分待解决">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -31,13 +31,17 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/os/RGB.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/os/RGB.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" afterDir="false" />
@@ -91,29 +95,29 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "cmake.loaded.for.project": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "F:/Engcode/hw/BlackWhiteWithGray/2.Firmware/HelloWord-Dynamic-fw",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "structure.view.defaults.are.configured": "true",
-    "two.files.diff.last.used.file": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/BlackWhiteWithGray/2.Firmware/HelloWord-Dynamic-fw&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
@@ -123,11 +127,11 @@
       <recent name="E:\OnWorking\HelloWord-Keyboard\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
       <recent name="E:\OnWorking\_Private\HelloWord-dev\2.Firmware\HelloWord-Dynamic-fw\3rdParty\u8g2" />
       <recent name="E:\OnWorking\_Private\Ctrl-FOC-dev\2.Firmware\Ctrl-FOC-Dual-fw\UserApp" />
       <recent name="E:\OnWorking\_Private\REF-STM32F4-dev\2.Firmware\REF-STM32F4-fw\3rdParty\uvector" />
       <recent name="E:\OnWorking\_Private\REF-STM32F4-dev\2.Firmware\REF-STM32F4-fw\3rdParty\fibre\src" />
-      <recent name="E:\OnWorking\_Private\REF-STM32F4-dev\2.Firmware\REF-STM32F4-fw\3rdParty\fibre\inc" />
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf">
@@ -347,7 +351,10 @@
       <workItem from="1694232550199" duration="2719000" />
       <workItem from="1694336973101" duration="8889000" />
       <workItem from="1694404643686" duration="1848000" />
-      <workItem from="1694408122982" duration="6381000" />
+      <workItem from="1694408122982" duration="17382000" />
+      <workItem from="1694445666102" duration="3000" />
+      <workItem from="1694580165835" duration="30000" />
+      <workItem from="1694580288744" duration="1106000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -405,7 +412,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694232806321</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="优化协议,电机部分待解决">
+      <option name="closed" value="true" />
+      <created>1694416292808</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1694416292808</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +450,8 @@
     <MESSAGE value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
     <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
     <MESSAGE value="更新墨水屏推送协议,增加屏幕睡眠指令" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新墨水屏推送协议,增加屏幕睡眠指令" />
+    <MESSAGE value="优化协议,电机部分待解决" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化协议,电机部分待解决" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

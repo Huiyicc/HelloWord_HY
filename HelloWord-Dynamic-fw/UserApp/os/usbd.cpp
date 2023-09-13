@@ -14,6 +14,7 @@
 #include "cmsis_os.h"
 #include "os_define.hpp"
 #include "eink_290_bw.h"
+#include "app_desktop.hpp"
 
 unsigned char USB_Recive_Buffer[65]; //USB接收缓存
 unsigned char USB_Recive_Tmp_Buffer[5000]; //USB发送缓存
@@ -126,11 +127,11 @@ void Usb_DataEvent() {
             HID_SendVersion();
         }
             break;
-        case hid_msg_MessageId_MOTOR_SET_CONFIG:{
+        case hid_msg_MessageId_MOTOR_SET_CONFIG: {
             switch (msg.payload.knob.id) {
                 default:
                     break;
-                case hid_msg_knobMessage_SetPID:{
+                case hid_msg_knobMessage_SetPID: {
                     g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(msg.payload.knob.knobModel));
                     g_sysCtx->Device.ctrl.knob.SetAnglePID(msg.payload.knob.payload.pid.angle.p,
                                                            msg.payload.knob.payload.pid.angle.i,
@@ -142,19 +143,14 @@ void Usb_DataEvent() {
                     break;
             }
 
-        }break;
-//        case hid_msg_MessageId_EINK_SET_IMAGE:
-//            if (msg.which_payload != hid_msg_PcMessage_eink_tag) {
-//                return;
-//            }
-//            if (msg.payload.eink.bits_size != (EPD_HEIGHT * EPD_WIDTH / 8)) {
-//                return;
-//            };
-//
-//            //memcpy(g_sysCtx->Device.eink->buffer,*(uint8_t **) msg.payload.eink.bits.arg,EPD_HEIGHT * EPD_WIDTH / 8);
-//            g_sysCtx->Device.eink->DrawBitmap(g_sysCtx->Device.eink->buffer);
-//            g_sysCtx->Device.eink->Update();
-//            break;
+        }
+            break;
+        case hid_msg_MessageId_DEV_UTILS:
+            // 1：设置菜单动画
+            if (msg.payload.utils.id == 1) {
+                auto app = (AppDesktop *) g_sysCtx->Apps.AppsMap[APPID_DESKTOP];
+                app->EasingType = msg.payload.utils.uData;
+            }
         default:
             memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
             break;

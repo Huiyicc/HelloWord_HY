@@ -5,6 +5,7 @@
 #ifndef HELLOWORD_DYNAMIC_FW_APP_DESKTOP_HPP
 #define HELLOWORD_DYNAMIC_FW_APP_DESKTOP_HPP
 #include "apps.hpp"
+#include "SDK/Easingcpp.hpp"
 #include <string>
 
 struct desktopCallType {
@@ -25,8 +26,9 @@ private:
 
     float m_shifting = 0;
     unsigned char* getIndexArr(unsigned char*size);
-
 public:
+    char EasingType = EasingType_CircularCurve_Out;
+
     KnobStatus* m_knobStatus = nullptr;
 
     AppDesktop() { AppID = APPID_DESKTOP; }

@@ -19,4 +19,8 @@ int RegisterWakeUpCallBack(SysCallFunc func);
 void OSDelaySleep();
 void timerSleepCallback(TimerHandle_t xTimer);
 
+// 获取休眠状态
+// false:未休眠,true:已休眠
+bool GetSleepStatus();
+
 #endif //HELLOWORD_DYNAMIC_FW_SLEEP_HPP
