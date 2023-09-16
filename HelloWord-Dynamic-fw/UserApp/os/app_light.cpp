@@ -6,17 +6,21 @@
 #include "app_light.hpp"
 #include "ButtonPin.hpp"
 #include "ctrl.hpp"
+#include "usb_device.h"
+#include "usbd_customhid.h"
+#include "SDK/utils.hpp"
 
+double lastAgent = 0;
 
 void appLightButtonPinCallback(enum ButtonPinCallType type) {
     if (g_sysCtx->Apps.Status != APPID_LIGHT) {
         return;
     }
     switch (type) {
-        case ButtonPinCallType::LeftButtonLongPress:
+        case ButtonPinCallType::LeftButtonPressed:
             AppChange(APPID_DESKTOP);
             break;
-        case ButtonPinCallType::RightButtonLongPress:{
+        case ButtonPinCallType::RightButtonLongPress: {
 //            g_sysCtx->Device.eink->DrawBitmap(gImage_1);
 //            g_sysCtx->Device.eink->Update();
         }
@@ -30,8 +34,17 @@ void appLightKNobCallback(KnobStatus *status) {
     if (g_sysCtx->Apps.Status != APPID_LIGHT) {
         return;
     }
-
-
+    if (lastAgent == 0) { lastAgent=status->Angle;return; }
+    auto _this = ((AppLight *) (g_sysCtx->Apps.AppsMap[APPID_LIGHT]));
+    auto ffa = status->Angle - lastAgent;
+    if (fabs(ffa) > 14) {
+        if (status->Angle > lastAgent) {
+            _this->LightUP();
+        } else {
+            _this->LightDOWN();
+        }
+        lastAgent = status->Angle;
+    }
 }
 
 // 全局注册后只会调用一次,用于初始化,自行处理静态数据
@@ -67,3 +80,29 @@ void AppLight::drawA() {
 void AppLight::Out() {
 
 };
+
+void AppLight::LightUP() {
+    //亮度加
+    uint8_t HID_report[9] = {0};
+    HID_report[0] = 0x05;
+    HID_report[1] = 0x6F;
+    osDelay(1);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+    osDelay(1);
+    HID_report[0] = 0x05;
+    HID_report[1] = 0x00;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+}
+
+void AppLight::LightDOWN() {
+    //亮度减
+    uint8_t HID_report[9] = {0};
+    HID_report[0] = 0x05;
+    HID_report[1] = 0x70;
+    osDelay(1);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+    osDelay(1);
+    HID_report[0] = 0x05;
+    HID_report[1] = 0x00;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+}

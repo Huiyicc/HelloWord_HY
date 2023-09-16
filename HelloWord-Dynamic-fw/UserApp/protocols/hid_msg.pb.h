@@ -85,6 +85,7 @@ typedef struct _hid_msg_knobPID {
 typedef struct _hid_msg_knob {
     hid_msg_knobMessage id;
     uint32_t knobModel;
+    hid_msg_Utils utils;
     pb_size_t which_payload;
     union {
         hid_msg_knobPID pid;
@@ -137,7 +138,7 @@ extern "C" {
 #define hid_msg_Nil_init_default                 {0}
 #define hid_msg_Version_init_default             {{{NULL}, NULL}, {{NULL}, NULL}, {{NULL}, NULL}}
 #define hid_msg_Eink_init_default                {0, {{NULL}, NULL}}
-#define hid_msg_knob_init_default                {_hid_msg_knobMessage_MIN, 0, 0, {hid_msg_knobPID_init_default}}
+#define hid_msg_knob_init_default                {_hid_msg_knobMessage_MIN, 0, hid_msg_Utils_init_default, 0, {hid_msg_knobPID_init_default}}
 #define hid_msg_Utils_init_default               {0, 0, 0}
 #define hid_msg_knobPID_init_default             {hid_msg_knobPID_Velocity_init_default, hid_msg_knobPID_Angle_init_default}
 #define hid_msg_knobPID_Velocity_init_default    {0, 0, 0}
@@ -147,7 +148,7 @@ extern "C" {
 #define hid_msg_Nil_init_zero                    {0}
 #define hid_msg_Version_init_zero                {{{NULL}, NULL}, {{NULL}, NULL}, {{NULL}, NULL}}
 #define hid_msg_Eink_init_zero                   {0, {{NULL}, NULL}}
-#define hid_msg_knob_init_zero                   {_hid_msg_knobMessage_MIN, 0, 0, {hid_msg_knobPID_init_zero}}
+#define hid_msg_knob_init_zero                   {_hid_msg_knobMessage_MIN, 0, hid_msg_Utils_init_zero, 0, {hid_msg_knobPID_init_zero}}
 #define hid_msg_Utils_init_zero                  {0, 0, 0}
 #define hid_msg_knobPID_init_zero                {hid_msg_knobPID_Velocity_init_zero, hid_msg_knobPID_Angle_init_zero}
 #define hid_msg_knobPID_Velocity_init_zero       {0, 0, 0}
@@ -175,7 +176,8 @@ extern "C" {
 #define hid_msg_knobPID_angle_tag                5
 #define hid_msg_knob_id_tag                      1
 #define hid_msg_knob_knobModel_tag               2
-#define hid_msg_knob_pid_tag                     3
+#define hid_msg_knob_utils_tag                   3
+#define hid_msg_knob_pid_tag                     4
 #define hid_msg_PcMessage_id_tag                 1
 #define hid_msg_PcMessage_nil_tag                2
 #define hid_msg_PcMessage_utils_tag              3
@@ -226,9 +228,11 @@ X(a, CALLBACK, REQUIRED, STRING,   bits,              2)
 #define hid_msg_knob_FIELDLIST(X, a) \
 X(a, STATIC,   REQUIRED, UENUM,    id,                1) \
 X(a, STATIC,   REQUIRED, UINT32,   knobModel,         2) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,pid,payload.pid),   3)
+X(a, STATIC,   REQUIRED, MESSAGE,  utils,             3) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,pid,payload.pid),   4)
 #define hid_msg_knob_CALLBACK NULL
 #define hid_msg_knob_DEFAULT (const pb_byte_t*)"\x08\x01\x00"
+#define hid_msg_knob_utils_MSGTYPE hid_msg_Utils
 #define hid_msg_knob_payload_pid_MSGTYPE hid_msg_knobPID
 
 #define hid_msg_Utils_FIELDLIST(X, a) \
@@ -293,7 +297,7 @@ extern const pb_msgdesc_t hid_msg_knobPID_Angle_msg;
 #define hid_msg_knobPID_Angle_size               15
 #define hid_msg_knobPID_Velocity_size            15
 #define hid_msg_knobPID_size                     34
-#define hid_msg_knob_size                        44
+#define hid_msg_knob_size                        63
 
 #ifdef __cplusplus
 } /* extern "C" */

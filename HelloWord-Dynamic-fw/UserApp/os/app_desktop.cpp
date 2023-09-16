@@ -7,7 +7,7 @@
 #include "SDK/Easingcpp.hpp"
 #include "os/ButtonPin.hpp"
 #include "SDK/utils.hpp"
-
+#include "app_leftright.hpp"
 
 void appDesktopButtonPinCallback(enum ButtonPinCallType type) {
     if (g_sysCtx->Apps.Status != APPID_DESKTOP) {
@@ -65,7 +65,7 @@ void KNobCallback(KnobStatus *status) {
 //初始化事件
 void AppDesktop::Init() {
     // 不要小于3个,虽然做了处理,但是没测试,会有bug
-    m_menuNum = 4;
+    m_menuNum = 5;
     m_menuList = (desktopCallType *) pvPortMalloc(sizeof(desktopCallType) * m_menuNum);
     m_menuList[0] = desktopCallType{"音量",
                                     "0",
@@ -79,6 +79,9 @@ void AppDesktop::Init() {
     m_menuList[3] = desktopCallType{"视窗",
                                     "4",
                                     APPID_WINDOW};
+    m_menuList[4] = desktopCallType{"滑动",
+                                    "2",
+                                    APPID_LEFTRIGHT};
     RegisterKNobCallback(KNobCallback);
     RegisterButtonPinCall(appDesktopButtonPinCallback);
 

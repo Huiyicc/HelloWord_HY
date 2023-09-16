@@ -6,6 +6,7 @@
 #include "os/app_updown.hpp"
 #include "os/app_light.hpp"
 #include "os/app_windows.hpp"
+#include "os/app_leftright.hpp"
 #include "os/ctrl.hpp"
 #include "os/sleep.hpp"
 #include "os/ButtonPin.hpp"
@@ -15,7 +16,7 @@
 SysContext *g_sysCtx = nullptr;
 
 void SysTask(TimerHandle_t t) {
-    //RGBTask();
+    RGBTask();
     ButtonTask(t);
     timerSleepCallback(t);
 }
@@ -70,33 +71,20 @@ void InitOs() {
     g_sysCtx->Device.eink = new(g_sysCtx->Device.eink) Eink290BW();
 
     // APP在这注册
-    //regApp<AppHello>();
     regApp<AppDesktop>();
     regApp<AppWindows>();
     regApp<AppVolume>();
     regApp<AppUpDown>();
     regApp<AppLight>();
+    regApp<AppLeftRight>();
     // 此处初始化所有APP
     for (auto &iter: g_sysCtx->Apps.AppsMap) {
         iter.second->Init();
     }
-//    g_sysCtx->Apps.AppSize = 5;
-//    g_sysCtx->Apps.Apps = (AppBase *) pvPortMalloc(sizeof(AppBase) * g_sysCtx->Apps.AppSize);
-//    regApp<AppDesktop>(g_sysCtx->Apps.Apps, APPID_DESKTOP);
-//    regApp<AppWindows>(g_sysCtx->Apps.Apps, APPID_WINDOW);
-//    regApp<AppVolume>(g_sysCtx->Apps.Apps, APPID_VOLUME);
-//    regApp<AppUpDown>(g_sysCtx->Apps.Apps, APPID_UPDOWN);
-//    regApp<AppLight>(g_sysCtx->Apps.Apps, APPID_LIGHT);
-//    // 此处初始化所有APP
-//    for (int i = 0; i < g_sysCtx->Apps.AppSize; i++) {
-//        g_sysCtx->Apps.Apps[i].Init();
-//    }
 
     //启动事件
-    //AppChange(APPID_HELLO);
     helloWord();
     AppChange(APPID_DESKTOP);
-    //AppChange(APPID_VOLUME);
 }
 
 /* Default Entry -------------------------------------------------------*/

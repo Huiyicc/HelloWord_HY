@@ -47,9 +47,11 @@ public:
 
     Mode_t GetMode();
 
-    void SetAnglePID(float p,float i,float d);
+    void SetAnglePID(float p, float i, float d);
 
-    void SetVelocityPID(float p,float i,float d);
+    void SetVelocityPID(float p, float i, float d);
+
+    void SetTorqueLimit(float _val);
 
     float deviation = -3.7;
     float filterateMax = 0.04;
@@ -67,7 +69,7 @@ private:
 
     float lastAngle{};
     float lastVelocity{};
-    float maxVelocity=0;
+    float maxVelocity = 0;
 
     bool reset = false;
 };

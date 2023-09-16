@@ -1,20 +1,15 @@
 #include "rgb_light.h"
 
 
-void RGB::SetRgbBuffer(uint8_t _keyId, RGB::Color_t &_color) {
+void RGB::SetRgbBuffer(uint8_t _keyId, RGB::Color_t &_color, float _brightness) {
     for (int i = 0; i < 8; i++) {
-        uint8_t t = static_cast<uint8_t>(_color.g * brightnessFactor);
-        rgbBuffer[_keyId][0][i] = t & (0x80 >> i) ? WS_HIGH : WS_LOW;
-        t = static_cast<uint8_t>(_color.r * brightnessFactor);
-        rgbBuffer[_keyId][1][i] = t & (0x80 >> i) ? WS_HIGH : WS_LOW;
-        t = static_cast<uint8_t>(_color.b * brightnessFactor);
-        rgbBuffer[_keyId][2][i] = t & (0x80 >> i) ? WS_HIGH : WS_LOW;
-    }
-}
+        rgbBuffer[_keyId][0][i] =
+                ((uint8_t) ((float) _color.g * _brightness) >> brightnessPrediv) & (0x80 >> i) ? WS_HIGH : WS_LOW;
+        rgbBuffer[_keyId][1][i] =
+                ((uint8_t) ((float) _color.r * _brightness) >> brightnessPrediv) & (0x80 >> i) ? WS_HIGH : WS_LOW;
+        rgbBuffer[_keyId][2][i] =
+                ((uint8_t) ((float) _color.b * _brightness) >> brightnessPrediv) & (0x80 >> i) ? WS_HIGH : WS_LOW;
 
-void RGB::SetLights(float brightness) {
-    if (brightness >= 0) {
-        brightnessFactor = brightness;
     }
 }
 

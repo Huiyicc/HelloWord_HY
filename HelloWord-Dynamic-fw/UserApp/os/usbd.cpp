@@ -133,6 +133,7 @@ void Usb_DataEvent() {
                     break;
                 case hid_msg_knobMessage_SetPID: {
                     g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(msg.payload.knob.knobModel));
+                    //g_sysCtx->Device.ctrl.knob.SetTorqueLimit(msg.payload.knob.utils.fData);
                     g_sysCtx->Device.ctrl.knob.SetAnglePID(msg.payload.knob.payload.pid.angle.p,
                                                            msg.payload.knob.payload.pid.angle.i,
                                                            msg.payload.knob.payload.pid.angle.d);

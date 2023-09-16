@@ -7,7 +7,7 @@
 void KnobSimulator::Init(Motor *_motor) {
     motor = _motor;
     motor->config.controlMode = Motor::ControlMode_t::TORQUE;
-    motor->config.voltageLimit = 1.5;
+    motor->config.voltageLimit = 3.0;
     motor->config.velocityLimit = 100;
     motor->config.pidVelocity.p = 0.1;
     motor->config.pidVelocity.i = 0.0;
@@ -41,14 +41,14 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             break;
         case MODE_INERTIA: {
             motor->SetEnable(true);
-            motor->SetTorqueLimit(1.5);
+            motor->SetTorqueLimit(1.2);
             motor->config.controlMode = Motor::VELOCITY;
-            motor->config.pidVelocity.p = 0.3;
+            motor->config.pidVelocity.p = 6;
             motor->config.pidVelocity.i = 0.0;
-            motor->config.pidVelocity.d = 0.1;
-            motor->config.pidAngle.p = 10;
+            motor->config.pidVelocity.d = 0.0;
+            motor->config.pidAngle.p = 0;
             motor->config.pidAngle.i = 0;
-            motor->config.pidAngle.d = 0.1;
+            motor->config.pidAngle.d = 0;
             motor->target = 0;
         }
             break;
@@ -126,41 +126,20 @@ void KnobSimulator::Tick() {
     switch (mode) {
         case MODE_INERTIA: {
             auto v = GetVelocity();
+            auto a = GetPosition();
+            if(fabsf(v-lastVelocity)>0.5)motor->target = v;
+            else if(fabsf(v-lastVelocity)<0.08)motor->target = v*0.001F+lastVelocity*0.999F;
+            else motor->target = v*fabsf(v-lastVelocity)*0.5F+lastVelocity*(1-fabsf(v-lastVelocity)*0.5F);
+            lastVelocity = motor->target;
 
-            motor->target = 0 ;
-            float a = v - lastVelocity;
-            if (v == 0.0f) {
-                motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
-                motor->target = 0;
-                break;
-            } else if (v > 0.0f) {
-                if (a > 1.0f || v > maxVelocity) {
-                    motor->target = v;
-                    maxVelocity = v;
-                } else if (a < -2.0f) {
-                    motor->target += a;
-                    if (motor->target < 1.0f) {
-                        motor->target = 0.0f;
-                        maxVelocity = 0.0f;
-                    }
-                } else {
-                    motor->target -= 0.001f;
-                }
-            } else if (v < 0.0f) {
-                if (a < -1.0f || v < maxVelocity) {
-                    motor->target = v;
-                    maxVelocity = v;
-                } else if (a > 2.0f) {
-                    motor->target += a;
-                    if (motor->target > -1.0f) {
-                        motor->target = 0.0f;
-                        maxVelocity = 0.0f;
-                    }
-                } else {
-                    motor->target += 0.001f;
-                }
+            if(fabsf(lastAngle-a)>0.2) {
+                if (v > 16)v = 16;
+                else if (v < -16)v = -16;
+                if (v > -0.05 && v < 0.05)v = 0;
+                else if (v < 1 && v > 0)v = 1;
+                else if (v < 0 && v > -1)v = -1;
+                lastAngle = a;
             }
-            lastVelocity = v;
         }
             break;
         case MODE_ENCODER: {
@@ -290,4 +269,8 @@ void KnobSimulator::SetAnglePID(float p,float i,float d) {
     motor->config.pidAngle.p =p;
     motor->config.pidAngle.i = i;
     motor->config.pidAngle.d = d;
+}
+
+void KnobSimulator::SetTorqueLimit(float _val) {
+    motor->SetTorqueLimit(_val);
 }

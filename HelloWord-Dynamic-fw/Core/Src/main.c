@@ -207,7 +207,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM6) {
-    HAL_IncTick();
+    //HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
   else

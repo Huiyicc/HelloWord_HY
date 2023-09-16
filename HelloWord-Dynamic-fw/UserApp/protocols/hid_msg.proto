@@ -58,8 +58,9 @@ message Eink {
 message knob {
   required knobMessage id = 1;
   required uint32 knobModel = 2;
+  required Utils utils = 3;
   oneof payload {
-    knobPID pid = 3;
+    knobPID pid = 4;
   }
 }
 

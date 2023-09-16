@@ -37,7 +37,7 @@ uint64_t micros()
         m = HAL_GetTick();
         u = tms - SysTick->VAL;
     }
-    return (m * 1000 + (u * 1000) / tms);
+    return (m * 1000 + ((u * 1000) / tms));
 }
 
 

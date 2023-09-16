@@ -15,7 +15,7 @@ void appVolumeButtonPinCallback(enum ButtonPinCallType type){
         return;
     }
     switch (type) {
-        case ButtonPinCallType::LeftButtonLongPress:
+        case ButtonPinCallType::LeftButtonPressed:
             AppChange(APPID_DESKTOP);
             break;
         default:

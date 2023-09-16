@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="优化协议,电机部分待解决">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="调整协议">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -31,20 +31,37 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/RGB.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/RGB.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/i2c.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/spi.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/spi.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/motor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/motor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Utils/time_utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/time_utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/usbproto.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/usbproto.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/RGB.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/RGB.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/apps.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/apps.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.pb.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
     </list>
@@ -106,7 +123,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/BlackWhiteWithGray/2.Firmware/HelloWord-Dynamic-fw&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/UserApp/os&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -120,8 +137,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp" />
       <recent name="E:\OnWorking\HelloWord-Keyboard\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
@@ -147,6 +164,11 @@
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -354,7 +376,8 @@
       <workItem from="1694408122982" duration="17382000" />
       <workItem from="1694445666102" duration="3000" />
       <workItem from="1694580165835" duration="30000" />
-      <workItem from="1694580288744" duration="1106000" />
+      <workItem from="1694580288744" duration="12169000" />
+      <workItem from="1694787157953" duration="4856000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -420,7 +443,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694416292808</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="调整协议">
+      <option name="closed" value="true" />
+      <created>1694606492358</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1694606492358</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,7 +482,8 @@
     <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
     <MESSAGE value="更新墨水屏推送协议,增加屏幕睡眠指令" />
     <MESSAGE value="优化协议,电机部分待解决" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化协议,电机部分待解决" />
+    <MESSAGE value="调整协议" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整协议" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

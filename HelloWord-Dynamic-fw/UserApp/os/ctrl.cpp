@@ -74,7 +74,6 @@ void taskCtrlLoop(void *) {
         // 步数 6.3
         // 角度 = (步数 / 步数每圈) * 360°
         knobStatus->Angle = (knobStatus->Position / _2PI) * 360;
-        Println("%f", l);
         // 唤醒事件
         OSDelaySleep();
         knobStatus->Velocity = g_sysCtx->Device.ctrl.knob.GetVelocity();
