@@ -103,7 +103,7 @@ void Flash_SaveConfig() {
             Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + i, ((unsigned char *) &g_SysConfig)[i]);
         }
         Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig), 0x68);
-        Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig), 0x79);
+        Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig)+1, 0x79);
         HAL_FLASH_Lock();
     } else {
         Flash_SaveConfigShifting(storageOffset + sizeof(g_SysConfig) + 6);
@@ -122,7 +122,7 @@ void Flash_SaveConfig() {
             Flash_WriteUInt8(lOffset + 4 + i, ((unsigned char *) &g_SysConfig)[i]);
         }
         Flash_WriteUInt8(lOffset + 4 + sizeof(SysConfig), 0x68);
-        Flash_WriteUInt8(lOffset + 4 + sizeof(SysConfig), 0x79);
+        Flash_WriteUInt8(lOffset + 4 + sizeof(SysConfig)+1, 0x79);
         HAL_FLASH_Lock();
     }
 }
@@ -150,7 +150,7 @@ void ResetStorage() {
         Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + i, ((unsigned char *) &g_SysConfig)[i]);
     }
     Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig), 0x68);
-    Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig), 0x79);
+    Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig)+1, 0x79);
     HAL_FLASH_Lock();
 }
 
@@ -187,18 +187,20 @@ void InitStorage() {
         ResetStorage();
     } else {
         // 读取配置
-        auto scLen = *(uint32_t *) (ADDR_FLASH_SECTOR_11 + storageOffset + 2);
+        auto scLen = *(uint32_t *) (ADDR_FLASH_SECTOR_11 + storageOffset);
         if (scLen != sizeof(SysConfig)) {
             // 配置长度错误
             Flash_SaveConfig();
         } else {
             auto checkPtr = ADDR_FLASH_SECTOR_11 + storageOffset + 4 + sizeof(SysConfig);
+            auto a = FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 0)[0];
+            auto b = FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 1)[0];
             if (FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 0)[0] != 0x68
                 || FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 1)[0] != 0x79) {
                 // 配置数据校验错误
                 ResetStorage();
             } else {
-                memcpy(&g_SysConfig, (void *) (ADDR_FLASH_SECTOR_11 + storageOffset + 6), sizeof(SysConfig));
+                memcpy(&g_SysConfig, (void *) (ADDR_FLASH_SECTOR_11 + storageOffset + 4), sizeof(SysConfig));
             }
         }
     }

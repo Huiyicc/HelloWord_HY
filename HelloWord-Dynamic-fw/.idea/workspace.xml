@@ -31,29 +31,9 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/storage.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/storage.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/storage_compatible.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/motor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/motor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/STM32F405RGTx_FLASH.ld" beforeDir="false" afterPath="$PROJECT_DIR$/STM32F405RGTx_FLASH.ld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/resource.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -393,7 +373,7 @@
       <workItem from="1695185152059" duration="11019000" />
       <workItem from="1695225387406" duration="212000" />
       <workItem from="1695261328640" duration="803000" />
-      <workItem from="1695343384543" duration="434000" />
+      <workItem from="1695343384543" duration="2666000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -475,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694876599412</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="微调pid&#10;调整存储代码">
+      <option name="closed" value="true" />
+      <created>1695343834124</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1695343834125</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,6 +506,11 @@
           <url>file://$PROJECT_DIR$/test/proto/main.cpp</url>
           <line>47</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/UserApp/os/storage.cpp</url>
+          <line>159</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
