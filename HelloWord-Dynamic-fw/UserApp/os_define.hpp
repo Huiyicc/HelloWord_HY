@@ -52,6 +52,7 @@ struct KnobStatus {
 typedef void (*KnobCallback)(KnobStatus *status);
 
 struct SysDeviceCtrl {
+    bool Action= false;
     Encoder encoder = Encoder(&hspi1);
     Driver driver = Driver(12);
     Motor motor = Motor(7);
@@ -102,6 +103,19 @@ extern SysContext *g_sysCtx;
 // 系统调度事件
 typedef int(*SysCallFunc)(SysContext *ctx);
 
+struct KnobConfig {
+    float zeroPosition = -3.7f;
+};
+
+struct DeviceConfig {
+    KnobConfig knob;
+};
+
+struct SysConfig {
+    DeviceConfig devices;
+};
+
+extern SysConfig g_SysConfig;
 
 #ifndef SLEEPID_BUTTONPIN
 #define SLEEPID_BUTTONPIN 1

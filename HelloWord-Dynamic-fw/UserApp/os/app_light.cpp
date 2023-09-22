@@ -10,7 +10,6 @@
 #include "usbd_customhid.h"
 #include "SDK/utils.hpp"
 
-double lastAgent = 0;
 
 void appLightButtonPinCallback(enum ButtonPinCallType type) {
     if (g_sysCtx->Apps.Status != APPID_LIGHT) {
@@ -21,8 +20,6 @@ void appLightButtonPinCallback(enum ButtonPinCallType type) {
             AppChange(APPID_DESKTOP);
             break;
         case ButtonPinCallType::RightButtonLongPress: {
-//            g_sysCtx->Device.eink->DrawBitmap(gImage_1);
-//            g_sysCtx->Device.eink->Update();
         }
             break;
         default:
@@ -55,7 +52,9 @@ void AppLight::Init() {
 
 // 进入事件
 void AppLight::In() {
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
+    InitLastAgent();
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(18);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
     ReView();
 };
 

@@ -16,18 +16,18 @@ public:
     {
         config.controlMode = ANGLE;
         config.voltageUsedForSensorAlign =1.0f;
-        config.voltageLimit = 12.0f;
-        config.currentLimit = 0.2f;
-        config.velocityLimit = 20.0f;
+        config.voltageLimit = 1.5f;
+        config.currentLimit = 0.1f;
+        config.velocityLimit = 100.0f;
 
         config.lpfCurrentQ = LowPassFilter{0.005f};
         config.lpfCurrentD = LowPassFilter{0.005f};
-        config.lpfVelocity = LowPassFilter{1.4f};
+        config.lpfVelocity = LowPassFilter{0.2f};
         config.lpfAngle = LowPassFilter{0.03f};
         config.pidCurrentQ = PidController{3, 300.0f, 0.0f, 0, 12.0f};
         config.pidCurrentD = PidController{3, 300.0f, 0.0f, 0, 12.0f};
         config.pidVelocity = PidController{0.1f, 10.0f, 0.0f, 1000.0f, 12.0f};
-        config.pidAngle = PidController{80.0f, 0, 0, 0, 20.0f};
+        config.pidAngle = PidController{80.0f, 0, 0.7, 0, config.velocityLimit};
     }
 
 

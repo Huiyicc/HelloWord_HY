@@ -52,13 +52,14 @@ void HID_SendVersion() {
     if (message_length > 62 || !status) {
         // 数据错误
         lBuffer[2] = 0;
+        osDelay(2);
         USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
-        osDelay(3);
         return;
     }
     lBuffer[2] = message_length + 1;
+    osDelay(2);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
-    osDelay(3);
+
 }
 
 
@@ -110,10 +111,16 @@ void Usb_DataEvent() {
         if (rec_offset != maxsize) {
             return;
         }
-        g_sysCtx->Device.eink->Init();
         g_sysCtx->Device.eink->DrawBitmap(USB_Recive_Tmp_Buffer);
         g_sysCtx->Device.eink->Update();
-        g_sysCtx->Device.eink->DeepSleep();
+        rec_offset=0;
+        uint8_t lBuffer[65] = {0};
+        memset(lBuffer, 0, sizeof(lBuffer));
+        lBuffer[0] = 0x04;
+        lBuffer[1] = 0x02;
+        lBuffer[2] = 0x02;
+        lBuffer[3] = 0x02;
+        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
         return;
     } else {
         return;

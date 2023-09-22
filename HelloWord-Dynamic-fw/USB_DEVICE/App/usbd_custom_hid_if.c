@@ -332,8 +332,8 @@ static int8_t CUSTOM_HID_DeInit_FS(void) {
   */
 static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state) {
     /* USER CODE BEGIN 6 */
-    //UNUSED(event_idx);
-    //UNUSED(state);
+    UNUSED(event_idx);
+    UNUSED(state);
 
     USBD_CUSTOM_HID_HandleTypeDef *hhid; //定义一个指向USBD_CUSTOM_HID_HandleTypeDef结构体的指针
     hhid = (USBD_CUSTOM_HID_HandleTypeDef *) hUsbDeviceFS.pClassData;//得到USB接收数据的储存地址

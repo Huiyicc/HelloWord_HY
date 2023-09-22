@@ -29,8 +29,6 @@ private:
 public:
     char EasingType = EasingType_CircularCurve_Out;
 
-    KnobStatus* m_knobStatus = nullptr;
-
     AppDesktop() { AppID = APPID_DESKTOP; }
 
     // 全局注册后只会调用一次,用于初始化,自行处理静态数据

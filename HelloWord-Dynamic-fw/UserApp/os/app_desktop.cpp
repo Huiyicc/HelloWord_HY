@@ -3,7 +3,6 @@
 //
 #include "app_desktop.hpp"
 #include "ctrl.hpp"
-#include "SDK/resource.hpp"
 #include "SDK/Easingcpp.hpp"
 #include "os/ButtonPin.hpp"
 #include "SDK/utils.hpp"
@@ -47,14 +46,12 @@ void KNobCallback(KnobStatus *status) {
         return;
     }
     auto _this = ((AppDesktop *) (g_sysCtx->Apps.AppsMap[APPID_DESKTOP]));
-    memcpy(_this->m_knobStatus, status, sizeof(KnobStatus));
     if (status->EncoderPosition != status->LastEncoderPosition) {
         if (status->EncoderPosition > status->LastEncoderPosition) {
             _this->MenuDec();
         } else {
             _this->MenuAdd();
         }
-
     }
     Println("状态:%s,索引:%d,偏移:%f",
             _this->GetDesktopInfo()->name,
@@ -91,6 +88,7 @@ void AppDesktop::Init() {
 void AppDesktop::In() {
     g_sysCtx->Device.ctrl.knob.SetEncoderModePos(int(m_dividesNum));
     g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
+    g_sysCtx->Device.ctrl.knob.SetTorqueLimit(0.5);
     ReView();
 }
 

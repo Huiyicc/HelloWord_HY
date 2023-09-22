@@ -12,6 +12,7 @@
 #include "os/ButtonPin.hpp"
 #include "os/RGB.hpp"
 #include "SDK/utils.hpp"
+#include "os/storage.hpp"
 
 SysContext *g_sysCtx = nullptr;
 
@@ -24,30 +25,30 @@ void SysTask(TimerHandle_t t) {
 template<class T>
 void regApp() {
     auto lAppPtr = (T *) pvPortMalloc(sizeof(T));
-    lAppPtr= new(lAppPtr) T();
+    lAppPtr = new(lAppPtr) T();
     AppRegister(lAppPtr);
 }
 
 void helloWord() {
-    OLED_CLEAR_BUFFER();
-    // logo区域
-    g_sysCtx->Device.oled->SetDrawColor(1);
-    g_sysCtx->Device.oled->DrawBox(6, 11, 20, 20);
-    // 文字区域
-    OLED_DEVICES()->DrawUTF8(9, 41, "系");
-    OLED_DEVICES()->DrawUTF8(9, 55, "统");
-    OLED_DEVICES()->DrawUTF8(9, 69, "启");
-    OLED_DEVICES()->DrawUTF8(9, 83, "动");
-    OLED_DEVICES()->DrawUTF8(9, 97, "中");
-    g_sysCtx->Device.oled->SetDrawColor(0);
-    g_sysCtx->Device.oled->DrawStr(6 + 3, 15, "HY");
-    OLED_SEND_BUFFER();
     g_sysCtx->Device.eink->Init();
-    g_sysCtx->Device.eink->DeepSleep();
+    //g_sysCtx->Device.eink->DeepSleep();
     CtrlInit();
     ButtonPinInit();
     //SleepTimerInit();
     xTimerStart(xTimerCreate("SysTimer", pdMS_TO_TICKS(100), pdTRUE, nullptr, SysTask), 0);
+    if (!g_sysCtx->Device.ctrl.Action) {
+        OLED_CLEAR_BUFFER();
+        // logo区域
+        OLED_DEVICES()->SetDrawColor(1);
+        OLED_DEVICES()->DrawBox(6, 11, 20, 20);
+        OLED_DEVICES()->DrawUTF8(9, 41, "校");
+        OLED_DEVICES()->DrawUTF8(9, 55, "准");
+        OLED_DEVICES()->DrawUTF8(9, 69, "失");
+        OLED_DEVICES()->DrawUTF8(9, 83, "败");
+        OLED_DEVICES()->SetDrawColor(0);
+        OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
+        OLED_SEND_BUFFER();
+    }
 }
 
 void InitOs() {
@@ -62,10 +63,24 @@ void InitOs() {
     g_sysCtx->Device.oled = new(g_sysCtx->Device.oled) SSD1306(&hi2c1);
     g_sysCtx->Device.oled->Init();
 
-    //g_sysCtx->Device.rgb = (RGB *) pvPortMalloc(sizeof(RGB));
-    //g_sysCtx->Device.rgb = new(g_sysCtx->Device.rgb) RGB(&hspi3);
+    OLED_CLEAR_BUFFER();
+    // logo区域
+    g_sysCtx->Device.oled->SetDrawColor(1);
+    g_sysCtx->Device.oled->DrawBox(6, 11, 20, 20);
+    // 文字区域
+    OLED_DEVICES()->DrawUTF8(9, 41, "系");
+    OLED_DEVICES()->DrawUTF8(9, 55, "统");
+    OLED_DEVICES()->DrawUTF8(9, 69, "启");
+    OLED_DEVICES()->DrawUTF8(9, 83, "动");
+    OLED_DEVICES()->DrawUTF8(9, 97, "中");
+    g_sysCtx->Device.oled->SetDrawColor(0);
+    g_sysCtx->Device.oled->DrawStr(6 + 3, 15, "HY");
+    OLED_SEND_BUFFER();
 
-     RGBInit();
+    // 初始化存储
+    InitStorage();
+
+    RGBInit();
 
     g_sysCtx->Device.eink = (Eink290BW *) pvPortMalloc(sizeof(Eink290BW));
     g_sysCtx->Device.eink = new(g_sysCtx->Device.eink) Eink290BW();
@@ -87,9 +102,7 @@ void InitOs() {
     AppChange(APPID_DESKTOP);
 }
 
-/* Default Entry -------------------------------------------------------*/
 void Main(void) {
-    //InitCommunication();
     InitOs();
 }
 

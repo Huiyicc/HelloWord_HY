@@ -11,6 +11,10 @@
     <file url="file://$PROJECT_DIR$/Platform/Utils/Sensor" charset="GBK" />
     <file url="file://$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" charset="GBK" />
     <file url="file://$PROJECT_DIR$/USB_DEVICE/App/usbd_desc.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserApp/os/storage.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserApp/os/storage.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserApp/os/storage.hpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserApp/os/storage.hpp" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

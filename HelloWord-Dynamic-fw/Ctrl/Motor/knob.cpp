@@ -3,12 +3,14 @@
 #include "knob.h"
 #include "st_hardware.h"
 #include "os_define.hpp"
+#include "os/storage.hpp"
 
 void KnobSimulator::Init(Motor *_motor) {
+    zeroPosition = GetSysConfig()->devices.knob.zeroPosition;
     motor = _motor;
     motor->config.controlMode = Motor::ControlMode_t::TORQUE;
-    motor->config.voltageLimit = 3.0;
-    motor->config.velocityLimit = 100;
+    motor->config.voltageLimit = 1.5;
+    motor->config.velocityLimit = 100.0f;
     motor->config.pidVelocity.p = 0.1;
     motor->config.pidVelocity.i = 0.0;
     motor->config.pidVelocity.d = 0.0;
@@ -18,7 +20,30 @@ void KnobSimulator::Init(Motor *_motor) {
 
     // When motor calibrated, we can replace Init with something like:
     // motor->Init(1.815850, EncoderBase::CW)
-    if (motor->Init()) {
+    for (char i = 0; i < 4; ++i) {
+        g_sysCtx->Device.ctrl.Action = motor->Init();
+        if (g_sysCtx->Device.ctrl.Action) {
+            break;
+        } else {
+            OLED_CLEAR_BUFFER();
+            OLED_DEVICES()->SetDrawColor(1);
+            OLED_DEVICES()->DrawBox(6, 11, 20, 20);
+            OLED_DEVICES()->DrawUTF8(9, 41, "重");
+            OLED_DEVICES()->DrawUTF8(9, 55, "新");
+            OLED_DEVICES()->DrawUTF8(9, 69, "校");
+            OLED_DEVICES()->DrawUTF8(9, 83, "准");
+            OLED_DEVICES()->DrawUTF8(9, 97, "电");
+            OLED_DEVICES()->DrawUTF8(9, 111, "机");
+            OLED_DEVICES()->SetDrawColor(0);
+            OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
+            OLED_SEND_BUFFER();
+        }
+        if (i >= 3) {
+            return;
+        }
+    }
+
+    if (g_sysCtx->Device.ctrl.Action) {
         printf("ZeroElectricAngleOffset: %f | Encoder direction: %s\n", motor->zeroElectricAngleOffset,
                motor->encoder->countDirection == EncoderBase::CW ? "CW" : "CCW");
         motor->target = 0;
@@ -43,7 +68,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->SetEnable(true);
             motor->SetTorqueLimit(1.2);
             motor->config.controlMode = Motor::VELOCITY;
-            motor->config.pidVelocity.p = 6;
+            motor->config.pidVelocity.p = 0.3;
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
             motor->config.pidAngle.p = 0;
@@ -54,14 +79,14 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             break;
         case MODE_ENCODER: {
             motor->SetEnable(true);
-            motor->SetTorqueLimit(0.8);
+            motor->SetTorqueLimit(0.3f);
             motor->config.controlMode = Motor::ControlMode_t::ANGLE;
             motor->config.pidVelocity.p = 0.02;
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
             motor->config.pidAngle.p = 100;
-            motor->config.pidAngle.i = 0.3;
-            motor->config.pidAngle.d = 3;
+            motor->config.pidAngle.i = 0;
+            motor->config.pidAngle.d = 3.5f;
             motor->target = zeroPosition;
             lastAngle = zeroPosition;
             encoderDistance = _2PI / float(encoderDivides);
@@ -113,8 +138,8 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
             motor->config.pidAngle.p = 100;
-            motor->config.pidAngle.i = 0.3;
-            motor->config.pidAngle.d = 3;
+            motor->config.pidAngle.i = 0;
+            motor->config.pidAngle.d = 3.5f;
             motor->target = zeroPosition;
         }
             break;
@@ -125,21 +150,39 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
 void KnobSimulator::Tick() {
     switch (mode) {
         case MODE_INERTIA: {
-            auto v = GetVelocity();
-            auto a = GetPosition();
-            if(fabsf(v-lastVelocity)>0.5)motor->target = v;
-            else if(fabsf(v-lastVelocity)<0.08)motor->target = v*0.001F+lastVelocity*0.999F;
-            else motor->target = v*fabsf(v-lastVelocity)*0.5F+lastVelocity*(1-fabsf(v-lastVelocity)*0.5F);
-            lastVelocity = motor->target;
-
-            if(fabsf(lastAngle-a)>0.2) {
-                if (v > 16)v = 16;
-                else if (v < -16)v = -16;
-                if (v > -0.05 && v < 0.05)v = 0;
-                else if (v < 1 && v > 0)v = 1;
-                else if (v < 0 && v > -1)v = -1;
-                lastAngle = a;
+            float v = GetVelocity();
+            float a = v - lastVelocity;
+            if (v == 0.0f) {
+                motor->target = 0.0f;
+                maxVelocity = 0.0f;
+            } else if (v > 0.0f) {
+                if (a > 1.0f || v > maxVelocity) {
+                    motor->target = v;
+                    maxVelocity = v;
+                } else if (a < -2.0f) {
+                    motor->target += a;
+                    if (motor->target < 1.0f) {
+                        motor->target = 0.0f;
+                        maxVelocity = 0.0f;
+                    }
+                } else {
+                    motor->target -= 0.001f;
+                }
+            } else if (v < 0.0f) {
+                if (a < -1.0f || v < maxVelocity) {
+                    motor->target = v;
+                    maxVelocity = v;
+                } else if (a > 2.0f) {
+                    motor->target += a;
+                    if (motor->target > -1.0f) {
+                        motor->target = 0.0f;
+                        maxVelocity = 0.0f;
+                    }
+                } else {
+                    motor->target += 0.001f;
+                }
             }
+            lastVelocity = motor->target;
         }
             break;
         case MODE_ENCODER: {

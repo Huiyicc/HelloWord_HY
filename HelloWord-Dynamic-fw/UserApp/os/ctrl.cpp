@@ -7,7 +7,6 @@
 #include "sleep.hpp"
 #include "SDK/utils.hpp"
 
-
 Timer timerCtrlLoop(&htim7, 5000);
 osThreadId_t ctrlLoopTaskHandle;
 //TimerHandle_t g_timer_CtrlLoop = nullptr;
@@ -43,17 +42,18 @@ osThreadId_t taskCtrlLoopHandle;
 double lastPosition = 0;
 int lastEncodePosition = 0;
 KnobStatus *knobStatus = nullptr;
+double lastAgent = 0;
 
 void taskCtrlLoop(void *) {
     for (;;) {
-        osDelay(60);
+        osDelay(50);
+        if (!g_sysCtx->Device.ctrl.Action) {
+            // 校准失败需要重新上电
+            return;
+        }
         // 限幅滤波法
         // 后续优化吧,懒得写了
         auto l = g_sysCtx->Device.ctrl.knob.GetPosition();
-//        OLED_CLEAR_BUFFER()
-//        OLED_DEVICES()->SetDrawColor(1);
-//        OLED_DEVICES()->DrawStr(0, 10, std::to_string(g_sysCtx->Device.ctrl.knob.GetVelocity()).c_str());
-//        OLED_SEND_BUFFER();
         // 抖动容错
         if (std::abs(l - knobStatus->LastPositionRaw) < g_sysCtx->Device.ctrl.knob.filterateMax) {
             if (std::fabs(lastPosition - l) < g_sysCtx->Device.ctrl.knob.filterateMax) {
@@ -116,4 +116,8 @@ void CtrlInit() {
     };
     taskCtrlLoopHandle = osThreadNew(taskCtrlLoop, nullptr, &taskCtrlLoop_attributes);
 
+}
+
+void InitLastAgent() {
+    lastAgent = (g_sysCtx->Device.ctrl.knob.GetPosition() / _2PI) * 360;;
 }

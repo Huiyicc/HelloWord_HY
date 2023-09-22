@@ -24,14 +24,14 @@ void appLeftRightKNobCallback(KnobStatus *status) {
     if (g_sysCtx->Apps.Status != APPID_LEFTRIGHT) {
         return;
     }
-    auto x = status->PositionRaw - status->LastPositionRaw;
-    if (fabs(x) < 0.1) {
-        return;
-    }
-    if (status->Position > status->LastPosition) {
-        HYSDK::USB::SendKeyBoardCode(0,HYSDK::USB::KeyCode_t::LEFT_ARROW);
-    } else {
-        HYSDK::USB::SendKeyBoardCode(0,HYSDK::USB::KeyCode_t::RIGHT_ARROW);
+    auto ffa = status->Angle - lastAgent;
+    if (fabs(ffa) > 10) {
+        if (status->Angle > lastAgent) {
+            HYSDK::USB::SendKeyBoardCode(0,HYSDK::USB::KeyCode_t::LEFT_ARROW);
+        } else {
+            HYSDK::USB::SendKeyBoardCode(0,HYSDK::USB::KeyCode_t::RIGHT_ARROW);
+        }
+        lastAgent = status->Angle;
     }
 }
 
@@ -43,6 +43,7 @@ void AppLeftRight::Init() {
 
 // 进入事件
 void AppLeftRight::In() {
+    InitLastAgent();
     g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
     ReView();
 };

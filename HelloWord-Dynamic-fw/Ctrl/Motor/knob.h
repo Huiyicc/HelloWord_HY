@@ -62,11 +62,11 @@ private:
     Motor *motor{};
     Mode_t mode = MODE_DISABLE;
 
-    float zeroPosition = -3.7;
+    float zeroPosition = 0;
     float limitPositionMax = 5.1;
     float limitPositionMin = 3.3;
     int encoderDivides = 5;
-
+    float encoder_rpp=0;
     float lastAngle{};
     float lastVelocity{};
     float maxVelocity = 0;

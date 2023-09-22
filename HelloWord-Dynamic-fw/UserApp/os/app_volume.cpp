@@ -27,15 +27,13 @@ void appVolumeKNobCallback(KnobStatus *status) {
     if (g_sysCtx->Apps.Status != APPID_VOLUME) {
         return;
     }
-    auto x = status->PositionRaw - status->LastPositionRaw;
-    if (fabs(x) < 0.1) {
-        return;
-    }
     auto _this = ((AppVolume *)(g_sysCtx->Apps.AppsMap[APPID_VOLUME]));
-    if (status->Position > status->LastPosition) {
-        _this->VolumeUP();
-    } else {
-        _this->VolumeDOWN();
+    if (status->EncoderPosition != status->LastEncoderPosition) {
+        if (status->EncoderPosition > status->LastEncoderPosition) {
+            _this->VolumeUP();
+        } else {
+            _this->VolumeDOWN();
+        }
     }
 }
 
@@ -47,7 +45,7 @@ void AppVolume::Init() {
 
 // 进入事件
 void AppVolume::In() {
-    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(18);
     g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
     ReView();
 };
@@ -79,7 +77,7 @@ void AppVolume::VolumeUP() {
     uint8_t   HID_report[5]={0};
     HID_report[0]=0x01;
     HID_report[1]=0x01;
-    osDelay(3);
+    osDelay(1);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
     osDelay(3);
     HID_report[0]=0x01;
@@ -94,7 +92,7 @@ void AppVolume::VolumeDOWN() {
     uint8_t   HID_report[5]={0};
     HID_report[0]=0x01;
     HID_report[1]=0x02;
-    osDelay(3);
+    osDelay(1);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,HID_report,5);
     osDelay(3);
     HID_report[0]=0x01;

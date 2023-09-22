@@ -5,6 +5,7 @@
 #include "stm32f4xx_hal.h"
 #include "spi.h"
 #include "FreeRTOS.h"
+#include "cmsis_os.h"
 
 
 //uint8_t *Eink290BW::buffer = nullptr;
@@ -100,8 +101,9 @@ void Eink290BW::SendData(unsigned char data) {
 }
 
 void Eink290BW::WaitUntilIdle() {
-    while (HAL_GPIO_ReadPin(EINK_BUSY_GPIO_Port, EINK_BUSY_Pin) == GPIO_PIN_SET)
-        HAL_Delay(100);
+    while (HAL_GPIO_ReadPin(EINK_BUSY_GPIO_Port, EINK_BUSY_Pin) == GPIO_PIN_SET){
+        osDelay(100);
+    }
 }
 
 void Eink290BW::SpiTransfer(unsigned char data) {
