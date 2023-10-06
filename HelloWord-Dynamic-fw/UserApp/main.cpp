@@ -49,9 +49,12 @@ void helloWord() {
         OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
         OLED_SEND_BUFFER();
     }
+
+
 }
 
 void InitOs() {
+    // InitCommunication();
     //初始化所有设备
     g_sysCtx = (SysContext *) pvPortMalloc(sizeof(SysContext));
     g_sysCtx = new(g_sysCtx) SysContext();

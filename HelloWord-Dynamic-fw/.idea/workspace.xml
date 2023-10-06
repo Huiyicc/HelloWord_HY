@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="微调pid&#10;调整存储代码">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="微调pid&#10;调整存储代码,加入尾字节校验">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -33,7 +33,11 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -373,7 +377,13 @@
       <workItem from="1695185152059" duration="11019000" />
       <workItem from="1695225387406" duration="212000" />
       <workItem from="1695261328640" duration="803000" />
-      <workItem from="1695343384543" duration="2666000" />
+      <workItem from="1695343384543" duration="2963000" />
+      <workItem from="1695388324837" duration="1212000" />
+      <workItem from="1695561057685" duration="1466000" />
+      <workItem from="1695811397798" duration="1292000" />
+      <workItem from="1696602239071" duration="3347000" />
+      <workItem from="1696605630750" duration="1683000" />
+      <workItem from="1696607343158" duration="79000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -463,7 +473,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695343834125</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="微调pid&#10;调整存储代码,加入尾字节校验">
+      <option name="closed" value="true" />
+      <created>1695358623904</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1695358623904</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +515,8 @@
     <MESSAGE value="调整协议" />
     <MESSAGE value="app增加滑动模式&#10;app增加亮度调节&#10;电机支持休眠" />
     <MESSAGE value="微调pid&#10;调整存储代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="微调pid&#10;调整存储代码" />
+    <MESSAGE value="微调pid&#10;调整存储代码,加入尾字节校验" />
+    <option name="LAST_COMMIT_MESSAGE" value="微调pid&#10;调整存储代码,加入尾字节校验" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -508,8 +527,8 @@
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/UserApp/os/storage.cpp</url>
-          <line>159</line>
+          <url>file://$PROJECT_DIR$/Platform/Communication/communication.cpp</url>
+          <line>40</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>

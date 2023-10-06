@@ -53,10 +53,10 @@ void KNobCallback(KnobStatus *status) {
             _this->MenuAdd();
         }
     }
-    Println("状态:%s,索引:%d,偏移:%f",
-            _this->GetDesktopInfo()->name,
-            _this->GetMenuIndex(),
-            *_this->GetShifting());
+//    Println("状态:%s,索引:%d,偏移:%f",
+//            _this->GetDesktopInfo()->name,
+//            _this->GetMenuIndex(),
+//            *_this->GetShifting());
 }
 
 //初始化事件

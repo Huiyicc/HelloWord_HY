@@ -70,7 +70,7 @@ void taskCtrlLoop(void *) {
         knobStatus->PositionRaw = l;
         knobStatus->LastPosition = knobStatus->Position;
         knobStatus->Position = l + g_sysCtx->Device.ctrl.knob.deviation;
-
+        //Println("%du\n",(void*)taskCtrlLoopHandle)
         // 步数 6.3
         // 角度 = (步数 / 步数每圈) * 360°
         knobStatus->Angle = (knobStatus->Position / _2PI) * 360;

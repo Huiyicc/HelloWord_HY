@@ -109,11 +109,12 @@ void Usb_DataEvent() {
         eink_status = 0;
         int maxsize = (EPD_HEIGHT * EPD_WIDTH / 8);
         if (rec_offset != maxsize) {
+            rec_offset=0;
             return;
         }
+        rec_offset=0;
         g_sysCtx->Device.eink->DrawBitmap(USB_Recive_Tmp_Buffer);
         g_sysCtx->Device.eink->Update();
-        rec_offset=0;
         uint8_t lBuffer[65] = {0};
         memset(lBuffer, 0, sizeof(lBuffer));
         lBuffer[0] = 0x04;
