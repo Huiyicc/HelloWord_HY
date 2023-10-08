@@ -17,7 +17,7 @@ extern osSemaphoreId sem_can1_tx;
 /*--------------------------------- System Tasks -------------------------------------*/
 extern osThreadId_t defaultTaskHandle;      // Usage: 4000 Bytes stack
 extern osThreadId_t commTaskHandle;         // Usage: 8192 Bytes stack
-extern osThreadId_t usbIrqTaskHandle;       // Usage: 512  Bytes stack
+//extern osThreadId_t usbIrqTaskHandle;       // Usage: 512  Bytes stack
 extern osThreadId_t usbServerTaskHandle;    // Usage: 2048 Bytes stack
 extern osThreadId_t uartServerTaskHandle;   // Usage: 2048 Bytes stack
 

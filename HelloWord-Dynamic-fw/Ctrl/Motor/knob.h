@@ -66,9 +66,8 @@ private:
     float limitPositionMax = 5.1;
     float limitPositionMin = 3.3;
     int encoderDivides = 5;
-    float encoder_rpp=0;
-    float lastAngle{};
-    float lastVelocity{};
+    float lastAngle=0;
+    float lastVelocity=0;
     float maxVelocity = 0;
 
     bool reset = false;

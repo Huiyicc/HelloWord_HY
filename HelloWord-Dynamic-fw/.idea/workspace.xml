@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="微调pid&#10;调整存储代码,加入尾字节校验">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="增加hid重置校验">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -31,13 +31,39 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/cpp_utils.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/crc.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/decoders.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/encoders.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/protocol.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/fibre/src/protocol.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/dma.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/dma.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/freertos.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/freertos.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/i2c.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/spi.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/spi.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HelloWord-Dynamic-fw.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWord-Dynamic-fw.ioc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/ascii_processor.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/ascii_processor.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/communication.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/communication.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_uart.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_uart.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_usb.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_usb.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/common_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/common_inc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/freertos_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/freertos_inc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/ascii_protocol.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/usb_protocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/usb_protocol.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +180,11 @@
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -383,7 +414,10 @@
       <workItem from="1695811397798" duration="1292000" />
       <workItem from="1696602239071" duration="3347000" />
       <workItem from="1696605630750" duration="1683000" />
-      <workItem from="1696607343158" duration="79000" />
+      <workItem from="1696607343158" duration="192000" />
+      <workItem from="1696642657676" duration="239000" />
+      <workItem from="1696690965876" duration="7054000" />
+      <workItem from="1696780929417" duration="1764000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -481,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695358623904</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="增加hid重置校验">
+      <option name="closed" value="true" />
+      <created>1696607488107</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1696607488107</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +558,8 @@
     <MESSAGE value="app增加滑动模式&#10;app增加亮度调节&#10;电机支持休眠" />
     <MESSAGE value="微调pid&#10;调整存储代码" />
     <MESSAGE value="微调pid&#10;调整存储代码,加入尾字节校验" />
-    <option name="LAST_COMMIT_MESSAGE" value="微调pid&#10;调整存储代码,加入尾字节校验" />
+    <MESSAGE value="增加hid重置校验" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加hid重置校验" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -525,11 +568,6 @@
           <url>file://$PROJECT_DIR$/test/proto/main.cpp</url>
           <line>47</line>
           <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Platform/Communication/communication.cpp</url>
-          <line>40</line>
-          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

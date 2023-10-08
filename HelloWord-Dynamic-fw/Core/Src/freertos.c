@@ -27,7 +27,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "common_inc.h"
-#include "Platform/Communication/communication.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -119,13 +118,13 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-    // This Task must run before MX_USB_DEVICE_Init(), so have to put it here.
-    const osThreadAttr_t usbIrqTask_attributes = {
-        .name = "usbIrqTask",
-        .stack_size = 128 * 4,
-        .priority = (osPriority_t) osPriorityAboveNormal,
-    };
-    usbIrqTaskHandle = osThreadNew(UsbDeferredInterruptTask, NULL, &usbIrqTask_attributes);
+//    // This Task must run before MX_USB_DEVICE_Init(), so have to put it here.
+//    const osThreadAttr_t usbIrqTask_attributes = {
+//        .name = "usbIrqTask",
+//        .stack_size = 128 * 4,
+//        .priority = (osPriority_t) osPriorityAboveNormal,
+//    };
+//    usbIrqTaskHandle = osThreadNew(UsbDeferredInterruptTask, NULL, &usbIrqTask_attributes);
 
   /* USER CODE END RTOS_QUEUES */
 

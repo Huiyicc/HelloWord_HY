@@ -44,13 +44,13 @@ void KnobSimulator::Init(Motor *_motor) {
     }
 
     if (g_sysCtx->Device.ctrl.Action) {
-        printf("ZeroElectricAngleOffset: %f | Encoder direction: %s\n", motor->zeroElectricAngleOffset,
-               motor->encoder->countDirection == EncoderBase::CW ? "CW" : "CCW");
+//        printf("ZeroElectricAngleOffset: %f | Encoder direction: %s\n", motor->zeroElectricAngleOffset,
+//               motor->encoder->countDirection == EncoderBase::CW ? "CW" : "CCW");
         motor->target = 0;
         motor->SetEnable(false);
-    } else
-        printf("Error[%d]\n", motor->error);
-
+    } else {
+        //printf("Error[%d]\n", motor->error);
+    }
 }
 
 
@@ -66,7 +66,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             break;
         case MODE_INERTIA: {
             motor->SetEnable(true);
-            motor->SetTorqueLimit(1.2);
+            motor->SetTorqueLimit(0.3);
             motor->config.controlMode = Motor::VELOCITY;
             motor->config.pidVelocity.p = 0.3;
             motor->config.pidVelocity.i = 0.0;
@@ -80,6 +80,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
         case MODE_ENCODER: {
             motor->SetEnable(true);
             motor->SetTorqueLimit(0.3f);
+            //zeroPosition=0;
             motor->config.controlMode = Motor::ControlMode_t::ANGLE;
             motor->config.pidVelocity.p = 0.02;
             motor->config.pidVelocity.i = 0.0;
@@ -89,12 +90,8 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidAngle.d = 3.5f;
             motor->target = zeroPosition;
             lastAngle = zeroPosition;
-            encoderDistance = _2PI / float(encoderDivides);
-//            auto m = fmodf(motor->target, motor->target);
-//            if (fabs(m) < filterateMax) {
-//                motor->target += m;
-//            }
-//            lastAngle = motor->target;
+//            motor->target = (limitPositionMax+limitPositionMin)/2;
+//            lastAngle = (limitPositionMax+limitPositionMin)/2;
         }
             break;
         case MODE_SPRING: {
@@ -186,29 +183,68 @@ void KnobSimulator::Tick() {
         }
             break;
         case MODE_ENCODER: {
-            // 当前位置
+            //模拟编码器模式
+//            // 获取当前位置
             auto a = GetPosition();
-            if (std::fabs(a) < filterateMax&&!reset) {
+//            if (fmod(fabs(a),encoderDivides) < filterateMax) {
+//                motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+//                motor->target = 0;
+//                lastAngle = a;
+//                encoderPosition = GetEncoderModePos();
+//                break;
+//            }
+//            if (a - lastAngle > _PI / (float) encoderDivides) {
+//                motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+//                motor->target += _2PI / (float) encoderDivides;
+//                lastAngle = motor->target;
+//                encoderPosition++;
+//            } else if (a - lastAngle < -_PI / (float) encoderDivides) {
+//                motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+//                motor->target -= _2PI / (float) encoderDivides;
+//                lastAngle = motor->target;
+//                encoderPosition--;
+//            }
+
+            // 如果当前位置小于阈值filterateMax的绝对值，并且不需要重置(reset为false)
+            if (std::fabs(a) < filterateMax && !reset) {
+                // 设置电机控制模式为速度模式
                 motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                // 将电机的目标速度设置为0
                 motor->target = 0;
+                // 更新上一次角度为当前位置a
                 lastAngle = a;
+                // 获取编码器模式的位置
                 encoderPosition = GetEncoderModePos();
                 break;
             } else {
-                auto fm = std::fabs(fmod(a,encoderDistance));
-                if (fm<filterateMax||reset) {
-                    if (reset&&fm<0.01) {
+                // 计算当前位置a对encoderDistance取模
+                // 绝对值
+                auto fmabs = std::fabs(fmod(a, encoderDistance));
+
+                // 如果fm小于阈值filterateMax或者需要重置(reset为true)
+                if (fmabs < filterateMax || reset) {
+                    // 如果需要重置并且fm小于0.01
+                    if (reset && fmabs < 0.01) {
+                        // 取消重置标志
                         reset = false;
+                        // 设置电机控制模式为速度模式
                         motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                        // 将电机的目标速度设置为0
                         motor->target = 0;
+                        // 更新上一次角度为当前位置a
                         lastAngle = a;
+                        // 获取编码器模式的位置
                         encoderPosition = GetEncoderModePos();
                         break;
                     }
                 }
+
+                // 设置重置标志为true
                 reset = true;
+                // 设置电机控制模式为角度模式
                 motor->config.controlMode = Motor::ControlMode_t::ANGLE;
-                motor->target = lastAngle+zeroPosition;
+                motor->target = lastAngle + zeroPosition;
+
                 break;
             }
         }
@@ -232,17 +268,17 @@ void KnobSimulator::Tick() {
         case MODE_SPRING:
         case MODE_SPIN:
             break;
-        case MODE_PADDLE:{
+        case MODE_PADDLE: {
             auto a = GetPosition();
             auto fa = std::fabs(a);
             if (fa < filterateMax || reset) {
-                if (fa>filterateMax) {
-                    reset= true;
+                if (fa > filterateMax) {
+                    reset = true;
                     motor->config.controlMode = Motor::ControlMode_t::ANGLE;
                     motor->target = zeroPosition;
                     break;
                 }
-                if (reset&&fa<0.01) {
+                if (reset && fa < 0.01) {
                     reset = false;
                     motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
                     motor->target = 0;
@@ -302,14 +338,14 @@ void KnobSimulator::SetEnable(bool _en) {
 
 KnobSimulator::Mode_t KnobSimulator::GetMode() { return mode; }
 
-void KnobSimulator::SetVelocityPID(float p,float i,float d) {
+void KnobSimulator::SetVelocityPID(float p, float i, float d) {
     motor->config.pidVelocity.p = p;
     motor->config.pidVelocity.i = i;
     motor->config.pidVelocity.d = d;
 }
 
-void KnobSimulator::SetAnglePID(float p,float i,float d) {
-    motor->config.pidAngle.p =p;
+void KnobSimulator::SetAnglePID(float p, float i, float d) {
+    motor->config.pidAngle.p = p;
     motor->config.pidAngle.i = i;
     motor->config.pidAngle.d = d;
 }

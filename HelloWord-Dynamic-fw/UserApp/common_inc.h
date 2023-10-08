@@ -34,7 +34,6 @@ extern char serialNumberStr[13];
 #include "Platform/Utils/time_utils.h"
 #include "Platform/Utils/timer.hpp"
 #include "Platform/Utils/st_hardware.h"
-#include "Platform/Communication/communication.hpp"
 
 // Universal Board Configs definition
 struct BoardConfig_t
