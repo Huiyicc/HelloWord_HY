@@ -1,0 +1,1 @@
+"D:\app\OLED\u8g2-master\tools\font\bdfconv\bdfconv.exe" -v -b 0 -f 1 "D:\app\OLED\guitooldswda\output\hwd_hy_U40.bdf" -M "F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\font\hwd_hy.map" -n hwd_hy_U40 -o "F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\font\hwd_hy_U40.c" -d "D:\app\OLED\guitooldswda\output\hwd_hy_U40.bdf"
