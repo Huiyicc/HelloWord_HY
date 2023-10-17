@@ -62,6 +62,9 @@ void Motor::SetEnable(bool _enable)
     enabled = _enable;
 }
 
+bool Motor::GetEnable() {
+    return enabled;
+}
 
 float Motor::GetEstimateAngle()
 {

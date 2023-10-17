@@ -45,20 +45,24 @@ void timerSleepCallback(TimerHandle_t xTimer) {
         // 关闭电机
         g_sysCtx->Device.ctrl.knob.SetEnable(false);
         // 睡眠模式
-        __WFI();
+        __WFE();
         return;
     }
 }
+
+//extern char knob_reenable;
 
 // 延迟系统休眠
 void OSDelaySleep() {
     // 如果已经休眠,则唤醒
     if (g_sleep_status) {
-        __WFE();
+        //__WFE();
+        __SEV();
         // 开启屏幕
         g_sysCtx->Device.oled->Clear();
         g_sysCtx->Device.oled->SetPowerSave(0);
         // 开启电机
+        //knob_reenable = 1;
         g_sysCtx->Device.ctrl.knob.SetEnable(true);
         // 重置状态
         for (auto &item: g_SysWakeUp) {

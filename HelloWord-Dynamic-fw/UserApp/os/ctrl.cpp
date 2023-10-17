@@ -11,7 +11,6 @@ Timer timerCtrlLoop(&htim7, 5000);
 osThreadId_t ctrlLoopTaskHandle;
 //TimerHandle_t g_timer_CtrlLoop = nullptr;
 
-
 void ThreadCtrlLoop(void *) {
     for (;;) {
         // Suspended here until got Notification.
@@ -27,6 +26,7 @@ void OnTimerCallback() {
     // Wake & invoke thread IMMEDIATELY.
     vTaskNotifyGiveFromISR(TaskHandle_t(ctrlLoopTaskHandle), &xHigherPriorityTaskWoken);
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    //g_sysCtx->Device.ctrl.knob.Tick();
 }
 
 
@@ -43,6 +43,7 @@ double lastPosition = 0;
 int lastEncodePosition = 0;
 KnobStatus *knobStatus = nullptr;
 double lastAgent = 0;
+//char knob_reenable = 0;
 
 void taskCtrlLoop(void *) {
     for (;;) {
@@ -51,6 +52,20 @@ void taskCtrlLoop(void *) {
             // 校准失败需要重新上电
             return;
         }
+        //Println("%f\n", g_sysCtx->Device.ctrl.knob.GetVelocity());
+//        if (knob_reenable>0) {
+//            // 延迟100毫秒唤醒电机
+//           // 效果太差了,暂时不要
+//            if (knob_reenable==1) {
+//                knob_reenable++;
+//                continue;
+//            } else if (knob_reenable==2) {
+//                knob_reenable=0;
+//                if (!g_sysCtx->Device.ctrl.motor.GetEnable()) {
+//                    g_sysCtx->Device.ctrl.knob.SetEnable(true);
+//                }
+//            }
+//        }
         // 限幅滤波法
         // 后续优化吧,懒得写了
         auto l = g_sysCtx->Device.ctrl.knob.GetPosition();
@@ -60,7 +75,9 @@ void taskCtrlLoop(void *) {
                 continue;
             }
         }
-        if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER) {
+        if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER
+        || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_JINLUNENCODER
+        || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_INTELLIGENT) {
             knobStatus->LastEncoderPosition = lastEncodePosition;
             knobStatus->EncoderPosition = g_sysCtx->Device.ctrl.knob.encoderPosition;
             lastEncodePosition = knobStatus->EncoderPosition;
@@ -70,7 +87,6 @@ void taskCtrlLoop(void *) {
         knobStatus->PositionRaw = l;
         knobStatus->LastPosition = knobStatus->Position;
         knobStatus->Position = l + g_sysCtx->Device.ctrl.knob.deviation;
-        //Println("%du\n",(void*)taskCtrlLoopHandle)
         // 步数 6.3
         // 角度 = (步数 / 步数每圈) * 360°
         knobStatus->Angle = (knobStatus->Position / _2PI) * 360;

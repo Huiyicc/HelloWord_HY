@@ -62,7 +62,7 @@ void KNobCallback(KnobStatus *status) {
 //初始化事件
 void AppDesktop::Init() {
     // 不要小于3个,虽然做了处理,但是没测试,会有bug
-    m_menuNum = 5;
+    m_menuNum = 6;
     m_menuList = (desktopCallType *) pvPortMalloc(sizeof(desktopCallType) * m_menuNum);
     m_menuList[0] = desktopCallType{"音量",
                                     "0",
@@ -79,6 +79,9 @@ void AppDesktop::Init() {
     m_menuList[4] = desktopCallType{"滑动",
                                     "2",
                                     APPID_LEFTRIGHT};
+    m_menuList[5] = desktopCallType{"APP",
+                                    "5",
+                                    APPID_HID};
     RegisterKNobCallback(KNobCallback);
     RegisterButtonPinCall(appDesktopButtonPinCallback);
 
@@ -87,7 +90,7 @@ void AppDesktop::Init() {
 // 进入事件
 void AppDesktop::In() {
     g_sysCtx->Device.ctrl.knob.SetEncoderModePos(int(m_dividesNum));
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_JINLUNENCODER);
     g_sysCtx->Device.ctrl.knob.SetTorqueLimit(0.5);
     ReView();
 }

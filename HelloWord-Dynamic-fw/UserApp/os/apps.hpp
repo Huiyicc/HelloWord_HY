@@ -25,6 +25,9 @@
 #ifndef APPID_LEFTRIGHT
 #define APPID_LEFTRIGHT 6
 #endif
+#ifndef APPID_HID
+#define APPID_HID 7
+#endif
 
 // 注册应用
 // 注意:不要重复

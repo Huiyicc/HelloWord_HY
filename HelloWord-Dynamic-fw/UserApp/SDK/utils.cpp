@@ -7,9 +7,10 @@
 #include "usbd_customhid.h"
 #include "cmsis_os.h"
 
-bool debug = false;
+bool debug = true;
 
 namespace HYSDK::Debug {
+
 void Print(unsigned char reportID,const char *str) {
     if (!debug) {
         return;
@@ -21,4 +22,6 @@ void Print(unsigned char reportID,const char *str) {
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 65);
     osDelay(3);
 }
+
+
 }

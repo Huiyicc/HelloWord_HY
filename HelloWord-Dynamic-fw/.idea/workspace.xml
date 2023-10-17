@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="增加hid重置校验">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="更新README">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -31,39 +31,26 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/os/app_hid.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/cpp_utils.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/crc.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/decoders.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/encoders.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/fibre/inc/protocol.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/fibre/src/protocol.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/dma.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/dma.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/freertos.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/freertos.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/i2c.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/spi.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/spi.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWord-Dynamic-fw.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWord-Dynamic-fw.ioc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/ascii_processor.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/ascii_processor.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/communication.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/communication.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_uart.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_uart.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_usb.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Communication/interface_usb.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/common_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/common_inc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/freertos_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/freertos_inc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/protocols/ascii_protocol.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/protocols/usb_protocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/usb_protocol.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/motor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/motor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/motor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/motor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/apps.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/apps.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/screen.psd" beforeDir="false" afterPath="$PROJECT_DIR$/assets/screen.psd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,13 +126,13 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/hw_tools&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/hw_tools_new/hw_tools&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.cidr.embedded.config&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -153,8 +140,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp" />
       <recent name="E:\OnWorking\HelloWord-Keyboard\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
@@ -180,11 +167,6 @@
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -218,7 +200,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="HelloWord-Dynamic-fw.elf" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="HelloWord-Dynamic-fw" TARGET_NAME="HelloWord-Dynamic-fw.elf" version="1" RUN_TARGET_PROJECT_NAME="HelloWord-Dynamic-fw" RUN_TARGET_NAME="HelloWord-Dynamic-fw.elf">
+    <configuration name="HelloWord-Dynamic-fw.elf" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="HelloWord-Dynamic-fw" TARGET_NAME="HelloWord-Dynamic-fw.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="HelloWord-Dynamic-fw" RUN_TARGET_NAME="HelloWord-Dynamic-fw.elf">
       <openocd version="1" gdb-port="4444" telnet-port="1235" board-config="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\stlink.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
         <debugger kind="GDB" isBundled="true" />
       </openocd>
@@ -417,7 +399,17 @@
       <workItem from="1696607343158" duration="192000" />
       <workItem from="1696642657676" duration="239000" />
       <workItem from="1696690965876" duration="7054000" />
-      <workItem from="1696780929417" duration="1764000" />
+      <workItem from="1696780929417" duration="2030000" />
+      <workItem from="1696824582436" duration="10380000" />
+      <workItem from="1696912284590" duration="4811000" />
+      <workItem from="1696949137401" duration="9204000" />
+      <workItem from="1697027264996" duration="1788000" />
+      <workItem from="1697033372479" duration="1265000" />
+      <workItem from="1697098078141" duration="705000" />
+      <workItem from="1697266875654" duration="262000" />
+      <workItem from="1697379993408" duration="105000" />
+      <workItem from="1697380106882" duration="2011000" />
+      <workItem from="1697431137430" duration="4787000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -523,7 +515,39 @@
       <option name="project" value="LOCAL" />
       <updated>1696607488107</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="更新部分脚本与资源文件">
+      <option name="closed" value="true" />
+      <created>1696782889620</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1696782889620</updated>
+    </task>
+    <task id="LOCAL-00015" summary="更新部分脚本与资源文件">
+      <option name="closed" value="true" />
+      <created>1696782896139</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1696782896139</updated>
+    </task>
+    <task id="LOCAL-00016" summary="调整UART配置(未完成)">
+      <option name="closed" value="true" />
+      <created>1696782953571</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1696782953571</updated>
+    </task>
+    <task id="LOCAL-00017" summary="更新README">
+      <option name="closed" value="true" />
+      <created>1696782969401</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1696782969401</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +583,10 @@
     <MESSAGE value="微调pid&#10;调整存储代码" />
     <MESSAGE value="微调pid&#10;调整存储代码,加入尾字节校验" />
     <MESSAGE value="增加hid重置校验" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加hid重置校验" />
+    <MESSAGE value="更新部分脚本与资源文件" />
+    <MESSAGE value="调整UART配置(未完成)" />
+    <MESSAGE value="更新README" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

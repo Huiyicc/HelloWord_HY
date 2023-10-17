@@ -20,6 +20,8 @@ unsigned char USB_Recive_Buffer[65]; //USB接收缓存
 unsigned char USB_Recive_Tmp_Buffer[5000]; //USB发送缓存
 unsigned int rec_offset = 0; //EINK偏移量
 unsigned char eink_status = 0;
+unsigned char oled_status = 0;
+extern bool hidApp;
 
 bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *arg) {
     char *_str = (char *) *arg;
@@ -52,12 +54,12 @@ void HID_SendVersion() {
     if (message_length > 62 || !status) {
         // 数据错误
         lBuffer[2] = 0;
-        osDelay(2);
+        osDelay(10);
         USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
         return;
     }
     lBuffer[2] = message_length + 1;
-    osDelay(2);
+    osDelay(10);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 
 }
@@ -82,13 +84,19 @@ void Usb_DataEvent() {
         rec_offset += USB_Recive_Buffer[2] - 1;
         eink_status = 0;
         return;
-    }
-    if (USB_Recive_Buffer[1] == 2) {
+    } else if (USB_Recive_Buffer[1] == 2) {
         // 图像模式
         // 拼接数据
         memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
         rec_offset += USB_Recive_Buffer[2] - 1;
         eink_status = 1;
+        return;
+    } else if (USB_Recive_Buffer[1] == 3) {
+        // OLED模式
+        // 拼接数据
+        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+        rec_offset += USB_Recive_Buffer[2] - 1;
+        oled_status = 1;
         return;
     }
     if (USB_Recive_Buffer[1] == 0 && rec_offset != 0) {
@@ -102,19 +110,39 @@ void Usb_DataEvent() {
     if (rec_offset == 0) {
         stream = pb_istream_from_buffer(&USB_Recive_Buffer[3], size_t(USB_Recive_Buffer[2] - 1));
         eink_status = 0;
-    } else if (rec_offset != 0 && USB_Recive_Buffer[1] == 0 && eink_status != 1) {
+        oled_status = 0;
+    } else if (rec_offset != 0 && USB_Recive_Buffer[1] == 0 && eink_status != 1 && oled_status != 1) {
         stream = pb_istream_from_buffer(USB_Recive_Tmp_Buffer, size_t(rec_offset));
         rec_offset = 0;
     } else if (eink_status == 1) {
         eink_status = 0;
         int maxsize = (EPD_HEIGHT * EPD_WIDTH / 8);
         if (rec_offset != maxsize) {
-            rec_offset=0;
+            rec_offset = 0;
             return;
         }
-        rec_offset=0;
+        rec_offset = 0;
         g_sysCtx->Device.eink->DrawBitmap(USB_Recive_Tmp_Buffer);
         g_sysCtx->Device.eink->Update();
+        uint8_t lBuffer[65] = {0};
+        memset(lBuffer, 0, sizeof(lBuffer));
+        lBuffer[0] = 0x04;
+        lBuffer[1] = 0x02;
+        lBuffer[2] = 0x02;
+        lBuffer[3] = 0x02;
+        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+        return;
+    } else if (oled_status == 1) {
+        if (!hidApp) {
+            return;
+        }
+        oled_status = 0;
+        rec_offset = 0;
+        // 32*128 = 4096
+        // 4096/8 = 512
+        OLED_CLEAR_BUFFER();
+        OLED_DEVICES()->DrawXBM(0,0,32,128,USB_Recive_Tmp_Buffer);
+        OLED_SEND_BUFFER();
         uint8_t lBuffer[65] = {0};
         memset(lBuffer, 0, sizeof(lBuffer));
         lBuffer[0] = 0x04;

@@ -66,18 +66,34 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             break;
         case MODE_INERTIA: {
             motor->SetEnable(true);
-            motor->SetTorqueLimit(0.3);
+            motor->SetTorqueLimit(1.5);
             motor->config.controlMode = Motor::VELOCITY;
             motor->config.pidVelocity.p = 0.3;
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
-            motor->config.pidAngle.p = 0;
+            motor->config.pidAngle.p = 20;
             motor->config.pidAngle.i = 0;
-            motor->config.pidAngle.d = 0;
+            motor->config.pidAngle.d = 0.7;
             motor->target = 0;
         }
             break;
         case MODE_ENCODER: {
+            motor->SetEnable(true);
+            motor->SetTorqueLimit(0.2f);
+            //zeroPosition=0;
+            motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+            motor->config.pidVelocity.p = 0.02;
+            motor->config.pidVelocity.i = 0.0;
+            motor->config.pidVelocity.d = 0.0;
+            motor->config.pidAngle.p = 60;
+            motor->config.pidAngle.i = 0;
+            motor->config.pidAngle.d = 3;
+            motor->target = zeroPosition;
+            lastAngle = zeroPosition;
+            encoderDistance = _2PI / float(encoderDivides);
+        }
+            break;
+        case MODE_JINLUNENCODER: {
             motor->SetEnable(true);
             motor->SetTorqueLimit(0.3f);
             //zeroPosition=0;
@@ -85,13 +101,11 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->config.pidVelocity.p = 0.02;
             motor->config.pidVelocity.i = 0.0;
             motor->config.pidVelocity.d = 0.0;
-            motor->config.pidAngle.p = 100;
+            motor->config.pidAngle.p = 80;
             motor->config.pidAngle.i = 0;
             motor->config.pidAngle.d = 3.5f;
             motor->target = zeroPosition;
             lastAngle = zeroPosition;
-//            motor->target = (limitPositionMax+limitPositionMin)/2;
-//            lastAngle = (limitPositionMax+limitPositionMin)/2;
         }
             break;
         case MODE_SPRING: {
@@ -140,6 +154,21 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
             motor->target = zeroPosition;
         }
             break;
+        case MODE_INTELLIGENT: {
+            motor->SetEnable(true);
+            motor->SetTorqueLimit(0.4f);
+            motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+            motor->config.pidVelocity.p = 0.02;
+            motor->config.pidVelocity.i = 0.0;
+            motor->config.pidVelocity.d = 0.0;
+            motor->config.pidAngle.p = 100;
+            motor->config.pidAngle.i = 0;
+            motor->config.pidAngle.d = 3.5;
+            motor->target = zeroPosition;
+            lastAngle = zeroPosition;
+            encoderDistance = _2PI / float(encoderDivides);
+        }
+            break;
     }
 }
 
@@ -183,28 +212,71 @@ void KnobSimulator::Tick() {
         }
             break;
         case MODE_ENCODER: {
-            //模拟编码器模式
-//            // 获取当前位置
             auto a = GetPosition();
-//            if (fmod(fabs(a),encoderDivides) < filterateMax) {
-//                motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
-//                motor->target = 0;
-//                lastAngle = a;
-//                encoderPosition = GetEncoderModePos();
-//                break;
-//            }
-//            if (a - lastAngle > _PI / (float) encoderDivides) {
-//                motor->config.controlMode = Motor::ControlMode_t::ANGLE;
-//                motor->target += _2PI / (float) encoderDivides;
-//                lastAngle = motor->target;
-//                encoderPosition++;
-//            } else if (a - lastAngle < -_PI / (float) encoderDivides) {
-//                motor->config.controlMode = Motor::ControlMode_t::ANGLE;
-//                motor->target -= _2PI / (float) encoderDivides;
-//                lastAngle = motor->target;
-//                encoderPosition--;
-//            }
+            // 如果当前位置小于阈值filterateMax的绝对值，并且不需要重置(reset为false)
+            if (std::fabs(a) < filterateMax && !reset) {
+                // 设置电机控制模式为速度模式
+                motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                // 将电机的目标速度设置为0
+                motor->target = 0;
+                // 更新上一次角度为当前位置a
+                lastAngle = a;
+                // 获取编码器模式的位置
+                lastEncoderPosition = encoderPosition;
+                encoderPosition = GetEncoderModePos();
+                break;
+            } else {
+                // 计算当前位置a对encoderDistance取模
+                // 绝对值
+                auto fmabs = std::fabs(fmod(a, encoderDistance));
 
+                // 如果fm小于阈值filterateMax或者需要重置(reset为true)
+                if (fmabs < filterateMax || reset) {
+                    // 如果需要重置并且fm小于0.01
+                    if (reset && fmabs < 0.01) {
+                        // 取消重置标志
+                        reset = false;
+                        // 设置电机控制模式为速度模式
+                        motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                        // 将电机的目标速度设置为0
+                        motor->target = 0;
+                        // 更新上一次角度为当前位置a
+                        lastAngle = a;
+                        // 获取编码器模式的位置
+                        lastEncoderPosition = encoderPosition;
+                        encoderPosition = GetEncoderModePos();
+                        break;
+                    }
+                }
+                // 设置重置标志为true
+                reset = true;
+
+                motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+                auto angDiff = a - lastAngle;
+                if (angDiff > 0) {
+                    if (angDiff > _PI / (float) encoderDivides) {
+                        motor->target += _2PI / (float) encoderDivides + zeroPosition;
+                        lastAngle += _2PI / (float) encoderDivides;
+                    } else {
+                        motor->target = lastAngle + zeroPosition;
+                    }
+                } else if (angDiff < 0) {
+                    if (angDiff < -_PI / (float) encoderDivides) {
+                        motor->target -= _2PI / (float) encoderDivides + zeroPosition;
+                        lastAngle -= _2PI / (float) encoderDivides;
+                    } else {
+                        motor->target = lastAngle + zeroPosition;
+                    }
+                } else {
+                    motor->target = lastAngle + zeroPosition;
+                }
+
+                break;
+            }
+        }
+            break;
+        case MODE_JINLUNENCODER: {
+            auto a = GetPosition();
             // 如果当前位置小于阈值filterateMax的绝对值，并且不需要重置(reset为false)
             if (std::fabs(a) < filterateMax && !reset) {
                 // 设置电机控制模式为速度模式
@@ -264,6 +336,132 @@ void KnobSimulator::Tick() {
                 }
             }
             break;
+        case MODE_INTELLIGENT: {
+            encoderPosition = GetEncoderModePos();
+            float limitVelocity = 0.1f;
+            auto v = GetVelocity();
+            auto fv = fabs(v);
+            if ((fv > 4 || pStatus) && fv > limitVelocity) {
+                reset=false;
+                motor->config.controlMode = Motor::VELOCITY;
+                if (!pStatus) {
+                    pStatus = true;
+                    motor->SetTorqueLimit(1.8);
+                    motor->config.pidVelocity.p = 0.5;
+                    motor->config.pidVelocity.i = 0.0;
+                    motor->config.pidVelocity.d = 0.0;
+                    motor->config.pidAngle.p = 20;
+                    motor->config.pidAngle.i = 0;
+                    motor->config.pidAngle.d = 0.7;
+                }
+                // 速度控制模式
+                float a = v - lastVelocity;
+                if (v == 0.0f) {
+                    motor->target = 0.0f;
+                    maxVelocity = 0.0f;
+                } else if (v > 0.0f) {
+                    if (a > 1.0f || v > maxVelocity) {
+                        motor->target = v;
+                        maxVelocity = v;
+                    } else if (a < -2.0f) {
+                        motor->target += a;
+                        if (motor->target < 1.0f) {
+                            motor->target = 0.0f;
+                            maxVelocity = 0.0f;
+                        }
+                    } else {
+                        motor->target -= 0.001f;
+                    }
+                } else if (v < 0.0f) {
+                    if (a < -1.0f || v < maxVelocity) {
+                        motor->target = v;
+                        maxVelocity = v;
+                    } else if (a > 2.0f) {
+                        motor->target += a;
+                        if (motor->target > -1.0f) {
+                            motor->target = 0.0f;
+                            maxVelocity = 0.0f;
+                        }
+                    } else {
+                        motor->target += 0.001f;
+                    }
+                }
+                lastVelocity = motor->target;
+                break;
+            }
+            if (fv < limitVelocity || !pStatus) {
+                if (pStatus) {
+                    motor->SetTorqueLimit(0.4f);
+                    motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+                    motor->config.pidVelocity.p = 0.02;
+                    motor->config.pidVelocity.i = 0.0;
+                    motor->config.pidVelocity.d = 0.0;
+                    motor->config.pidAngle.p = 100;
+                    motor->config.pidAngle.i = 0;
+                    motor->config.pidAngle.d = 3.5;
+                    motor->target = zeroPosition;
+                    lastAngle = zeroPosition;
+                    encoderDistance = _2PI / float(encoderDivides);
+                }
+                pStatus = false;
+                auto a = GetPosition();
+                // 如果当前位置小于阈值filterateMax的绝对值，并且不需要重置(reset为false)
+                if (std::fabs(a) < filterateMax && !reset) {
+                    // 设置电机控制模式为速度模式
+                    motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                    // 将电机的目标速度设置为0
+                    motor->target = 0;
+                    // 更新上一次角度为当前位置a
+                    lastAngle = a;
+                } else {
+                    // 计算当前位置a对encoderDistance取模
+                    // 绝对值
+                    auto fmabs = std::fabs(fmod(a, encoderDistance));
+
+                    // 如果fm小于阈值filterateMax或者需要重置(reset为true)
+                    if (fmabs < filterateMax || reset) {
+                        // 如果需要重置并且fm小于0.01
+                        if (reset && fmabs < 0.01) {
+                            // 取消重置标志
+                            reset = false;
+                            // 设置电机控制模式为速度模式
+                            motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+                            // 将电机的目标速度设置为0
+                            motor->target = 0;
+                            // 更新上一次角度为当前位置a
+                            lastAngle = a;
+                            break;
+                        }
+                    }
+
+                    // 设置重置标志为true
+                    reset = true;
+
+                    motor->config.controlMode = Motor::ControlMode_t::ANGLE;
+                    auto angDiff = a - lastAngle;
+                    if (angDiff > 0) {
+                        if (angDiff > _PI / (float) encoderDivides) {
+                            motor->target += _2PI / (float) encoderDivides + zeroPosition;
+                            lastAngle += _2PI / (float) encoderDivides;
+                        } else {
+                            motor->target = lastAngle + zeroPosition;
+                        }
+                    } else if (angDiff < 0) {
+                        if (angDiff < -_PI / (float) encoderDivides) {
+                            motor->target -= _2PI / (float) encoderDivides + zeroPosition;
+                            lastAngle -= _2PI / (float) encoderDivides;
+                        } else {
+                            motor->target = lastAngle + zeroPosition;
+                        }
+                    } else {
+                        motor->target = lastAngle + zeroPosition;
+                    }
+
+                    break;
+                }
+            }
+        }
+            break;
         case MODE_DISABLE:
         case MODE_SPRING:
         case MODE_SPIN:
@@ -318,9 +516,16 @@ float KnobSimulator::GetVelocity() {
     return motor->GetEstimateVelocity();
 }
 
+float KnobSimulator::GetZeroPosition() {
+    return zeroPosition;
+}
 
 int KnobSimulator::GetEncoderModePos() {
     return std::lround(GetPosition() / (_2PI / (float) encoderDivides));
+}
+
+int KnobSimulator::GetEncoderDivides() {
+    return encoderDivides;
 }
 
 void KnobSimulator::SetEncoderModePos(int EncoderDivides) {

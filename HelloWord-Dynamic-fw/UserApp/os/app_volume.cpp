@@ -45,8 +45,8 @@ void AppVolume::Init() {
 
 // 进入事件
 void AppVolume::In() {
-    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(18);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
     ReView();
 };
 

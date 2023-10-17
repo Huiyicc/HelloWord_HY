@@ -7,6 +7,7 @@
 #include "os/app_light.hpp"
 #include "os/app_windows.hpp"
 #include "os/app_leftright.hpp"
+#include "os/app_hid.hpp"
 #include "os/ctrl.hpp"
 #include "os/sleep.hpp"
 #include "os/ButtonPin.hpp"
@@ -95,6 +96,7 @@ void InitOs() {
     regApp<AppUpDown>();
     regApp<AppLight>();
     regApp<AppLeftRight>();
+    regApp<AppHID>();
     // 此处初始化所有APP
     for (auto &iter: g_sysCtx->Apps.AppsMap) {
         iter.second->Init();

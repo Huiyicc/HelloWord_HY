@@ -78,6 +78,7 @@ public:
     void AttachEncoder(EncoderBase* _encoder);
     void AttachCurrentSense(CurrentSenseBase* _currentSense);
     void SetEnable(bool _enable);
+    bool GetEnable();
     float GetEstimateAngle();
     float GetEstimateVelocity();
     float GetElectricalAngle();

@@ -15,6 +15,8 @@ public:
         MODE_INERTIA,
         // 编码器模式
         MODE_ENCODER,
+        // 荆轮编码器模式
+        MODE_JINLUNENCODER,
         // 弹簧模式
         MODE_SPRING,
         // 阻尼模式
@@ -22,7 +24,9 @@ public:
         // 拨杆模式
         MODE_PADDLE,
         // 旋转模式
-        MODE_SPIN
+        MODE_SPIN,
+        // 智能模式
+        MODE_INTELLIGENT,
     };
 
     void Init(Motor *_motor);
@@ -43,6 +47,8 @@ public:
 
     int GetEncoderModePos();
 
+    int GetEncoderDivides();
+    float GetZeroPosition();
     void SetEncoderModePos(int encoderDivides);
 
     Mode_t GetMode();
@@ -58,6 +64,7 @@ public:
     float filterateVelocityMax = 0.7;
     float encoderDistance = 0;
     float encoderPosition = 0;
+    float lastEncoderPosition = 0;
 private:
     Motor *motor{};
     Mode_t mode = MODE_DISABLE;
@@ -65,12 +72,13 @@ private:
     float zeroPosition = 0;
     float limitPositionMax = 5.1;
     float limitPositionMin = 3.3;
-    int encoderDivides = 5;
-    float lastAngle=0;
-    float lastVelocity=0;
+    int encoderDivides = 10;
+    float lastAngle = 0;
+    float lastVelocity = 0;
     float maxVelocity = 0;
 
     bool reset = false;
+    bool pStatus = false;
 };
 
 #endif //HELLOWORD_DYNAMIC_FW_KNOB_H

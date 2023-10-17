@@ -43,7 +43,8 @@ void AppUpDown::Init() {
 
 // 进入事件
 void AppUpDown::In() {
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
     ReView();
 };
 
