@@ -31,17 +31,27 @@ void appLightKNobCallback(KnobStatus *status) {
     if (g_sysCtx->Apps.Status != APPID_LIGHT) {
         return;
     }
-    if (lastAgent == 0) { lastAgent=status->Angle;return; }
-    auto _this = ((AppLight *) (g_sysCtx->Apps.AppsMap[APPID_LIGHT]));
-    auto ffa = status->Angle - lastAgent;
-    if (fabs(ffa) > 14) {
-        if (status->Angle > lastAgent) {
-            _this->LightUP();
-        } else {
-            _this->LightDOWN();
-        }
-        lastAgent = status->Angle;
-    }
+	auto x = status->PositionRaw - status->LastPositionRaw;
+	if (fabs(x) < 0.1) {
+		return;
+	}
+	auto _this = ((AppLight *) (g_sysCtx->Apps.AppsMap[APPID_LIGHT]));
+	if (status->Position > status->LastPosition) {
+		_this->LightUP();
+	} else {
+		_this->LightDOWN();
+	}
+//    if (lastAgent == 0) { lastAgent=status->Angle;return; }
+//    auto _this = ((AppLight *) (g_sysCtx->Apps.AppsMap[APPID_LIGHT]));
+//    auto ffa = status->Angle - lastAgent;
+//    if (fabs(ffa) > 14) {
+//        if (status->Angle > lastAgent) {
+//            _this->LightUP();
+//        } else {
+//            _this->LightDOWN();
+//        }
+//        lastAgent = status->Angle;
+//    }
 }
 
 // 全局注册后只会调用一次,用于初始化,自行处理静态数据
@@ -53,8 +63,8 @@ void AppLight::Init() {
 // 进入事件
 void AppLight::In() {
     InitLastAgent();
-    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(18);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_ENCODER);
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
     ReView();
 };
 

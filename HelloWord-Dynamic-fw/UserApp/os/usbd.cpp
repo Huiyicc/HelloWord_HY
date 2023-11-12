@@ -13,7 +13,7 @@
 #include "usb_device.h"
 #include "cmsis_os.h"
 #include "os_define.hpp"
-#include "eink_290_bw.h"
+//#include "eink_290_bw.h"
 #include "app_desktop.hpp"
 
 unsigned char USB_Recive_Buffer[65]; //USB接收缓存

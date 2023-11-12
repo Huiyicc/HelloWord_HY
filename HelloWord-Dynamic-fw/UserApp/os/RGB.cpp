@@ -42,8 +42,9 @@ void ThreadRGBUpdate(void *argument) {
     RGB::Color_t color = {0};
     if (GetSleepStatus()) {
         //rgb.SetLights(0);
-        for (uint8_t i = 0; i < RGB::LED_NUMBER; i++)
+        for (uint8_t i = 0; i < RGB::LED_NUMBER; i++){
             rgb.SetRgbBuffer(i, color, 0.2);
+        }
         rgb.SyncLights();
         return;
     }
@@ -53,13 +54,12 @@ void ThreadRGBUpdate(void *argument) {
         rgbRanges(2);
     }
     color = RGB::Color_t{rgbStatus[0].n, rgbStatus[1].n, rgbStatus[2].n};
-    for (uint8_t i = 0; i < RGB::LED_NUMBER; i++)
+    for (uint8_t i = 0; i < RGB::LED_NUMBER; i++){
         rgb.SetRgbBuffer(i, color, 0.4);
+    }
+
     rgb.SyncLights();
-//    for (;;) {
-//
-//
-//    }
+
 }
 
 void RGBTask() {

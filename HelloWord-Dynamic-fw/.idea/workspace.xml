@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="更新README">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="- 优化稳定性&#10;- 墨水屏增加实验性局刷">
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/HW-Tools.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/QtSettings.xml" afterDir="false" />
@@ -31,26 +31,30 @@
       <change afterPath="$PROJECT_DIR$/../HW-Tools/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/CMakeLists.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HW-Tools/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/os/app_hid.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../HelloWord-Keyboard-fw/.idea/HelloWord-Keyboard-fw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/motor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/motor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/motor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/motor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/RGB.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/RGB.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/apps.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/apps.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/screen.psd" beforeDir="false" afterPath="$PROJECT_DIR$/assets/screen.psd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font/hwd_hy.map" beforeDir="false" afterPath="$PROJECT_DIR$/font/hwd_hy.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font/hwd_hy.sfd" beforeDir="false" afterPath="$PROJECT_DIR$/font/hwd_hy.sfd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/font/hwd_hy_U32.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/font/hwd_hy_U40.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/bdf.tga" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/bdf.tga" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/font.bat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/font.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,6 +314,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\19254\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="" />
@@ -409,7 +416,28 @@
       <workItem from="1697266875654" duration="262000" />
       <workItem from="1697379993408" duration="105000" />
       <workItem from="1697380106882" duration="2011000" />
-      <workItem from="1697431137430" duration="4787000" />
+      <workItem from="1697431137430" duration="9205000" />
+      <workItem from="1697556193446" duration="511000" />
+      <workItem from="1697712760059" duration="13000" />
+      <workItem from="1697891016566" duration="49000" />
+      <workItem from="1697948900633" duration="28554000" />
+      <workItem from="1698214373711" duration="883000" />
+      <workItem from="1698243899351" duration="4452000" />
+      <workItem from="1698467690026" duration="336000" />
+      <workItem from="1698505999055" duration="384000" />
+      <workItem from="1698589010935" duration="415000" />
+      <workItem from="1698644720314" duration="1289000" />
+      <workItem from="1698665143454" duration="14000" />
+      <workItem from="1699100307471" duration="132000" />
+      <workItem from="1699105132339" duration="655000" />
+      <workItem from="1699279168078" duration="363000" />
+      <workItem from="1699285517526" duration="15000" />
+      <workItem from="1699358995052" duration="98000" />
+      <workItem from="1699359103479" duration="36000" />
+      <workItem from="1699362795349" duration="1085000" />
+      <workItem from="1699455849737" duration="1141000" />
+      <workItem from="1699794902616" duration="3702000" />
+      <workItem from="1699806114404" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -547,7 +575,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696782969401</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="- 修复部分bug  &#10;- 电机增加智能模式">
+      <option name="closed" value="true" />
+      <created>1697543372321</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1697543372321</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +622,9 @@
     <MESSAGE value="更新部分脚本与资源文件" />
     <MESSAGE value="调整UART配置(未完成)" />
     <MESSAGE value="更新README" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新README" />
+    <MESSAGE value="- 修复部分bug  &#10;- 电机增加智能模式" />
+    <MESSAGE value="- 优化稳定性&#10;- 墨水屏增加实验性局刷" />
+    <option name="LAST_COMMIT_MESSAGE" value="- 优化稳定性&#10;- 墨水屏增加实验性局刷" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -610,6 +648,7 @@
         <watch expression="USB_Recive_Buffer" language="ObjectiveC" />
         <watch expression="USB_Recive_Tmp_Buffer" />
         <watch expression="msg" />
+        <watch expression="g_sysCtx" />
       </configuration>
     </watches-manager>
   </component>

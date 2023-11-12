@@ -341,7 +341,7 @@ void KnobSimulator::Tick() {
             float limitVelocity = 0.1f;
             auto v = GetVelocity();
             auto fv = fabs(v);
-            if ((fv > 4 || pStatus) && fv > limitVelocity) {
+            if ((fv > 3 || pStatus) && fv > limitVelocity) {
                 reset=false;
                 motor->config.controlMode = Motor::VELOCITY;
                 if (!pStatus) {

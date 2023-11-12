@@ -63,25 +63,32 @@ void KNobCallback(KnobStatus *status) {
 void AppDesktop::Init() {
     // 不要小于3个,虽然做了处理,但是没测试,会有bug
     m_menuNum = 6;
+    char i =0;
     m_menuList = (desktopCallType *) pvPortMalloc(sizeof(desktopCallType) * m_menuNum);
-    m_menuList[0] = desktopCallType{"音量",
+    m_menuList[i] = desktopCallType{"音量",
                                     "0",
                                     APPID_VOLUME};
-    m_menuList[1] = desktopCallType{"滚动",
+    i++;
+    m_menuList[i] = desktopCallType{"滚动",
                                     "3",
                                     APPID_UPDOWN};
-    m_menuList[2] = desktopCallType{"亮度",
+    i++;
+    m_menuList[i] = desktopCallType{"亮度",
                                     "1",
                                     APPID_LIGHT};
-    m_menuList[3] = desktopCallType{"视窗",
+	i++;
+    m_menuList[i] = desktopCallType{"视窗",
                                     "4",
                                     APPID_WINDOW};
-    m_menuList[4] = desktopCallType{"滑动",
+    i++;
+    m_menuList[i] = desktopCallType{"滑动",
                                     "2",
                                     APPID_LEFTRIGHT};
-    m_menuList[5] = desktopCallType{"APP",
+    i++;
+    m_menuList[i] = desktopCallType{"APP",
                                     "5",
                                     APPID_HID};
+    i++;
     RegisterKNobCallback(KNobCallback);
     RegisterButtonPinCall(appDesktopButtonPinCallback);
 

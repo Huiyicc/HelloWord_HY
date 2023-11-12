@@ -40,14 +40,21 @@ public:
     void DeepSleep();
     void DrawBitmap(const unsigned char* datas);
 
-    //static uint8_t* buffer;
+    void SetFrameMemory(const unsigned char* image_buffer,int x,int y,int image_width,int image_height);
+    void HalLcd_Partial_Update(void);
+    void ClearFrameMemory(unsigned char color);
 
-
+    void demo();
 private:
     void SendCommand(unsigned char command);
     void SendData(unsigned char data);
     void WaitUntilIdle();
     void SpiTransfer(unsigned char data);
+    void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
+    void SetMemoryPointer(int x, int y);
+    void SetLut(const unsigned char *lut,int size);
+
+    const unsigned char* lut;
 };
 
 

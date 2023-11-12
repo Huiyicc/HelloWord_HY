@@ -20,7 +20,7 @@ private:
     unsigned char m_status=0; // 0:正常 1:上移 2:下移
     unsigned char m_menuIndex = 0;
     //std::vector<desktopCallType> *m_menuList;
-    unsigned char m_menuNum = 4;
+    unsigned char m_menuNum = 0;
     desktopCallType* m_menuList= nullptr;
     unsigned char m_dividesNum = 10;
 

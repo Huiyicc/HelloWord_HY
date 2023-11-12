@@ -40,11 +40,27 @@
   - [ ] 三色屏
 - [ ] 修复UART(由于更换了HID通信模式,导致UART通信要重设,还在解决内存溢出的问题)
 
+# 自定义图标字库
+- 首先安装 [fontforge](https://github.com/fontforge/fontforge)
+> fontforge 汉化方法:  
+> - 进入fontforge安装目录,编辑fontforge.bat  
+> - 找到set LANGUAGE=en,删除前面的::  
+> - 修改为set LANGUAGE=zh_CN  
+> - 保存
+
+- 使用fontforge打开`hwd_hy.sfd`
+- 导出ttf
+- 打开guitool,使用刚刚的ttf导出bpf文件(像素设置24,导出00-FF字符)
+- 制作导出map
+- 命令行进入scripts文件夹
+- `"./u8g2/tools/font/bdfconv/bdfconv.exe"  -v -b 0 -f 1 <bdf文件>  -M "../font/hwd_hy.map" -n hwd_hy_U24 -o  -o "../font/hwd_hy_U24.c" -d <bdf文件>`
+
 # 相关链接
 
 ---
 
-[peng-zhihui/HelloWord-Keyboard](https://github.com/peng-zhihui/HelloWord-Keyboard)
+- [peng-zhihui/HelloWord-Keyboard](https://github.com/peng-zhihui/HelloWord-Keyboard)  
+- [fontforge](https://github.com/fontforge/fontforge)
 
 # 协议
 

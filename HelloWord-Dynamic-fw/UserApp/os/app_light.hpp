@@ -4,14 +4,17 @@
 
 #ifndef HELLOWORD_DYNAMIC_FW_APPLIGHT_HPP
 #define HELLOWORD_DYNAMIC_FW_APPLIGHT_HPP
+
 #include "apps.hpp"
 
-class AppLight: public AppBase {
+class AppLight : public AppBase {
 private:
     void drawA();
 
 public:
-    AppLight() { AppID = APPID_LIGHT; }
+    AppLight() {
+        AppID = APPID_LIGHT;
+    }
 
     // 全局注册后只会调用一次,用于初始化,自行处理静态数据
     void Init() override;
@@ -26,6 +29,7 @@ public:
     void Out() override;
 
     void LightUP();
+
     void LightDOWN();
 };
 

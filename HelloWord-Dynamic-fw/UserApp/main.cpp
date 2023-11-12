@@ -32,6 +32,8 @@ void regApp() {
 
 void helloWord() {
     g_sysCtx->Device.eink->Init();
+    g_sysCtx->Device.eink->demo();
+
     //g_sysCtx->Device.eink->DeepSleep();
     CtrlInit();
     ButtonPinInit();
@@ -55,7 +57,6 @@ void helloWord() {
 }
 
 void InitOs() {
-    // InitCommunication();
     //初始化所有设备
     g_sysCtx = (SysContext *) pvPortMalloc(sizeof(SysContext));
     g_sysCtx = new(g_sysCtx) SysContext();

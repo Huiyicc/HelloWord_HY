@@ -210,6 +210,7 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
         /* USER CODE END 0 */
         0xC0,    /*     END_COLLECTION	             */
 
+        // 亮度,没啥卵用
         0x05, 0x0C,				/* Usage page (Consumer Control) */
         0x09, 0x01,				/* Usage (Consumer Control) */
         0xA1, 0x01,				/* Collection (Application) */
