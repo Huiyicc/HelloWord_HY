@@ -21,9 +21,6 @@ set(CMAKE_C_STANDARD 11)
 # for use printf & scanf with float
 set(COMMON_FLAGS "-specs=nosys.specs -specs=nano.specs -u _printf_float -u _scanf_float")
 
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Os -Wall -s")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os -Wall -s")
-
 #Uncomment for hardware floating point
 add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
@@ -35,7 +32,6 @@ add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 add_compile_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti")
-
 
 # uncomment to mitigate c++17 absolute addresses warnings
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-register")
@@ -53,6 +49,31 @@ else ()
     message(STATUS "Minimal optimization, debug info included")
     add_compile_options(-Og -g)
 endif ()
+
+# 设置编译时间戳
+string(TIMESTAMP COMPILE_TIME %Y%m%d)
+set(build_time    ${COMPILE_TIME})
+message(STATUS "build time: ${build_time}")
+find_package(Git REQUIRED)
+# 设置GIT版本信息
+execute_process(
+        COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
+        OUTPUT_VARIABLE GIT_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+# 设置GIT分支信息
+execute_process(
+        COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+        OUTPUT_VARIABLE GIT_BRANCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+# 设置GIT HASH
+execute_process(
+        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+        OUTPUT_VARIABLE GIT_HASH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+configure_file("${CMAKE_SOURCE_DIR}/UserApp/build_info.h.in" "${CMAKE_SOURCE_DIR}/UserApp/build_info.h")
 
 include_directories(
         ./
@@ -101,26 +122,6 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 link_directories("Drivers/CMSIS/Lib")
 link_libraries("arm_cortexM4lf_math.a")
-
-find_package(Git REQUIRED)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
-        OUTPUT_VARIABLE GIT_VERSION
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
-        OUTPUT_VARIABLE GIT_BRANCH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-        OUTPUT_VARIABLE GIT_HASH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-add_definitions(-DGIT_VERSION="${GIT_VERSION}")
-add_definitions(-DGIT_HASH="${GIT_HASH}")
-add_definitions(-DGIT_BRANCH="${GIT_BRANCH}")
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 

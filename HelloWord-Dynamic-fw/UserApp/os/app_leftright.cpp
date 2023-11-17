@@ -6,6 +6,7 @@
 #include "ButtonPin.hpp"
 #include "ctrl.hpp"
 #include "SDK/usbproto.hpp"
+#include "storage.hpp"
 
 void appLeftRightButtonPinCallback(enum ButtonPinCallType type) {
     if (g_sysCtx->Apps.Status != APPID_LEFTRIGHT) {
@@ -27,9 +28,9 @@ void appLeftRightKNobCallback(KnobStatus *status) {
     auto ffa = status->Angle - lastAgent;
     if (fabs(ffa) > 10) {
         if (status->Angle > lastAgent) {
-            HYSDK::USB::SendKeyBoardCode(0,HYSDK::USB::KeyCode_t::LEFT_ARROW);
+            HYSDK::USB::SendKeyBoardCode(0, HYSDK::USB::KeyCode_t::LEFT_ARROW);
         } else {
-            HYSDK::USB::SendKeyBoardCode(0,HYSDK::USB::KeyCode_t::RIGHT_ARROW);
+            HYSDK::USB::SendKeyBoardCode(0, HYSDK::USB::KeyCode_t::RIGHT_ARROW);
         }
         lastAgent = status->Angle;
     }
@@ -44,8 +45,9 @@ void AppLeftRight::Init() {
 // 进入事件
 void AppLeftRight::In() {
     InitLastAgent();
-    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
+    auto& cfg = GetSysConfig()->apps;
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.LeftRight.EncodePos);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.LeftRight.Mode));
     ReView();
 };
 

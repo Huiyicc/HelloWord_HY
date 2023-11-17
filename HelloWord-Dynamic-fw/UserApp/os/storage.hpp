@@ -8,6 +8,7 @@
 
 // 初始化存储区域
 void InitStorage();
+// 获取配置
 SysConfig *GetSysConfig(bool update = false);
 
 #endif //STM32F4FLASH_STORAGE_H

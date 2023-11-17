@@ -46,6 +46,7 @@ double lastAgent = 0;
 //char knob_reenable = 0;
 
 void taskCtrlLoop(void *) {
+    OSDelaySleep();
     for (;;) {
         osDelay(50);
         if (!g_sysCtx->Device.ctrl.Action) {
@@ -76,8 +77,8 @@ void taskCtrlLoop(void *) {
             }
         }
         if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER
-        || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_JINLUNENCODER
-        || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_INTELLIGENT) {
+            || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_JINLUNENCODER
+            || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_INTELLIGENT) {
             knobStatus->LastEncoderPosition = lastEncodePosition;
             knobStatus->EncoderPosition = g_sysCtx->Device.ctrl.knob.encoderPosition;
             lastEncodePosition = knobStatus->EncoderPosition;

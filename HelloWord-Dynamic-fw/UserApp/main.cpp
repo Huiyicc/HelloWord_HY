@@ -1,5 +1,4 @@
 #include "common_inc.h"
-#include "stm32f4xx_hal.h"
 #include "os/apps.hpp"
 #include "os/app_desktop.hpp"
 #include "os/app_volume.hpp"
@@ -51,6 +50,7 @@ void helloWord() {
         OLED_DEVICES()->SetDrawColor(0);
         OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
         OLED_SEND_BUFFER();
+        exit(1);
     }
 
 
@@ -81,7 +81,7 @@ void InitOs() {
     g_sysCtx->Device.oled->SetDrawColor(0);
     g_sysCtx->Device.oled->DrawStr(6 + 3, 15, "HY");
     OLED_SEND_BUFFER();
-
+    osDelay(1500);
     // 初始化存储
     InitStorage();
 

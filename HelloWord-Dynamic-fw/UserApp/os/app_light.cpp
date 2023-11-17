@@ -9,6 +9,7 @@
 #include "usb_device.h"
 #include "usbd_customhid.h"
 #include "SDK/utils.hpp"
+#include "storage.hpp"
 
 
 void appLightButtonPinCallback(enum ButtonPinCallType type) {
@@ -63,8 +64,9 @@ void AppLight::Init() {
 // 进入事件
 void AppLight::In() {
     InitLastAgent();
-    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
+    auto& cfg = GetSysConfig()->apps;
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.Light.EncodePos);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.Light.Mode));
     ReView();
 };
 

@@ -7,6 +7,7 @@
 
 #include "os/app_base.hpp"
 #include <map>
+#include "build_info.h"
 #include "SDK/CList.hpp"
 #include "common_inc.h"
 #include "Platform/Sensor/Encoder/encoder.h"
@@ -52,7 +53,7 @@ struct KnobStatus {
 typedef void (*KnobCallback)(KnobStatus *status);
 
 struct SysDeviceCtrl {
-    bool Action= false;
+    bool Action = false;
     Encoder encoder = Encoder(&hspi1);
     Driver driver = Driver(12);
     Motor motor = Motor(7);
@@ -103,19 +104,52 @@ extern SysContext *g_sysCtx;
 // 系统调度事件
 typedef int(*SysCallFunc)(SysContext *ctx);
 
+// ========== config ==========
+
+// 注意:
+// 为了保证配置兼容,不允许调整成员顺序,不允许删除成员,只能增加成员
+// 增删配置成员请先考虑清楚
+
+// 电机配置
 struct KnobConfig {
     float zeroPosition = -3.7f;
 };
 
+// 设备配置
 struct DeviceConfig {
     KnobConfig knob;
 };
 
+// 应用电机反馈配置
+struct AppKnobConfig {
+    // 反馈模式
+    int Mode = KnobSimulator::Mode_t::MODE_INTELLIGENT;
+    // 编码器步数
+    int EncodePos = 12;
+    // 电机力矩限制
+    float TorqueLimit = 0.4f;
+};
+
+// app
+struct AppsConfig {
+    // 音量调节
+    AppKnobConfig Volume;
+    // 上下滚动
+    AppKnobConfig UpDown;
+    // 左右滚动
+    AppKnobConfig LeftRight;
+    // 亮度调节
+    AppKnobConfig Light;
+};
+
 struct SysConfig {
     DeviceConfig devices;
+    AppsConfig apps;
 };
 
 extern SysConfig g_SysConfig;
+
+// ========== config ==========
 
 #ifndef SLEEPID_BUTTONPIN
 #define SLEEPID_BUTTONPIN 1

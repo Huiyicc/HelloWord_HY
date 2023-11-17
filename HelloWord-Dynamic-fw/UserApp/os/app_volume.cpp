@@ -8,6 +8,7 @@
 #include "ctrl.hpp"
 #include "usb_device.h"
 #include "usbd_customhid.h"
+#include "storage.hpp"
 
 
 void appVolumeButtonPinCallback(enum ButtonPinCallType type){
@@ -45,8 +46,9 @@ void AppVolume::Init() {
 
 // 进入事件
 void AppVolume::In() {
-    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
+    auto& cfg = GetSysConfig()->apps;
+    g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.Volume.EncodePos);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.Volume.Mode));
     ReView();
 };
 

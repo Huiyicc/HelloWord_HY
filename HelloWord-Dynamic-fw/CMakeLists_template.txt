@@ -50,6 +50,31 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
+# 设置编译时间戳
+string(TIMESTAMP COMPILE_TIME %Y%m%d)
+set(build_time    ${COMPILE_TIME})
+message(STATUS "build time: ${build_time}")
+find_package(Git REQUIRED)
+# 设置GIT版本信息
+execute_process(
+        COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
+        OUTPUT_VARIABLE GIT_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+# 设置GIT分支信息
+execute_process(
+        COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+        OUTPUT_VARIABLE GIT_BRANCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+# 设置GIT HASH
+execute_process(
+        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+        OUTPUT_VARIABLE GIT_HASH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+configure_file("${CMAKE_SOURCE_DIR}/UserApp/build_info.h.in" "${CMAKE_SOURCE_DIR}/UserApp/build_info.h")
+
 include_directories(
         ./
         Core/Inc
@@ -96,26 +121,6 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 link_directories("Drivers/CMSIS/Lib")
 link_libraries("arm_cortexM4lf_math.a")
-
-find_package(Git REQUIRED)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
-        OUTPUT_VARIABLE GIT_VERSION
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
-        OUTPUT_VARIABLE GIT_BRANCH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-        OUTPUT_VARIABLE GIT_HASH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-add_definitions(-DGIT_VERSION="${GIT_VERSION}")
-add_definitions(-DGIT_HASH="${GIT_HASH}")
-add_definitions(-DGIT_BRANCH="${GIT_BRANCH}")
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 
