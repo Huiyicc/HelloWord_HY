@@ -14,8 +14,8 @@ enum MessageId {
   EINK_SET_IMAGE = 3;
   // 保留字段
   DEV_UTILS = 4;
-  // 设置电机信息
-  MOTOR_SET_CONFIG = 5;
+  // 获取/设置电机信息
+  MOTOR_CONFIG = 5;
 }
 
 // 扩展发来的消息
@@ -24,6 +24,7 @@ message CtrlMessage {
   oneof payload {
     Nil nil = 2;
     Version version = 3;
+    Knob knob = 4;
   }
 }
 
@@ -34,7 +35,7 @@ message PcMessage {
     Nil nil = 2;
     Utils utils = 3;
     Eink eink = 4;
-    knob knob = 5;
+    Knob knob = 5;
   }
 }
 
@@ -55,12 +56,46 @@ message Eink {
   required string bits = 2;
 }
 
-message knob {
-  required knobMessage id = 1;
-  required uint32 knobModel = 2;
-  required Utils utils = 3;
-  oneof payload {
-    knobPID pid = 4;
+// 电机消息ID
+enum KnobMessage {
+  // 获取App配置
+  GetAppConfig = 1;
+  // 设置App配置
+  SetAppConfig = 2;
+}
+
+// 设置字段
+enum SetAppType {
+  // 电机模式
+  KnobMode = 1;
+  // 力矩限制
+  TorqueLimit = 2;
+  // 步数
+  Step = 3;
+  // 速度限制
+  VelocityLimit = 4;
+}
+
+// 电机消息
+message Knob {
+  required KnobMessage id = 1;
+  required uint32 appid = 2;
+  required uint32 knobMode = 3;
+  // 力矩限制
+  required ConfigData torqueLimitConf = 4;
+  // 速度限制
+  required ConfigData velocityLimitConf = 5;
+  // 步数
+  required ConfigData stepConf = 6;
+  required SetAppType setAppType = 7;
+  // 参数值结构
+  message ConfigData {
+    // 值
+    required float value = 1;
+//    // 最小值
+//    required float min = 2;
+//    // 最大值
+//    required float max = 3;
   }
 }
 
@@ -70,10 +105,7 @@ message Utils {
   required float fData = 3;
 }
 
-enum knobMessage {
-  // 设置PID
-  SetPID = 1;
-}
+
 
 message knobPID {
   message Velocity {

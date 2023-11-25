@@ -58,6 +58,7 @@ public:
     void SetVelocityPID(float p, float i, float d);
 
     void SetTorqueLimit(float _val);
+    float GetTorqueLimit();
 
     float deviation = -3.7;
     float filterateMax = 0.04;
@@ -79,6 +80,8 @@ private:
 
     bool reset = false;
     bool pStatus = false;
+
+    float torqueLimit = 1.0;
 };
 
 #endif //HELLOWORD_DYNAMIC_FW_KNOB_H

@@ -3,7 +3,6 @@
 //
 #include <cstring>
 #include "storage.hpp"
-#include "storage_compatible.hpp"
 #include "stm32f4xx_hal.h"
 
 bool m_updateStatus = false;

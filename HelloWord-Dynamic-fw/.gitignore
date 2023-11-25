@@ -1,1 +1,4 @@
 cmake-build-*
+UserApp/protocols/hid_msg.pb.*
+test
+test/*

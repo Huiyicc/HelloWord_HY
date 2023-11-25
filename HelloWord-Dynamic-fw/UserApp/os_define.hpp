@@ -128,6 +128,8 @@ struct AppKnobConfig {
     int EncodePos = 12;
     // 电机力矩限制
     float TorqueLimit = 0.4f;
+    // 速度限制
+    float VelocityLimit = 3;
 };
 
 // app

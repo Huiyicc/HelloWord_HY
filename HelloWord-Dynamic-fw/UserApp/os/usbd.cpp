@@ -24,174 +24,288 @@ unsigned char oled_status = 0;
 extern bool hidApp;
 
 bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *arg) {
-    char *_str = (char *) *arg;
-    if (!pb_encode_tag_for_field(stream, field))
-        return false;
+  char *_str = (char *) *arg;
+  if (!pb_encode_tag_for_field(stream, field))
+    return false;
 
-    return pb_encode_string(stream, (uint8_t *) _str, strlen(_str));
+  return pb_encode_string(stream, (uint8_t *) _str, strlen(_str));
 }
 
 
 void HID_SendVersion() {
-    uint8_t lBuffer[65] = {0};
-    memset(lBuffer, 0, sizeof(lBuffer));
-    lBuffer[0] = 0x04;
-    lBuffer[1] = 0;
-    pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
-    hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
-    msg.id = hid_msg_MessageId_VERSION;
-    hid_msg_Version version = hid_msg_Version_init_default;
-    version.GitVer.funcs.encode = encode_string;
-    version.GitVer.arg = (void *) GIT_VERSION;
-    version.GitBranch.funcs.encode = encode_string;
-    version.GitBranch.arg = (void *) GIT_BRANCH;
-    version.GitHash.funcs.encode = encode_string;
-    version.GitHash.arg = (void *) GIT_HASH;
-    msg.which_payload = hid_msg_CtrlMessage_version_tag;
-    msg.payload.version = version;
-    auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
-    auto message_length = stream.bytes_written;
-    if (message_length > 62 || !status) {
-        // 数据错误
-        lBuffer[2] = 0;
-        osDelay(10);
-        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
-        return;
-    }
-    lBuffer[2] = message_length + 1;
-    osDelay(10);
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_VERSION;
+  hid_msg_Version version = hid_msg_Version_init_default;
+  version.GitVer.funcs.encode = encode_string;
+  version.GitVer.arg = (void *) GIT_VERSION;
+  version.GitBranch.funcs.encode = encode_string;
+  version.GitBranch.arg = (void *) GIT_BRANCH;
+  version.GitHash.funcs.encode = encode_string;
+  version.GitHash.arg = (void *) GIT_HASH;
+  msg.which_payload = hid_msg_CtrlMessage_version_tag;
+  msg.payload.version = version;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    osDelay(3);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+
+}
+
+void HID_SendAppConf(uint32_t appid) {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_MOTOR_CONFIG;
+  hid_msg_Knob knob = hid_msg_Knob_init_default;
+  knob.id = hid_msg_KnobMessage_GetAppConfig;
+  knob.appid = appid;
+  bool check = true;
+  switch (appid) {
+    case APPID_VOLUME:
+      knob.knobMode = g_SysConfig.apps.Volume.Mode;
+      knob.stepConf.value = g_SysConfig.apps.Volume.EncodePos;
+      knob.torqueLimitConf.value = g_SysConfig.apps.Volume.TorqueLimit;
+      knob.velocityLimitConf.value = g_SysConfig.apps.Volume.VelocityLimit;
+      break;
+
+    case APPID_UPDOWN:
+      knob.knobMode = g_SysConfig.apps.UpDown.Mode;
+      knob.stepConf.value = g_SysConfig.apps.UpDown.EncodePos;
+      knob.torqueLimitConf.value = g_SysConfig.apps.UpDown.TorqueLimit;
+      knob.velocityLimitConf.value = g_SysConfig.apps.UpDown.VelocityLimit;
+      break;
+
+    case APPID_LIGHT:
+      knob.knobMode = g_SysConfig.apps.Light.Mode;
+      knob.stepConf.value = g_SysConfig.apps.Light.EncodePos;
+      knob.torqueLimitConf.value = g_SysConfig.apps.Light.TorqueLimit;
+      knob.velocityLimitConf.value = g_SysConfig.apps.Light.VelocityLimit;
+      break;
+
+    case APPID_LEFTRIGHT:
+      knob.knobMode = g_SysConfig.apps.LeftRight.Mode;
+      knob.stepConf.value = g_SysConfig.apps.LeftRight.EncodePos;
+      knob.torqueLimitConf.value = g_SysConfig.apps.LeftRight.TorqueLimit;
+      knob.velocityLimitConf.value = g_SysConfig.apps.LeftRight.VelocityLimit;
+      break;
+
+    default:
+      check = false;
+      break;
+  }
+//  knob.stepConf.max = 36;
+//  knob.stepConf.min = 5;
+//  knob.torqueLimitConf.max = 3.5f;
+//  knob.torqueLimitConf.min = 0.1f;
+//  knob.velocityLimitConf.min = 0.4f;
+//  knob.velocityLimitConf.max = 5;
+
+  if (!check) {
+    // appid不存在
+    return;
+  }
+  msg.which_payload = hid_msg_CtrlMessage_knob_tag;
+  msg.payload.knob = knob;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    osDelay(3);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+
+}
+
+// 设置APP配置
+void HID_SetAppConf(const _hid_msg_Knob*conf) {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  switch (conf->appid) {
+    case APPID_VOLUME:
+      switch (conf->setAppType) {
+        case _hid_msg_SetAppType::hid_msg_SetAppType_KnobMode:
+          g_SysConfig.apps.Volume.Mode = conf->knobMode;
+          g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(conf->knobMode));
+          break;
+      }
+      break;
+
+    case APPID_UPDOWN:
+      g_SysConfig.apps.UpDown.Mode = conf->knobMode;
+      g_SysConfig.apps.UpDown.EncodePos = conf->stepConf.value;
+      g_SysConfig.apps.UpDown.TorqueLimit = conf->torqueLimitConf.value;
+      g_SysConfig.apps.UpDown.VelocityLimit = conf->velocityLimitConf.value;
+      break;
+
+    case APPID_LIGHT:
+      g_SysConfig.apps.Light.Mode = conf->knobMode;
+      g_SysConfig.apps.Light.EncodePos = conf->stepConf.value;
+      g_SysConfig.apps.Light.TorqueLimit = conf->torqueLimitConf.value;
+      g_SysConfig.apps.Light.VelocityLimit = conf->velocityLimitConf.value;
+      break;
+
+    case APPID_LEFTRIGHT:
+      g_SysConfig.apps.LeftRight.Mode = conf->knobMode;
+      g_SysConfig.apps.LeftRight.EncodePos = conf->stepConf.value;
+      g_SysConfig.apps.LeftRight.TorqueLimit = conf->torqueLimitConf.value;
+      g_SysConfig.apps.LeftRight.VelocityLimit = conf->velocityLimitConf.value;
+      break;
+
+    default:
+      osDelay(2);
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      return;
+  }
+  // 成功标志
+  lBuffer[1] = 0x01;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 
 }
 
 
 void Usb_DataEvent() {
-    // 通信帧首字节为报告id,第二字节为完整性(0为完整,1为单次不够放入),第三字节为数据长度
-    if (USB_Recive_Buffer[0] != 0x04) {
-        // 无效的报告ID
-        memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
-        return;
+  // 通信帧首字节为报告id,第二字节为完整性(0为完整,1为单次不够放入),第三字节为数据长度
+  if (USB_Recive_Buffer[0] != 0x04) {
+    // 无效的报告ID
+    memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
+    return;
+  }
+  // 数据处理
+  if (USB_Recive_Buffer[2] > 64) {
+    // 数据长度错误
+    memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
+    return;
+  }
+  if (USB_Recive_Buffer[1] == 1) {
+    // 拼接数据
+    memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+    rec_offset += USB_Recive_Buffer[2] - 1;
+    eink_status = 0;
+    return;
+  } else if (USB_Recive_Buffer[1] == 2) {
+    // 图像模式
+    // 拼接数据
+    memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+    rec_offset += USB_Recive_Buffer[2] - 1;
+    eink_status = 1;
+    return;
+  } else if (USB_Recive_Buffer[1] == 3) {
+    // OLED模式
+    // 拼接数据
+    memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+    rec_offset += USB_Recive_Buffer[2] - 1;
+    oled_status = 1;
+    return;
+  }
+  if (USB_Recive_Buffer[1] == 0 && rec_offset != 0) {
+    // 上一次数据未处理完
+    memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
+    rec_offset += USB_Recive_Buffer[2] - 1;
+  }
+  // 初始化解包上下文
+  pb_istream_t stream;
+  //stream.callback = de_callback;
+  if (rec_offset == 0) {
+    stream = pb_istream_from_buffer(&USB_Recive_Buffer[3], size_t(USB_Recive_Buffer[2] - 1));
+    eink_status = 0;
+    oled_status = 0;
+  } else if (rec_offset != 0 && USB_Recive_Buffer[1] == 0 && eink_status != 1 && oled_status != 1) {
+    stream = pb_istream_from_buffer(USB_Recive_Tmp_Buffer, size_t(rec_offset));
+    rec_offset = 0;
+  } else if (eink_status == 1) {
+    eink_status = 0;
+    int maxsize = (EPD_HEIGHT * EPD_WIDTH / 8);
+    if (rec_offset != maxsize) {
+      rec_offset = 0;
+      return;
     }
-    // 数据处理
-    if (USB_Recive_Buffer[2] > 64) {
-        // 数据长度错误
-        memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
-        return;
+    rec_offset = 0;
+    g_sysCtx->Device.eink->DrawBitmap(USB_Recive_Tmp_Buffer);
+    g_sysCtx->Device.eink->Update();
+    uint8_t lBuffer[65] = {0};
+    memset(lBuffer, 0, sizeof(lBuffer));
+    lBuffer[0] = 0x04;
+    lBuffer[1] = 0x02;
+    lBuffer[2] = 0x02;
+    lBuffer[3] = 0x02;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+    return;
+  } else if (oled_status == 1) {
+    if (!hidApp) {
+      return;
     }
-    if (USB_Recive_Buffer[1] == 1) {
-        // 拼接数据
-        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
-        rec_offset += USB_Recive_Buffer[2] - 1;
-        eink_status = 0;
-        return;
-    } else if (USB_Recive_Buffer[1] == 2) {
-        // 图像模式
-        // 拼接数据
-        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
-        rec_offset += USB_Recive_Buffer[2] - 1;
-        eink_status = 1;
-        return;
-    } else if (USB_Recive_Buffer[1] == 3) {
-        // OLED模式
-        // 拼接数据
-        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
-        rec_offset += USB_Recive_Buffer[2] - 1;
-        oled_status = 1;
-        return;
-    }
-    if (USB_Recive_Buffer[1] == 0 && rec_offset != 0) {
-        // 上一次数据未处理完
-        memcpy(USB_Recive_Tmp_Buffer + rec_offset, USB_Recive_Buffer + 3, USB_Recive_Buffer[2] - 1);
-        rec_offset += USB_Recive_Buffer[2] - 1;
-    }
-    // 初始化解包上下文
-    pb_istream_t stream;
-    //stream.callback = de_callback;
-    if (rec_offset == 0) {
-        stream = pb_istream_from_buffer(&USB_Recive_Buffer[3], size_t(USB_Recive_Buffer[2] - 1));
-        eink_status = 0;
-        oled_status = 0;
-    } else if (rec_offset != 0 && USB_Recive_Buffer[1] == 0 && eink_status != 1 && oled_status != 1) {
-        stream = pb_istream_from_buffer(USB_Recive_Tmp_Buffer, size_t(rec_offset));
-        rec_offset = 0;
-    } else if (eink_status == 1) {
-        eink_status = 0;
-        int maxsize = (EPD_HEIGHT * EPD_WIDTH / 8);
-        if (rec_offset != maxsize) {
-            rec_offset = 0;
-            return;
-        }
-        rec_offset = 0;
-        g_sysCtx->Device.eink->DrawBitmap(USB_Recive_Tmp_Buffer);
-        g_sysCtx->Device.eink->Update();
-        uint8_t lBuffer[65] = {0};
-        memset(lBuffer, 0, sizeof(lBuffer));
-        lBuffer[0] = 0x04;
-        lBuffer[1] = 0x02;
-        lBuffer[2] = 0x02;
-        lBuffer[3] = 0x02;
-        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
-        return;
-    } else if (oled_status == 1) {
-        if (!hidApp) {
-            return;
-        }
-        oled_status = 0;
-        rec_offset = 0;
-        // 32*128 = 4096
-        // 4096/8 = 512
-        OLED_CLEAR_BUFFER();
-        OLED_DEVICES()->DrawXBM(0,0,32,128,USB_Recive_Tmp_Buffer);
-        OLED_SEND_BUFFER();
-        uint8_t lBuffer[65] = {0};
-        memset(lBuffer, 0, sizeof(lBuffer));
-        lBuffer[0] = 0x04;
-        lBuffer[1] = 0x02;
-        lBuffer[2] = 0x02;
-        lBuffer[3] = 0x02;
-        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
-        return;
-    } else {
-        return;
-    }
+    oled_status = 0;
+    rec_offset = 0;
+    // 32*128 = 4096
+    // 4096/8 = 512
+    OLED_CLEAR_BUFFER();
+    OLED_DEVICES()->DrawXBM(0, 0, 32, 128, USB_Recive_Tmp_Buffer);
+    OLED_SEND_BUFFER();
+    uint8_t lBuffer[65] = {0};
+    memset(lBuffer, 0, sizeof(lBuffer));
+    lBuffer[0] = 0x04;
+    lBuffer[1] = 0x02;
+    lBuffer[2] = 0x02;
+    lBuffer[3] = 0x02;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+    return;
+  } else {
+    return;
+  }
 
-    hid_msg_PcMessage msg;
-    pb_decode(&stream, hid_msg_PcMessage_fields, &msg);
-    switch (msg.id) {
-        case hid_msg_MessageId_VERSION: {
-            //回报版本号
-            HID_SendVersion();
-        }
-            break;
-        case hid_msg_MessageId_MOTOR_SET_CONFIG: {
-            switch (msg.payload.knob.id) {
-                default:
-                    break;
-                case hid_msg_knobMessage_SetPID: {
-                    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(msg.payload.knob.knobModel));
-                    //g_sysCtx->Device.ctrl.knob.SetTorqueLimit(msg.payload.knob.utils.fData);
-                    g_sysCtx->Device.ctrl.knob.SetAnglePID(msg.payload.knob.payload.pid.angle.p,
-                                                           msg.payload.knob.payload.pid.angle.i,
-                                                           msg.payload.knob.payload.pid.angle.d);
-                    g_sysCtx->Device.ctrl.knob.SetVelocityPID(msg.payload.knob.payload.pid.velocity.p,
-                                                              msg.payload.knob.payload.pid.velocity.i,
-                                                              msg.payload.knob.payload.pid.velocity.d);
-                }
-                    break;
-            }
-
-        }
-            break;
-        case hid_msg_MessageId_DEV_UTILS:
-            // 1：设置菜单动画
-            if (msg.payload.utils.id == 1) {
-                auto app = (AppDesktop *) g_sysCtx->Apps.AppsMap[APPID_DESKTOP];
-                app->EasingType = msg.payload.utils.uData;
-            }
-        default:
-            memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
-            break;
+  hid_msg_PcMessage msg;
+  pb_decode(&stream, hid_msg_PcMessage_fields, &msg);
+  switch (msg.id) {
+    case hid_msg_MessageId_VERSION: {
+      //回报版本号
+      HID_SendVersion();
     }
+      break;
+    case hid_msg_MessageId_MOTOR_CONFIG : {
+      switch (msg.payload.knob.id) {
+        case hid_msg_KnobMessage_GetAppConfig:
+          // 获取APP配置
+          HID_SendAppConf(msg.payload.knob.appid);
+          break;
+        case hid_msg_KnobMessage_SetAppConfig:
+          // 设置APP配置
+          HID_SetAppConf(&msg.payload.knob);
+          break;
+      }
+    }
+      break;
+    case hid_msg_MessageId_DEV_UTILS:
+      // 1：设置菜单动画
+      if (msg.payload.utils.id == 1) {
+        auto app = (AppDesktop *) g_sysCtx->Apps.AppsMap[APPID_DESKTOP];
+        app->EasingType = msg.payload.utils.uData;
+      }
+    default:
+      memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
+      break;
+  }
 
 
 }
