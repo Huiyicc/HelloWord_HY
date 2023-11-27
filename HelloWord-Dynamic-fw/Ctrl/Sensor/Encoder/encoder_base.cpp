@@ -20,7 +20,7 @@ void EncoderBase::Update() {
 
 
 float EncoderBase::GetVelocity() {
-
+  angleTimestamp = micros();
   float time = (float) (angleTimestamp - velocityTimestamp) * 1e-6f;
   // Quick fix for strange cases (micros overflow)
   if (time <= 0) time = 1e-3f;

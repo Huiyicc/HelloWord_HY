@@ -66,7 +66,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_INERTIA: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(3);
+      motor->SetTorqueLimit(1.2);
       motor->config.controlMode = Motor::VELOCITY;
       motor->config.pidVelocity.p = 3;
       motor->config.pidVelocity.i = 0;
