@@ -66,14 +66,14 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_INERTIA: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(1.5);
+      motor->SetTorqueLimit(3);
       motor->config.controlMode = Motor::VELOCITY;
-      motor->config.pidVelocity.p = 0.3;
-      motor->config.pidVelocity.i = 0.0;
-      motor->config.pidVelocity.d = 0.0;
-      motor->config.pidAngle.p = 20;
+      motor->config.pidVelocity.p = 3;
+      motor->config.pidVelocity.i = 0;
+      motor->config.pidVelocity.d = 0;
+      motor->config.pidAngle.p = 60;
       motor->config.pidAngle.i = 0;
-      motor->config.pidAngle.d = 0.7;
+      motor->config.pidAngle.d = 3;
       motor->target = 0;
     }
       break;
@@ -176,6 +176,9 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
 void KnobSimulator::Tick() {
   switch (mode) {
     case MODE_INERTIA: {
+      motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+
+
       float v = GetVelocity();
       float a = v - lastVelocity;
       if (v == 0.0f) {
@@ -209,6 +212,7 @@ void KnobSimulator::Tick() {
         }
       }
       lastVelocity = motor->target;
+
     }
       break;
     case MODE_ENCODER: {

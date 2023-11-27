@@ -53,7 +53,6 @@ void helloWord() {
         exit(1);
     }
 
-
 }
 
 void InitOs() {

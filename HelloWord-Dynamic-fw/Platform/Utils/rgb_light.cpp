@@ -20,4 +20,5 @@ void RGB::SyncLights() {
     while (isRgbTxBusy);
     isRgbTxBusy = true;
     HAL_SPI_Transmit_DMA(&hspi3, wsCommit, 64);
+
 }
