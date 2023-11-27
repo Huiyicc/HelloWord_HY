@@ -24,7 +24,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="bug&#10;- 速度模式抖动">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="fix&#10;- 速度模式抖动(大概)">
       <change afterPath="$PROJECT_DIR$/test/stm32/.mxproject" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test/stm32/BSP/epd2in9.c" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test/stm32/BSP/epd2in9.h" afterDir="false" />
@@ -592,9 +592,11 @@
       <change afterPath="$PROJECT_DIR$/test/stm32/epd2in9-demo.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Utils/time_utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/time_utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1004,7 +1006,7 @@
       <workItem from="1701002950416" duration="4787000" />
       <workItem from="1701015309732" duration="1802000" />
       <workItem from="1701065522674" duration="9000" />
-      <workItem from="1701066575756" duration="10629000" />
+      <workItem from="1701066575756" duration="13307000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -1174,7 +1176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701079213249</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix&#10;- 速度模式抖动(大概)">
+      <option name="closed" value="true" />
+      <created>1701080249744</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1701080249744</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1217,7 +1227,8 @@
     <MESSAGE value="- 优化稳定性&#10;- 墨水屏增加实验性局刷" />
     <MESSAGE value="- 优化稳定性&#10;- 增加上位机通信&#10;bug&#10;- 速度模式抖动" />
     <MESSAGE value="bug&#10;- 速度模式抖动" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug&#10;- 速度模式抖动" />
+    <MESSAGE value="fix&#10;- 速度模式抖动(大概)" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix&#10;- 速度模式抖动(大概)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -181,7 +181,7 @@ void KnobSimulator::Tick() {
 
       float v = GetVelocity();
       float a = v - lastVelocity;
-      if (v == 0.0f) {
+      if (v == 0.0f || std::fabs(v) < filterateVelocityMax) {
         motor->target = 0.0f;
         maxVelocity = 0.0f;
       } else if (v > 0.0f) {
