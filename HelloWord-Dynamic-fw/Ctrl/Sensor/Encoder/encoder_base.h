@@ -5,11 +5,9 @@
 #include "stm32f4xx_hal.h"
 
 
-class EncoderBase
-{
+class EncoderBase {
 public:
-    enum Direction
-    {
+    enum Direction {
         CW = 1,
         CCW = -1,
         UNKNOWN = 0
@@ -17,17 +15,23 @@ public:
 
 
     virtual void Init() = 0;
+
     virtual void Update();
+
     virtual float GetLapAngle();
+
     virtual float GetFullAngle();
+
     virtual float GetVelocity();
+
     virtual int32_t GetRotationCount();
 
     Direction countDirection = Direction::UNKNOWN;
-
+    bool vel = false;
 
 protected:
     virtual void VarInit();
+
     virtual float GetRawAngle() = 0;
 
 

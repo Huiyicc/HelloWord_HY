@@ -46,7 +46,8 @@ void AppUpDown::Init() {
 void AppUpDown::In() {
     auto& cfg = GetSysConfig()->apps;
     g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.UpDown.EncodePos);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.UpDown.Mode));
+    // g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.UpDown.Mode));
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
     ReView();
 };
 

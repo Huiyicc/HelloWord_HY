@@ -68,7 +68,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       motor->SetEnable(true);
       motor->SetTorqueLimit(1.5);
       motor->config.controlMode = Motor::VELOCITY;
-      motor->config.pidVelocity.p = 0.3;
+      motor->config.pidVelocity.p = 0.5;
       motor->config.pidVelocity.i = 0.0;
       motor->config.pidVelocity.d = 0.0;
       motor->config.pidAngle.p = 20;
@@ -170,15 +170,22 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
     }
       break;
   }
+  motor->encoder->vel = (motor->config.controlMode == Motor::ControlMode_t::VELOCITY);
 }
 
 
 void KnobSimulator::Tick() {
   switch (mode) {
     case MODE_INERTIA: {
+      motor->config.pidVelocity.p = 0.5;
+      motor->config.pidVelocity.i = 0.0;
+      motor->config.pidVelocity.d = 0.0;
       float v = GetVelocity();
       float a = v - lastVelocity;
-      if (v == 0.0f) {
+      if (v == 0.0f || std::fabs(v) < filterateVelocityMax) {
+        motor->config.pidVelocity.p = 0.02;
+        motor->config.pidVelocity.i = 0.0;
+        motor->config.pidVelocity.d = 0.0;
         motor->target = 0.0f;
         maxVelocity = 0.0f;
       } else if (v > 0.0f) {
@@ -201,6 +208,9 @@ void KnobSimulator::Tick() {
         } else if (a > 2.0f) {
           motor->target += a;
           if (motor->target > -1.0f) {
+            motor->config.pidVelocity.p = 0.02;
+            motor->config.pidVelocity.i = 0.0;
+            motor->config.pidVelocity.d = 0.0;
             motor->target = 0.0f;
             maxVelocity = 0.0f;
           }
@@ -341,12 +351,12 @@ void KnobSimulator::Tick() {
       float limitVelocity = 0.1f;
       auto v = GetVelocity();
       auto fv = fabs(v);
-      if ((fv > 3 || pStatus) && fv > limitVelocity) {
+      if ((fv > triggerVelocityMax || pStatus) && fv > limitVelocity) {
         reset = false;
         motor->config.controlMode = Motor::VELOCITY;
         if (!pStatus) {
           pStatus = true;
-          motor->SetTorqueLimit(1.8);
+          motor->SetTorqueLimit(1.5);
           motor->config.pidVelocity.p = 0.5;
           motor->config.pidVelocity.i = 0.0;
           motor->config.pidVelocity.d = 0.0;
