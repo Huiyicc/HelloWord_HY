@@ -177,11 +177,16 @@ void KnobSimulator::Tick() {
   switch (mode) {
     case MODE_INERTIA: {
       motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
-
+      motor->config.pidVelocity.p = 3;
+      motor->config.pidVelocity.i = 0;
+      motor->config.pidVelocity.d = 0;
 
       float v = GetVelocity();
       float a = v - lastVelocity;
       if (v == 0.0f || std::fabs(v) < filterateVelocityMax) {
+        motor->config.pidVelocity.p = 0.02f;
+        motor->config.pidVelocity.i = 0;
+        motor->config.pidVelocity.d = 0;
         motor->target = 0.0f;
         maxVelocity = 0.0f;
       } else if (v > 0.0f) {

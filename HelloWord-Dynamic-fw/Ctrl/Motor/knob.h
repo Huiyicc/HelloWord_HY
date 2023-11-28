@@ -62,7 +62,7 @@ public:
 
     float deviation = -3.7;
     float filterateMax = 0.04;
-    float filterateVelocityMax = 0.05f;
+    float filterateVelocityMax = 0.1f;
     float encoderDistance = 0;
     float encoderPosition = 0;
     float lastEncoderPosition = 0;
