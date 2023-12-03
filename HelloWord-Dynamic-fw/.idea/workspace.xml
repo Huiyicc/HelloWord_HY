@@ -25,13 +25,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="暂存">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="fix:&#10;- 修复WS2812B频率与时序问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/spi.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/spi.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,11 +150,6 @@
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -437,7 +433,8 @@
       <workItem from="1701217468092" duration="448000" />
       <workItem from="1701218007388" duration="106000" />
       <workItem from="1701445811676" duration="670000" />
-      <workItem from="1701535852957" duration="26013000" />
+      <workItem from="1701535852957" duration="28727000" />
+      <workItem from="1701615383758" duration="3930000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -599,7 +596,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701605518934</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="fix:&#10;- 修复WS2812B频率与时序问题">
+      <option name="closed" value="true" />
+      <created>1701609239101</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1701609239101</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -652,7 +657,8 @@
     <MESSAGE value="- 优化稳定性&#10;- 墨水屏增加实验性局刷" />
     <MESSAGE value="- 优化稳定性&#10;- 增加上位机通信&#10;bug&#10;- 速度模式抖动" />
     <MESSAGE value="暂存" />
-    <option name="LAST_COMMIT_MESSAGE" value="暂存" />
+    <MESSAGE value="fix:&#10;- 修复WS2812B频率与时序问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:&#10;- 修复WS2812B频率与时序问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

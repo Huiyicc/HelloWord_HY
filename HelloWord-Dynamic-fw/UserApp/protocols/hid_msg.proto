@@ -16,6 +16,10 @@ enum MessageId {
   DEV_UTILS = 4;
   // 获取/设置电机信息
   MOTOR_CONFIG = 5;
+  // 获取系统设置
+  GET_SYS_CFG = 6;
+  // 修改系统设置
+  SET_SYS_CFG = 7;
 }
 
 // 扩展发来的消息
@@ -25,6 +29,7 @@ message CtrlMessage {
     Nil nil = 2;
     Version version = 3;
     Knob knob = 4;
+    SysCfg sys_cfg = 5;
   }
 }
 
@@ -36,6 +41,7 @@ message PcMessage {
     Utils utils = 3;
     Eink eink = 4;
     Knob knob = 5;
+    SysCfg sys_cfg = 6;
   }
 }
 
@@ -105,7 +111,10 @@ message Utils {
   required float fData = 3;
 }
 
-
+// 系统设置
+message SysCfg {
+  required uint32 SleepTime = 1;
+}
 
 message knobPID {
   message Velocity {

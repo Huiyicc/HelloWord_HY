@@ -191,6 +191,32 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
 
 }
 
+// 发送系统配置信息
+void HID_SendSysCong() {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_GET_SYS_CFG;
+  hid_msg_SysCfg conf = hid_msg_SysCfg_init_default;
+  conf.SleepTime = g_SysConfig.sys.SleepTime;
+  msg.which_payload = hid_msg_CtrlMessage_sys_cfg_tag;
+  msg.payload.sys_cfg = conf;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    osDelay(3);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+}
 
 void Usb_DataEvent() {
   // 通信帧首字节为报告id,第二字节为完整性(0为完整,1为单次不够放入),第三字节为数据长度
@@ -301,6 +327,10 @@ void Usb_DataEvent() {
           HID_SetAppConf(&msg.payload.knob);
           break;
       }
+    }
+      break;
+    case hid_msg_MessageId_GET_SYS_CFG: {
+      HID_SendSysCong();
     }
       break;
     case hid_msg_MessageId_DEV_UTILS:

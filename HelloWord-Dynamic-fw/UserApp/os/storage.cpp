@@ -9,7 +9,7 @@
 void Flash_SaveConfig();
 
 bool m_updateStatus = false;
-SysConfig g_SysConfig;
+OsConfig g_SysConfig;
 
 // 计时器
 int g_storage_tick = 0;
@@ -34,7 +34,7 @@ void StorageTask(TimerHandle_t t) {
   g_storage_tick++;
 };
 
-SysConfig *GetSysConfig(bool update) {
+OsConfig *GetSysConfig(bool update) {
   m_updateStatus = update;
   g_storage_tick = 0;
   return &g_SysConfig;
@@ -114,7 +114,7 @@ void Flash_SaveConfigShifting(uint32_t shifting) {
 
 void Flash_SaveConfig() {
   // 存储区标记地址
-  if ((ADDR_FLASH_SECTOR_11 + storageOffset + ((sizeof(SysConfig) + 6) * 2)) >
+  if ((ADDR_FLASH_SECTOR_11 + storageOffset + ((sizeof(OsConfig) + 6) * 2)) >
       ADDR_FLASH_SECTOR_11 + FLASH_SECTOR_SIZE) {
     // 超出区域
     // 重新刷写
@@ -124,16 +124,16 @@ void Flash_SaveConfig() {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR |
                            FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
     Flash_Clean(11);
-    uint32_t cLen = sizeof(SysConfig);
+    uint32_t cLen = sizeof(OsConfig);
     Flash_WriteUInt8(ADDR_FLASH_SECTOR_11, ((unsigned char *) &cLen)[0]);
     Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 1, ((unsigned char *) &cLen)[1]);
     Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 2, ((unsigned char *) &cLen)[2]);
     Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 3, ((unsigned char *) &cLen)[3]);
-    for (int i = 0; i < sizeof(SysConfig); ++i) {
+    for (int i = 0; i < sizeof(OsConfig); ++i) {
       Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + i, ((unsigned char *) &g_SysConfig)[i]);
     }
-    Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig), 0x68);
-    Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig) + 1, 0x79);
+    Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(OsConfig), 0x68);
+    Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(OsConfig) + 1, 0x79);
     HAL_FLASH_Lock();
   } else {
     Flash_SaveConfigShifting(storageOffset + sizeof(g_SysConfig) + 6);
@@ -142,7 +142,7 @@ void Flash_SaveConfig() {
                            FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
     // 写入数据
     auto lOffset = ADDR_FLASH_SECTOR_11 + storageOffset;
-    uint32_t cLen = sizeof(SysConfig);
+    uint32_t cLen = sizeof(OsConfig);
     Flash_WriteUInt8(lOffset, ((unsigned char *) &cLen)[0]);
     Flash_WriteUInt8(lOffset + 1, ((unsigned char *) &cLen)[1]);
     Flash_WriteUInt8(lOffset + 2, ((unsigned char *) &cLen)[2]);
@@ -151,8 +151,8 @@ void Flash_SaveConfig() {
     for (int i = 0; i < sizeof(g_SysConfig); ++i) {
       Flash_WriteUInt8(lOffset + 4 + i, ((unsigned char *) &g_SysConfig)[i]);
     }
-    Flash_WriteUInt8(lOffset + 4 + sizeof(SysConfig), 0x68);
-    Flash_WriteUInt8(lOffset + 4 + sizeof(SysConfig) + 1, 0x79);
+    Flash_WriteUInt8(lOffset + 4 + sizeof(OsConfig), 0x68);
+    Flash_WriteUInt8(lOffset + 4 + sizeof(OsConfig) + 1, 0x79);
     HAL_FLASH_Lock();
   }
 }
@@ -171,16 +171,16 @@ void ResetStorage() {
   Flash_WriteUInt8(ADDR_FLASH_SECTOR_10 + 4, 0x0);
   Flash_WriteUInt8(ADDR_FLASH_SECTOR_10 + 5, 0x0);
   Flash_Clean(11);
-  uint32_t cLen = sizeof(SysConfig);
+  uint32_t cLen = sizeof(OsConfig);
   Flash_WriteUInt8(ADDR_FLASH_SECTOR_11, ((unsigned char *) &cLen)[0]);
   Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 1, ((unsigned char *) &cLen)[1]);
   Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 2, ((unsigned char *) &cLen)[2]);
   Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 3, ((unsigned char *) &cLen)[3]);
-  for (int i = 0; i < sizeof(SysConfig); ++i) {
+  for (int i = 0; i < sizeof(OsConfig); ++i) {
     Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + i, ((unsigned char *) &g_SysConfig)[i]);
   }
-  Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig), 0x68);
-  Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(SysConfig) + 1, 0x79);
+  Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(OsConfig), 0x68);
+  Flash_WriteUInt8(ADDR_FLASH_SECTOR_11 + 4 + sizeof(OsConfig) + 1, 0x79);
   HAL_FLASH_Lock();
 }
 
@@ -211,18 +211,18 @@ void InitStorage() {
     }
   }
   // 读取配置
-  if (ADDR_FLASH_SECTOR_11 + storageOffset + sizeof(SysConfig) + 6 > ADDR_FLASH_SECTOR_11 + FLASH_SECTOR_SIZE) {
+  if (ADDR_FLASH_SECTOR_11 + storageOffset + sizeof(OsConfig) + 6 > ADDR_FLASH_SECTOR_11 + FLASH_SECTOR_SIZE) {
     // 超出区域
     // 重新刷写
     ResetStorage();
   } else {
     // 读取配置
     auto scLen = *(uint32_t *) (ADDR_FLASH_SECTOR_11 + storageOffset);
-    if (scLen != sizeof(SysConfig)) {
+    if (scLen != sizeof(OsConfig)) {
       // 配置长度错误
       Flash_SaveConfig();
     } else {
-      auto checkPtr = ADDR_FLASH_SECTOR_11 + storageOffset + 4 + sizeof(SysConfig);
+      auto checkPtr = ADDR_FLASH_SECTOR_11 + storageOffset + 4 + sizeof(OsConfig);
       auto a = FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 0)[0];
       auto b = FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 1)[0];
       if (FLASH_PTR_TO_UNSIGNED_CHAR(checkPtr, 0)[0] != 0x68
@@ -230,7 +230,7 @@ void InitStorage() {
         // 配置数据校验错误
         ResetStorage();
       } else {
-        memcpy(&g_SysConfig, (void *) (ADDR_FLASH_SECTOR_11 + storageOffset + 4), sizeof(SysConfig));
+        memcpy(&g_SysConfig, (void *) (ADDR_FLASH_SECTOR_11 + storageOffset + 4), sizeof(OsConfig));
       }
     }
   }

@@ -147,11 +147,17 @@ struct AppsConfig {
 };
 
 struct SysConfig {
-    DeviceConfig devices;
-    AppsConfig apps;
+    // 休眠时间,单位:秒
+    int SleepTime = 10;
 };
 
-extern SysConfig g_SysConfig;
+struct OsConfig {
+    DeviceConfig devices;
+    AppsConfig apps;
+    SysConfig sys;
+};
+
+extern OsConfig g_SysConfig;
 
 // ========== config ==========
 
