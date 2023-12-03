@@ -27,6 +27,7 @@ void KnobSimulator::Init(Motor *_motor) {
     } else {
       OLED_CLEAR_BUFFER();
       OLED_DEVICES()->SetDrawColor(1);
+      OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
       OLED_DEVICES()->DrawBox(6, 11, 20, 20);
       OLED_DEVICES()->DrawUTF8(9, 41, "ÖØ");
       OLED_DEVICES()->DrawUTF8(9, 55, "ÐÂ");

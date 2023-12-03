@@ -20,12 +20,13 @@ public:
     enum SpiWs2812Byte_t : uint8_t
     {
         WS_HIGH = 0xF8,
-        WS_LOW = 0x80
+        WS_LOW = 0xE0
     };
     static const uint8_t LED_NUMBER = 4;
     volatile bool isRgbTxBusy;
 
-    void SetRgbBuffer(uint8_t _keyId, Color_t& _color, float _brightness);
+    void SetRgbBuffer(uint8_t _keyId, Color_t _color, float _brightness);
+    void SetRgbBuffer(RGB::Color_t _color, float _brightness);
     void SyncLights();
 
 private:

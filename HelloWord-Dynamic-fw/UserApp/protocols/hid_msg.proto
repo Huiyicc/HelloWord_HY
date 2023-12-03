@@ -74,6 +74,8 @@ enum SetAppType {
   Step = 3;
   // 速度限制
   VelocityLimit = 4;
+  // 附加值
+  AddedValue = 5;
 }
 
 // 电机消息
@@ -88,14 +90,12 @@ message Knob {
   // 步数
   required ConfigData stepConf = 6;
   required SetAppType setAppType = 7;
+  // 附加值
+  required uint32 AddedValue = 8;
   // 参数值结构
   message ConfigData {
     // 值
     required float value = 1;
-//    // 最小值
-//    required float min = 2;
-//    // 最大值
-//    required float max = 3;
   }
 }
 

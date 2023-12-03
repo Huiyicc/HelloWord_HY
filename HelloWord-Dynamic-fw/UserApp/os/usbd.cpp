@@ -61,7 +61,6 @@ void HID_SendVersion() {
   lBuffer[2] = message_length + 1;
   osDelay(3);
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
-
 }
 
 void HID_SendAppConf(uint32_t appid) {
@@ -76,39 +75,33 @@ void HID_SendAppConf(uint32_t appid) {
   knob.id = hid_msg_KnobMessage_GetAppConfig;
   knob.appid = appid;
   bool check = true;
+  AppKnobConfig *appsConfig = nullptr;
   switch (appid) {
     case APPID_VOLUME:
-      knob.knobMode = g_SysConfig.apps.Volume.Mode;
-      knob.stepConf.value = g_SysConfig.apps.Volume.EncodePos;
-      knob.torqueLimitConf.value = g_SysConfig.apps.Volume.TorqueLimit;
-      knob.velocityLimitConf.value = g_SysConfig.apps.Volume.VelocityLimit;
+      appsConfig = &g_SysConfig.apps.Volume;
       break;
 
     case APPID_UPDOWN:
-      knob.knobMode = g_SysConfig.apps.UpDown.Mode;
-      knob.stepConf.value = g_SysConfig.apps.UpDown.EncodePos;
-      knob.torqueLimitConf.value = g_SysConfig.apps.UpDown.TorqueLimit;
-      knob.velocityLimitConf.value = g_SysConfig.apps.UpDown.VelocityLimit;
+      appsConfig = &g_SysConfig.apps.UpDown;
       break;
 
     case APPID_LIGHT:
-      knob.knobMode = g_SysConfig.apps.Light.Mode;
-      knob.stepConf.value = g_SysConfig.apps.Light.EncodePos;
-      knob.torqueLimitConf.value = g_SysConfig.apps.Light.TorqueLimit;
-      knob.velocityLimitConf.value = g_SysConfig.apps.Light.VelocityLimit;
+      appsConfig = &g_SysConfig.apps.Light;
       break;
 
     case APPID_LEFTRIGHT:
-      knob.knobMode = g_SysConfig.apps.LeftRight.Mode;
-      knob.stepConf.value = g_SysConfig.apps.LeftRight.EncodePos;
-      knob.torqueLimitConf.value = g_SysConfig.apps.LeftRight.TorqueLimit;
-      knob.velocityLimitConf.value = g_SysConfig.apps.LeftRight.VelocityLimit;
+      appsConfig = &g_SysConfig.apps.LeftRight;
       break;
 
     default:
       check = false;
       break;
   }
+  knob.knobMode = appsConfig->Mode;
+  knob.stepConf.value = appsConfig->EncodePos;
+  knob.torqueLimitConf.value = appsConfig->TorqueLimit;
+  knob.velocityLimitConf.value = appsConfig->VelocityLimit;
+  knob.AddedValue = appsConfig->AddedValue;
 //  knob.stepConf.max = 36;
 //  knob.stepConf.min = 5;
 //  knob.torqueLimitConf.max = 3.5f;
@@ -138,39 +131,26 @@ void HID_SendAppConf(uint32_t appid) {
 }
 
 // 设置APP配置
-void HID_SetAppConf(const _hid_msg_Knob*conf) {
+void HID_SetAppConf(const _hid_msg_Knob *conf) {
   uint8_t lBuffer[65] = {0};
   memset(lBuffer, 0, sizeof(lBuffer));
   lBuffer[0] = 0x04;
+  AppKnobConfig *appConf = nullptr;
   switch (conf->appid) {
     case APPID_VOLUME:
-      switch (conf->setAppType) {
-        case _hid_msg_SetAppType::hid_msg_SetAppType_KnobMode:
-          g_SysConfig.apps.Volume.Mode = conf->knobMode;
-          g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(conf->knobMode));
-          break;
-      }
+      appConf = &g_SysConfig.apps.Volume;
       break;
 
     case APPID_UPDOWN:
-      g_SysConfig.apps.UpDown.Mode = conf->knobMode;
-      g_SysConfig.apps.UpDown.EncodePos = conf->stepConf.value;
-      g_SysConfig.apps.UpDown.TorqueLimit = conf->torqueLimitConf.value;
-      g_SysConfig.apps.UpDown.VelocityLimit = conf->velocityLimitConf.value;
+      appConf = &g_SysConfig.apps.UpDown;
       break;
 
     case APPID_LIGHT:
-      g_SysConfig.apps.Light.Mode = conf->knobMode;
-      g_SysConfig.apps.Light.EncodePos = conf->stepConf.value;
-      g_SysConfig.apps.Light.TorqueLimit = conf->torqueLimitConf.value;
-      g_SysConfig.apps.Light.VelocityLimit = conf->velocityLimitConf.value;
+      appConf = &g_SysConfig.apps.Light;
       break;
 
     case APPID_LEFTRIGHT:
-      g_SysConfig.apps.LeftRight.Mode = conf->knobMode;
-      g_SysConfig.apps.LeftRight.EncodePos = conf->stepConf.value;
-      g_SysConfig.apps.LeftRight.TorqueLimit = conf->torqueLimitConf.value;
-      g_SysConfig.apps.LeftRight.VelocityLimit = conf->velocityLimitConf.value;
+      appConf = &g_SysConfig.apps.LeftRight;
       break;
 
     default:
@@ -178,6 +158,33 @@ void HID_SetAppConf(const _hid_msg_Knob*conf) {
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
       return;
   }
+
+
+  //appConf->EncodePos = conf->stepConf.value;
+  //appConf->TorqueLimit = conf->torqueLimitConf.value;
+  //appConf->VelocityLimit = conf->velocityLimitConf.value;
+  //appConf->AddedValue = conf->AddedValue;
+
+  switch (conf->setAppType) {
+    case _hid_msg_SetAppType::hid_msg_SetAppType_KnobMode:
+      appConf->Mode = conf->knobMode;
+      g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(conf->knobMode));
+      break;
+    case _hid_msg_SetAppType::hid_msg_SetAppType_Step:
+      break;
+    case _hid_msg_SetAppType::hid_msg_SetAppType_AddedValue:
+      appConf->AddedValue = conf->AddedValue;
+      break;
+    case _hid_msg_SetAppType::hid_msg_SetAppType_TorqueLimit:
+      break;
+    case _hid_msg_SetAppType::hid_msg_SetAppType_VelocityLimit:
+      break;
+    default:
+      osDelay(2);
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      return;
+  }
+
   // 成功标志
   lBuffer[1] = 0x01;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);

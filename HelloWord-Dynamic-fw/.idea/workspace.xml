@@ -18,24 +18,31 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
+      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
+      <configuration PROFILE_NAME="Release_arm" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="MinGW-arm" />
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
       <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
-      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="fix:&#10;- 速度模式低速抖动的最终解决方案(">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/r1.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" beforeDir="false" afterPath="$PROJECT_DIR$/Platform/Utils/rgb_light.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/usbproto.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/usbproto.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/usbproto.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/usbproto.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/freertos_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/freertos_inc.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/sleep.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/sleep.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/storage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/storage.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/storage.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +124,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.cidr.embedded.config&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -152,6 +159,11 @@
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -432,6 +444,10 @@
       <workItem from="1701166273028" duration="388000" />
       <workItem from="1701168258194" duration="1815000" />
       <workItem from="1701182370458" duration="2000" />
+      <workItem from="1701217468092" duration="448000" />
+      <workItem from="1701218007388" duration="106000" />
+      <workItem from="1701445811676" duration="670000" />
+      <workItem from="1701535852957" duration="23164000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -652,6 +668,7 @@
         <watch expression="USB_Recive_Tmp_Buffer" />
         <watch expression="msg" />
         <watch expression="g_sysCtx" />
+        <watch expression="m_rgbBuffer" />
       </configuration>
     </watches-manager>
   </component>

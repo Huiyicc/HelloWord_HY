@@ -9,8 +9,8 @@
 
 namespace HYSDK::USB {
 
-void SendMouseUP();
-void SendMouseDOWN();
+void SendMouseUP(int num=1);
+void SendMouseDOWN(int num=1);
 
 enum KeyCode_t : int16_t
 {

@@ -130,6 +130,8 @@ struct AppKnobConfig {
     float TorqueLimit = 0.4f;
     // 速度限制
     float VelocityLimit = 3;
+    // 增量(例如重复触发n次)
+    int AddedValue = 1;
 };
 
 // app

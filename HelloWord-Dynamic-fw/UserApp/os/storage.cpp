@@ -11,11 +11,6 @@ void Flash_SaveConfig();
 bool m_updateStatus = false;
 SysConfig g_SysConfig;
 
-SysConfig *GetSysConfig(bool update) {
-  m_updateStatus = update;
-  return &g_SysConfig;
-}
-
 // 计时器
 int g_storage_tick = 0;
 // 计时器最大值(多少秒后保存,节省内存,使用uchar,最大255)
@@ -38,6 +33,12 @@ void StorageTask(TimerHandle_t t) {
   }
   g_storage_tick++;
 };
+
+SysConfig *GetSysConfig(bool update) {
+  m_updateStatus = update;
+  g_storage_tick = 0;
+  return &g_SysConfig;
+}
 
 // =====================
 /*

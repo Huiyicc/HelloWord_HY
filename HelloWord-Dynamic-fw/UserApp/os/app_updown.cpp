@@ -29,10 +29,11 @@ void appUpDownKNobCallback(KnobStatus *status) {
     if (fabs(x) < 0.1) {
         return;
     }
+  auto& cfg = GetSysConfig()->apps;
     if (status->Position > status->LastPosition) {
-        HYSDK::USB::SendMouseUP();
+        HYSDK::USB::SendMouseUP(cfg.UpDown.AddedValue);
     } else {
-        HYSDK::USB::SendMouseDOWN();
+        HYSDK::USB::SendMouseDOWN(cfg.UpDown.AddedValue);
     }
 }
 
@@ -46,8 +47,7 @@ void AppUpDown::Init() {
 void AppUpDown::In() {
     auto& cfg = GetSysConfig()->apps;
     g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.UpDown.EncodePos);
-    // g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.UpDown.Mode));
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.UpDown.Mode));
     ReView();
 };
 
