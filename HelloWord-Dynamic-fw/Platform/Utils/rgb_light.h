@@ -20,7 +20,7 @@ public:
     enum SpiWs2812Byte_t : uint8_t
     {
         WS_HIGH = 0xF8,
-        WS_LOW = 0xE0
+        WS_LOW = 0x80
     };
     static const uint8_t LED_NUMBER = 4;
     volatile bool isRgbTxBusy;

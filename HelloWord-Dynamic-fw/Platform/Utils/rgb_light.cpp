@@ -30,8 +30,7 @@ void RGB::SyncLights() {
     while (isRgbTxBusy);
     isRgbTxBusy = true;
     HAL_SPI_Transmit_DMA(&hspi3, (uint8_t *) rgbBuffer, LED_NUMBER * 3 * 8);
-  HAL_Delay(2);
-//    while (isRgbTxBusy);
-//    isRgbTxBusy = true;
-//    HAL_SPI_Transmit_DMA(&hspi3, wsCommit, 64);
+    while (isRgbTxBusy);
+    isRgbTxBusy = true;
+    HAL_SPI_Transmit_DMA(&hspi3, wsCommit, 64);
 }
