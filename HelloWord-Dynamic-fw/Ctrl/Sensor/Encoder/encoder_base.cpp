@@ -47,14 +47,14 @@ void EncoderBase::VarInit() {
   // Initialize all the internal variables of EncoderBase
   // to ensure a "smooth" startup (without a 'jump' from zero)
   GetRawAngle();
-  delayMicroSeconds(1);
+  delayMicroseconds(1);
 
   velocityLast = GetRawAngle();
   velocityTimestamp = micros();
   HAL_Delay(1);
 
   GetRawAngle();
-  delayMicroSeconds(1);
+  delayMicroseconds(1);
 
   angleLast = GetRawAngle();
   angleTimestamp = micros();
