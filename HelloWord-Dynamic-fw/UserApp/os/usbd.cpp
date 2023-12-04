@@ -15,6 +15,7 @@
 #include "os_define.hpp"
 //#include "eink_290_bw.h"
 #include "app_desktop.hpp"
+#include "storage.hpp"
 
 unsigned char USB_Recive_Buffer[65]; //USB接收缓存
 unsigned char USB_Recive_Tmp_Buffer[5000]; //USB发送缓存
@@ -159,32 +160,45 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
       return;
   }
 
-
-  //appConf->EncodePos = conf->stepConf.value;
-  //appConf->TorqueLimit = conf->torqueLimitConf.value;
-  //appConf->VelocityLimit = conf->velocityLimitConf.value;
-  //appConf->AddedValue = conf->AddedValue;
-
   switch (conf->setAppType) {
-    case _hid_msg_SetAppType::hid_msg_SetAppType_KnobMode:
+    case _hid_msg_SetAppType::hid_msg_SetAppType_KnobMode: {
       appConf->Mode = conf->knobMode;
-      g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(conf->knobMode));
+      if (g_sysCtx->Apps.Status == conf->appid) {
+        g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(conf->knobMode), appConf);
+        g_sysCtx->Device.ctrl.knob.UpdateConf(appConf);
+      }
+    }
       break;
-    case _hid_msg_SetAppType::hid_msg_SetAppType_Step:
+    case _hid_msg_SetAppType::hid_msg_SetAppType_Step: {
+      appConf->EncodePos = conf->stepConf.value;
+      if (g_sysCtx->Apps.Status == conf->setAppType) {
+        g_sysCtx->Device.ctrl.knob.SetEncoderModePos(appConf->EncodePos);
+      }
+    }
       break;
-    case _hid_msg_SetAppType::hid_msg_SetAppType_AddedValue:
+    case _hid_msg_SetAppType::hid_msg_SetAppType_AddedValue: {
       appConf->AddedValue = conf->AddedValue;
+    }
       break;
-    case _hid_msg_SetAppType::hid_msg_SetAppType_TorqueLimit:
+    case _hid_msg_SetAppType::hid_msg_SetAppType_TorqueLimit: {
+      appConf->TorqueLimit = conf->torqueLimitConf.value;
+      if (g_sysCtx->Apps.Status == conf->appid) {
+        g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(conf->knobMode), appConf);
+        g_sysCtx->Device.ctrl.knob.UpdateConf(appConf);
+      }
+    }
       break;
-    case _hid_msg_SetAppType::hid_msg_SetAppType_VelocityLimit:
+    case _hid_msg_SetAppType::hid_msg_SetAppType_VelocityLimit: {
+      appConf->VelocityLimit = conf->velocityLimitConf.value;
+      g_sysCtx->Device.ctrl.knob.triggerVelocityMax = appConf->VelocityLimit;
+    }
       break;
     default:
       osDelay(2);
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
       return;
   }
-
+  GetSysConfig(true);
   // 成功标志
   lBuffer[1] = 0x01;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
@@ -192,7 +206,7 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
 }
 
 // 发送系统配置信息
-void HID_SendSysCong() {
+void HID_SendSysConf() {
   uint8_t lBuffer[65] = {0};
   memset(lBuffer, 0, sizeof(lBuffer));
   lBuffer[0] = 0x04;
@@ -215,6 +229,30 @@ void HID_SendSysCong() {
   }
   lBuffer[2] = message_length + 1;
   osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+}
+
+// 设置APP配置
+void HID_SetSysCong(const _hid_msg_SysCfg *conf) {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  AppKnobConfig *appConf = nullptr;
+  switch (conf->type) {
+    case hid_msg_SetSysCfgType_SleepTime: {
+      auto sysCfg = GetSysConfig();
+      sysCfg->sys.SleepTime = conf->SleepTime;
+    }
+      break;
+    default: {
+      osDelay(2);
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      return;
+    }
+  }
+  GetSysConfig(true);
+  // 成功标志
+  lBuffer[1] = 0x01;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 }
 
@@ -330,15 +368,22 @@ void Usb_DataEvent() {
     }
       break;
     case hid_msg_MessageId_GET_SYS_CFG: {
-      HID_SendSysCong();
+      HID_SendSysConf();
     }
       break;
-    case hid_msg_MessageId_DEV_UTILS:
+    case hid_msg_MessageId_SET_SYS_CFG: {
+      // 设置系统配置
+      HID_SetSysCong(&msg.payload.sys_cfg);
+    }
+      break;
+    case hid_msg_MessageId_DEV_UTILS: {
       // 1：设置菜单动画
       if (msg.payload.utils.id == 1) {
         auto app = (AppDesktop *) g_sysCtx->Apps.AppsMap[APPID_DESKTOP];
         app->EasingType = msg.payload.utils.uData;
       }
+    }
+      break;
     default:
       memset(USB_Recive_Buffer, 0, sizeof(USB_Recive_Buffer));
       break;

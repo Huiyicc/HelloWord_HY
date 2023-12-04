@@ -97,7 +97,7 @@ void AppDesktop::Init() {
 // 进入事件
 void AppDesktop::In() {
     g_sysCtx->Device.ctrl.knob.SetEncoderModePos(int(m_dividesNum));
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_JINLUNENCODER);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_JINLUNENCODER, nullptr);
     g_sysCtx->Device.ctrl.knob.SetTorqueLimit(0.5);
     ReView();
 }

@@ -111,9 +111,16 @@ message Utils {
   required float fData = 3;
 }
 
+// 设置字段
+enum SetSysCfgType {
+  // 修改休眠时间
+  SleepTime = 1;
+}
+
 // 系统设置
 message SysCfg {
-  required uint32 SleepTime = 1;
+  required SetSysCfgType type = 1;
+  required uint32 SleepTime = 2;
 }
 
 message knobPID {

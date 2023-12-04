@@ -93,7 +93,7 @@ void AppWindows::Init() {
 
 // 进入事件
 void AppWindows::In() {
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_PADDLE);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_PADDLE, nullptr);
     ReView();
 }
 

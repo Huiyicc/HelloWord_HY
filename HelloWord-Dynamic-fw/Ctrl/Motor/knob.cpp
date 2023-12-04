@@ -55,19 +55,21 @@ void KnobSimulator::Init(Motor *_motor) {
 }
 
 
-void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
+void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode, const AppKnobConfig *cfg) {
   mode = _mode;
 
   lastAngle = GetPosition();
   lastVelocity = GetVelocity();
-
+  if (cfg!= nullptr) {
+    torqueLimit = cfg->TorqueLimit;
+  }
   switch (mode) {
     case MODE_DISABLE:
       motor->SetEnable(false);
       break;
     case MODE_INERTIA: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(1.5);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 1.5 : torqueLimit);
       motor->config.controlMode = Motor::VELOCITY;
       motor->config.pidVelocity.p = 0.5;
       motor->config.pidVelocity.i = 0.0;
@@ -80,7 +82,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_ENCODER: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(0.2f);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 0.2f : torqueLimit);
       //zeroPosition=0;
       motor->config.controlMode = Motor::ControlMode_t::ANGLE;
       motor->config.pidVelocity.p = 0.02;
@@ -96,7 +98,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_JINLUNENCODER: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(0.3f);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 0.3f : torqueLimit);
       //zeroPosition=0;
       motor->config.controlMode = Motor::ControlMode_t::ANGLE;
       motor->config.pidVelocity.p = 0.02;
@@ -111,7 +113,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_SPRING: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(1.5);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 1.5 : torqueLimit);
       motor->config.controlMode = Motor::ControlMode_t::ANGLE;
       motor->config.pidVelocity.p = 0.1;
       motor->config.pidVelocity.i = 0.0;
@@ -124,17 +126,20 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_DAMPED: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(1.5);
-      motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 1.5 : torqueLimit);
+      motor->config.controlMode = Motor::ControlMode_t::ANGLE;
       motor->config.pidVelocity.p = 0.1;
       motor->config.pidVelocity.i = 0.0;
       motor->config.pidVelocity.d = 0.0;
+      motor->config.pidAngle.p = 80;
+      motor->config.pidAngle.i = 0;
+      motor->config.pidAngle.d = 3.5f;
       motor->target = zeroPosition;
     }
       break;
     case MODE_SPIN: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(1.5);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 1.5 : torqueLimit);
       motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
       motor->config.pidVelocity.p = 0.3;
       motor->config.pidVelocity.i = 0.0;
@@ -144,7 +149,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_PADDLE: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(1.0);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 1.0 : torqueLimit);
       motor->config.controlMode = Motor::ControlMode_t::VELOCITY;
       motor->config.pidVelocity.p = 0.02;
       motor->config.pidVelocity.i = 0.0;
@@ -157,7 +162,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode) {
       break;
     case MODE_INTELLIGENT: {
       motor->SetEnable(true);
-      motor->SetTorqueLimit(0.4f);
+      motor->SetTorqueLimit(torqueLimit <= 0 ? 0.4f : torqueLimit);
       motor->config.controlMode = Motor::ControlMode_t::ANGLE;
       motor->config.pidVelocity.p = 0.02;
       motor->config.pidVelocity.i = 0.0;
@@ -333,19 +338,19 @@ void KnobSimulator::Tick() {
     }
       break;
     case MODE_DAMPED:
-      if (limitPositionMax != 0 && limitPositionMin != 0) {
-        auto a = GetPosition();
-        if (a > limitPositionMax) {
-          motor->config.controlMode = Motor::ANGLE;
-          motor->target = limitPositionMax;
-        } else if (a < limitPositionMin) {
-          motor->config.controlMode = Motor::ANGLE;
-          motor->target = limitPositionMin;
-        } else {
-          motor->config.controlMode = Motor::VELOCITY;
-          motor->target = 0;
-        }
-      }
+//      if (limitPositionMax != 0 && limitPositionMin != 0) {
+//        auto a = GetPosition();
+//        if (a > limitPositionMax) {
+//          motor->config.controlMode = Motor::ANGLE;
+//          motor->target = limitPositionMax;
+//        } else if (a < limitPositionMin) {
+//          motor->config.controlMode = Motor::ANGLE;
+//          motor->target = limitPositionMin;
+//        } else {
+//          motor->config.controlMode = Motor::VELOCITY;
+//          motor->target = 0;
+//        }
+//      }
       break;
     case MODE_INTELLIGENT: {
       encoderPosition = GetEncoderModePos();
@@ -539,7 +544,7 @@ int KnobSimulator::GetEncoderDivides() {
   return encoderDivides;
 }
 
-void KnobSimulator::SetEncoderModePos(int EncoderDivides) {
+void KnobSimulator::SetEncoderModePos(uint32_t EncoderDivides) {
   // (Angle / _2PI) * 360¡ã = AngleRaw
   // ÄæÏò¹«Ê½
   // Angle = (AngleRaw / 360¡ã) * _2PI
@@ -574,3 +579,26 @@ void KnobSimulator::SetTorqueLimit(float _val) {
 float KnobSimulator::GetTorqueLimit() {
   return torqueLimit;
 }
+
+void KnobSimulator::UpdateConf(const AppKnobConfig *cfg) {
+  switch (Mode_t(cfg->Mode)) {
+    case Mode_t::MODE_ENCODER : {
+      SetEncoderModePos(cfg->EncodePos);
+      //SetTorqueLimit(cfg.TorqueLimit);
+    }
+      break;
+    case Mode_t::MODE_INTELLIGENT : {
+      SetEncoderModePos(cfg->EncodePos);
+      //SetTorqueLimit(cfg.TorqueLimit);
+      triggerVelocityMax = cfg->VelocityLimit;
+    }
+      break;
+    case Mode_t::MODE_INERTIA : {
+      //SetTorqueLimit(cfg.TorqueLimit);
+    }
+      break;
+    default: {
+      return;
+    }
+  }
+};
