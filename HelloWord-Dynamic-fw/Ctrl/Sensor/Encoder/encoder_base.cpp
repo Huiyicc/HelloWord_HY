@@ -1,6 +1,6 @@
 #include "encoder_base.h"
 #include "Ctrl/Motor/math_utils.h"
-#include "Platform/Utils/time_utils.h"
+
 
 inline float abs(float _v) {
   return _v >= 0 ? _v : -_v;
@@ -8,8 +8,11 @@ inline float abs(float _v) {
 
 
 void EncoderBase::Update() {
+  if (!vel) {
+    angleTimestamp = micros();
+  }
   float angle = GetRawAngle();
-  angleTimestamp = micros();
+  //angleTimestamp = micros();
   float deltaAngle = angle - angleLast;
   // If overflow happened track it as full rotation
   if (abs(deltaAngle) > (0.8f * _2PI))
@@ -20,7 +23,10 @@ void EncoderBase::Update() {
 
 
 float EncoderBase::GetVelocity() {
-  angleTimestamp = micros();
+  if (vel) {
+    angleTimestamp = micros();
+  }
+
   float time = (float) (angleTimestamp - velocityTimestamp) * 1e-6f;
   // Quick fix for strange cases (micros overflow)
   if (time <= 0) time = 1e-3f;
@@ -41,14 +47,14 @@ void EncoderBase::VarInit() {
   // Initialize all the internal variables of EncoderBase
   // to ensure a "smooth" startup (without a 'jump' from zero)
   GetRawAngle();
-  delayMicroseconds(1);
+  delayMicroSeconds(1);
 
   velocityLast = GetRawAngle();
   velocityTimestamp = micros();
   HAL_Delay(1);
 
   GetRawAngle();
-  delayMicroseconds(1);
+  delayMicroSeconds(1);
 
   angleLast = GetRawAngle();
   angleTimestamp = micros();

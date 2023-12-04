@@ -16,6 +16,10 @@ enum MessageId {
   DEV_UTILS = 4;
   // 获取/设置电机信息
   MOTOR_CONFIG = 5;
+  // 获取系统设置
+  GET_SYS_CFG = 6;
+  // 修改系统设置
+  SET_SYS_CFG = 7;
 }
 
 // 扩展发来的消息
@@ -25,6 +29,7 @@ message CtrlMessage {
     Nil nil = 2;
     Version version = 3;
     Knob knob = 4;
+    SysCfg sys_cfg = 5;
   }
 }
 
@@ -36,6 +41,7 @@ message PcMessage {
     Utils utils = 3;
     Eink eink = 4;
     Knob knob = 5;
+    SysCfg sys_cfg = 6;
   }
 }
 
@@ -74,6 +80,8 @@ enum SetAppType {
   Step = 3;
   // 速度限制
   VelocityLimit = 4;
+  // 附加值
+  AddedValue = 5;
 }
 
 // 电机消息
@@ -88,14 +96,12 @@ message Knob {
   // 步数
   required ConfigData stepConf = 6;
   required SetAppType setAppType = 7;
+  // 附加值
+  required uint32 AddedValue = 8;
   // 参数值结构
   message ConfigData {
     // 值
     required float value = 1;
-//    // 最小值
-//    required float min = 2;
-//    // 最大值
-//    required float max = 3;
   }
 }
 
@@ -105,7 +111,17 @@ message Utils {
   required float fData = 3;
 }
 
+// 设置字段
+enum SetSysCfgType {
+  // 修改休眠时间
+  SleepTime = 1;
+}
 
+// 系统设置
+message SysCfg {
+  required SetSysCfgType type = 1;
+  required uint32 SleepTime = 2;
+}
 
 message knobPID {
   message Velocity {

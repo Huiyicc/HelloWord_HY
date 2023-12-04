@@ -130,6 +130,8 @@ struct AppKnobConfig {
     float TorqueLimit = 0.4f;
     // 速度限制
     float VelocityLimit = 3;
+    // 增量(例如重复触发n次)
+    int AddedValue = 1;
 };
 
 // app
@@ -145,11 +147,17 @@ struct AppsConfig {
 };
 
 struct SysConfig {
-    DeviceConfig devices;
-    AppsConfig apps;
+    // 休眠时间,单位:秒
+    int SleepTime = 10;
 };
 
-extern SysConfig g_SysConfig;
+struct OsConfig {
+    DeviceConfig devices;
+    AppsConfig apps;
+    SysConfig sys;
+};
+
+extern OsConfig g_SysConfig;
 
 // ========== config ==========
 

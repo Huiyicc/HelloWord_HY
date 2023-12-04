@@ -43,6 +43,7 @@ void helloWord() {
     OLED_CLEAR_BUFFER();
     // logo区域
     OLED_DEVICES()->SetDrawColor(1);
+    OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
     OLED_DEVICES()->DrawBox(6, 11, 20, 20);
     OLED_DEVICES()->DrawUTF8(9, 41, "校");
     OLED_DEVICES()->DrawUTF8(9, 55, "准");
@@ -53,6 +54,7 @@ void helloWord() {
     OLED_SEND_BUFFER();
     exit(1);
   }
+
 
 }
 

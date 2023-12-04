@@ -47,8 +47,8 @@ void AppVolume::Init() {
 // 进入事件
 void AppVolume::In() {
   auto &cfg = GetSysConfig()->apps;
-  g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.Volume.EncodePos);
-  g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.Volume.Mode));
+  //g_sysCtx->Device.ctrl.knob.SetEncoderModePos(cfg.Volume.EncodePos);
+  g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t(cfg.Volume.Mode),&cfg.Volume);
   ReView();
 };
 

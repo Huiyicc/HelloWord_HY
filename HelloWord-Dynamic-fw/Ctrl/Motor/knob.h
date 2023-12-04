@@ -3,6 +3,7 @@
 
 #include "motor.h"
 
+struct AppKnobConfig;
 
 class KnobSimulator {
 public:
@@ -37,7 +38,7 @@ public:
 
     void ApplyZeroPos(float _angle = 0);
 
-    void SetMode(Mode_t _mode);
+    void SetMode(Mode_t _mode,const AppKnobConfig *cfg);
 
     void SetLimitPos(float _min, float _max);
 
@@ -49,7 +50,7 @@ public:
 
     int GetEncoderDivides();
     float GetZeroPosition();
-    void SetEncoderModePos(int encoderDivides);
+    void SetEncoderModePos(uint32_t encoderDivides);
 
     Mode_t GetMode();
 
@@ -60,9 +61,12 @@ public:
     void SetTorqueLimit(float _val);
     float GetTorqueLimit();
 
+    void UpdateConf(const AppKnobConfig* cfg);
+
     float deviation = -3.7;
     float filterateMax = 0.04;
-    float filterateVelocityMax = 0.1f;
+    float filterateVelocityMax = 0.05;
+    float triggerVelocityMax = 7 ;
     float encoderDistance = 0;
     float encoderPosition = 0;
     float lastEncoderPosition = 0;

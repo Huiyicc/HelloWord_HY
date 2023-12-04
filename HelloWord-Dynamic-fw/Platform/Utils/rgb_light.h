@@ -25,7 +25,8 @@ public:
     static const uint8_t LED_NUMBER = 4;
     volatile bool isRgbTxBusy;
 
-    void SetRgbBuffer(uint8_t _keyId, Color_t& _color, float _brightness);
+    void SetRgbBuffer(uint8_t _keyId, Color_t _color, float _brightness);
+    void SetRgbBuffer(RGB::Color_t _color, float _brightness);
     void SyncLights();
 
 private:

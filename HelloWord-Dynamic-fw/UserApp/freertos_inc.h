@@ -27,7 +27,6 @@ extern osThreadId_t ctrlLoopTaskHandle;  // Usage: 4000 Bytes stack
 
 /*---------------- 24.1K (used) / 64K (for FreeRTOS) / 128K (total) ------------------*/
 
-
 #ifdef __cplusplus
 }
 #endif

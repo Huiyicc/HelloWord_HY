@@ -40,7 +40,7 @@ void AppHID::In() {
     hidApp = true;
     InitLastAgent();
     g_sysCtx->Device.ctrl.knob.SetEncoderModePos(12);
-    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT);
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INTELLIGENT, nullptr);
     ReView();
 };
 
