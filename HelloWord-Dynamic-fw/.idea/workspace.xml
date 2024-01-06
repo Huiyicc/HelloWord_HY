@@ -18,18 +18,24 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
-      <configuration PROFILE_NAME="Release_arm" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="MinGW-arm" />
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
       <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
+      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="fix:&#10;- 一点小bug">
-      <change afterPath="$PROJECT_DIR$/scripts/guitooldswda.zip" afterDir="false" />
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/Dev.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/Dev.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,10 +75,36 @@
       </list>
     </option>
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="master" />
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="main" />
+        <entry key="$PROJECT_DIR$/.." value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-    <option name="RESET_MODE" value="HARD" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Ctrl/Motor/knob.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Ctrl/Motor/motor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Platform/Utils/time_utils.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/os/app_updown.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/os/ctrl.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/os/storage.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -97,22 +129,25 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "cmake.loaded.for.project": "true",
     "git-widget-placeholder": "dev",
-    "last_opened_file_path": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/scripts",
+    "last_opened_file_path": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Ctrl/Motor",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.selected.configurable": "editing.templates",
     "structure.view.defaults.are.configured": "true",
     "two.files.diff.last.used.file": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
     "vue.rearranger.settings.migration": "true"
@@ -120,7 +155,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\scripts" />
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
@@ -148,8 +183,14 @@
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -171,6 +212,7 @@
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -190,6 +232,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Autodetect">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -204,6 +247,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -222,6 +266,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -237,6 +282,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Twisted Trial">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -251,6 +297,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -265,6 +312,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -424,17 +472,30 @@
       <workItem from="1700828878208" duration="1038000" />
       <workItem from="1700887680162" duration="134000" />
       <workItem from="1700924223659" duration="6072000" />
-      <workItem from="1700933277078" duration="295000" />
-      <workItem from="1701166273028" duration="388000" />
-      <workItem from="1701168258194" duration="1815000" />
-      <workItem from="1701182370458" duration="2000" />
-      <workItem from="1701217468092" duration="448000" />
-      <workItem from="1701218007388" duration="106000" />
-      <workItem from="1701445811676" duration="670000" />
-      <workItem from="1701535852957" duration="28727000" />
-      <workItem from="1701615383758" duration="4158000" />
-      <workItem from="1701659430702" duration="9482000" />
-      <workItem from="1701672076078" duration="379000" />
+      <workItem from="1700933277078" duration="542000" />
+      <workItem from="1700933834061" duration="81000" />
+      <workItem from="1700989970368" duration="7580000" />
+      <workItem from="1700999631968" duration="2577000" />
+      <workItem from="1701002950416" duration="4787000" />
+      <workItem from="1701015309732" duration="1802000" />
+      <workItem from="1701065522674" duration="9000" />
+      <workItem from="1701066575756" duration="13964000" />
+      <workItem from="1701098137472" duration="1485000" />
+      <workItem from="1701129830976" duration="779000" />
+      <workItem from="1701672971405" duration="54000" />
+      <workItem from="1701673098234" duration="49000" />
+      <workItem from="1701680976633" duration="153000" />
+      <workItem from="1701772831029" duration="730000" />
+      <workItem from="1701870113837" duration="19000" />
+      <workItem from="1701870184240" duration="601000" />
+      <workItem from="1701872268739" duration="644000" />
+      <workItem from="1701963563567" duration="319000" />
+      <workItem from="1701963909987" duration="328000" />
+      <workItem from="1702310682876" duration="883000" />
+      <workItem from="1703598583752" duration="1394000" />
+      <workItem from="1703863314292" duration="204000" />
+      <workItem from="1703864216273" duration="5696000" />
+      <workItem from="1704465394337" duration="11756000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -588,41 +649,48 @@
       <option name="project" value="LOCAL" />
       <updated>1699806127950</updated>
     </task>
-    <task id="LOCAL-00020" summary="暂存">
+    <task id="LOCAL-00020" summary="- 优化稳定性&#10;- 增加上位机通信&#10;bug&#10;- 速度模式抖动">
       <option name="closed" value="true" />
-      <created>1701605518934</created>
+      <created>1700933615490</created>
       <option name="number" value="00020" />
       <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1701605518934</updated>
+      <updated>1700933615490</updated>
     </task>
-    <task id="LOCAL-00021" summary="fix:&#10;- 修复WS2812B频率与时序问题">
+    <task id="LOCAL-00021" summary="bug&#10;- 速度模式抖动">
       <option name="closed" value="true" />
-      <created>1701609239101</created>
+      <created>1701079213249</created>
       <option name="number" value="00021" />
       <option name="presentableId" value="LOCAL-00021" />
       <option name="project" value="LOCAL" />
-      <updated>1701609239101</updated>
+      <updated>1701079213249</updated>
     </task>
-    <task id="LOCAL-00022" summary="pre:&#10;- 增加系统配置相关协议">
+    <task id="LOCAL-00022" summary="fix&#10;- 速度模式抖动(大概)">
       <option name="closed" value="true" />
-      <created>1701622589923</created>
+      <created>1701080249744</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1701622589923</updated>
+      <updated>1701080249744</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感">
+      <option name="closed" value="true" />
+      <created>1701082932250</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1701082932250</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
-    <isAutomaticEditVcpkgJson value="false" />
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
-    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ID_ORDER">
@@ -640,13 +708,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="暂存" />
     <MESSAGE value="修复encode模式电机抖动的问题" />
     <MESSAGE value="重构大部分内存申请逻辑,优化占用" />
     <MESSAGE value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
@@ -664,10 +745,10 @@
     <MESSAGE value="- 修复部分bug  &#10;- 电机增加智能模式" />
     <MESSAGE value="- 优化稳定性&#10;- 墨水屏增加实验性局刷" />
     <MESSAGE value="- 优化稳定性&#10;- 增加上位机通信&#10;bug&#10;- 速度模式抖动" />
-    <MESSAGE value="暂存" />
-    <MESSAGE value="fix:&#10;- 修复WS2812B频率与时序问题" />
-    <MESSAGE value="pre:&#10;- 增加系统配置相关协议" />
-    <option name="LAST_COMMIT_MESSAGE" value="pre:&#10;- 增加系统配置相关协议" />
+    <MESSAGE value="bug&#10;- 速度模式抖动" />
+    <MESSAGE value="fix&#10;- 速度模式抖动(大概)" />
+    <MESSAGE value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
+    <option name="LAST_COMMIT_MESSAGE" value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -253,6 +253,7 @@ void HID_SetSysCong(const _hid_msg_SysCfg *conf) {
   GetSysConfig(true);
   // 成功标志
   lBuffer[1] = 0x01;
+  osDelay(2);
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 }
 
