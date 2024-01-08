@@ -257,6 +257,41 @@ void HID_SetSysCong(const _hid_msg_SysCfg *conf) {
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 }
 
+extern KnobStatus *knobStatus;
+
+void HID_GetKnobStatus() {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_MOTOR_GET_STATUS;
+  hid_msg_knobStatus conf = hid_msg_knobStatus_init_default;
+  conf.timestamp = HAL_GetTick();
+  conf.knobMode = g_sysCtx->Device.ctrl.knob.GetMode();
+  conf.current_angle = knobStatus->Angle;
+  conf.target_angle = g_sysCtx->Device.ctrl.knob.GetTarget();
+  conf.current_velocity = knobStatus->Velocity;
+  conf.target_velocity = g_sysCtx->Device.ctrl.knob.GetTarget();
+  conf.target_voltage = sqrt(g_sysCtx->Device.ctrl.motor.voltage.q * g_sysCtx->Device.ctrl.motor.voltage.q +
+                             g_sysCtx->Device.ctrl.motor.voltage.d * g_sysCtx->Device.ctrl.motor.voltage.d);
+  msg.which_payload = hid_msg_CtrlMessage_knob_status_tag;
+  msg.payload.knob_status = conf;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    osDelay(3);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+}
+
 void Usb_DataEvent() {
   // 通信帧首字节为报告id,第二字节为完整性(0为完整,1为单次不够放入),第三字节为数据长度
   if (USB_Recive_Buffer[0] != 0x04) {
@@ -383,6 +418,10 @@ void Usb_DataEvent() {
         auto app = (AppDesktop *) g_sysCtx->Apps.AppsMap[APPID_DESKTOP];
         app->EasingType = msg.payload.utils.uData;
       }
+    }
+      break;
+    case hid_msg_MessageId_MOTOR_GET_STATUS: {
+      HID_GetKnobStatus();
     }
       break;
     default:

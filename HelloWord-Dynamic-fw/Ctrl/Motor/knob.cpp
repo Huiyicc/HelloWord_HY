@@ -20,38 +20,13 @@ void KnobSimulator::Init(Motor *_motor) {
 
   // When motor calibrated, we can replace Init with something like:
   // motor->Init(1.815850, EncoderBase::CW)
-  for (char i = 0; i < 4; ++i) {
-    g_sysCtx->Device.ctrl.Action = motor->Init();
-    if (g_sysCtx->Device.ctrl.Action) {
-      break;
-    } else {
-      OLED_CLEAR_BUFFER();
-      OLED_DEVICES()->SetDrawColor(1);
-      OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
-      OLED_DEVICES()->DrawBox(6, 11, 20, 20);
-      OLED_DEVICES()->DrawUTF8(9, 41, "重");
-      OLED_DEVICES()->DrawUTF8(9, 55, "新");
-      OLED_DEVICES()->DrawUTF8(9, 69, "校");
-      OLED_DEVICES()->DrawUTF8(9, 83, "准");
-      OLED_DEVICES()->DrawUTF8(9, 97, "电");
-      OLED_DEVICES()->DrawUTF8(9, 111, "机");
-      OLED_DEVICES()->SetDrawColor(0);
-      OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
-      OLED_SEND_BUFFER();
-    }
-    if (i >= 3) {
-      return;
-    }
+  g_sysCtx->Device.ctrl.Action = motor->Init();
+  if (!g_sysCtx->Device.ctrl.Action) {
+    return;
   }
 
-  if (g_sysCtx->Device.ctrl.Action) {
-//        printf("ZeroElectricAngleOffset: %f | Encoder direction: %s\n", motor->zeroElectricAngleOffset,
-//               motor->encoder->countDirection == EncoderBase::CW ? "CW" : "CCW");
-    motor->target = 0;
-    motor->SetEnable(false);
-  } else {
-    //printf("Error[%d]\n", motor->error);
-  }
+  motor->target = 0;
+  motor->SetEnable(false);
 }
 
 
@@ -60,7 +35,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode, const AppKnobConfig *cf
 
   lastAngle = GetPosition();
   lastVelocity = GetVelocity();
-  if (cfg!= nullptr) {
+  if (cfg != nullptr) {
     torqueLimit = cfg->TorqueLimit;
   }
   switch (mode) {
@@ -578,6 +553,10 @@ void KnobSimulator::SetTorqueLimit(float _val) {
 
 float KnobSimulator::GetTorqueLimit() {
   return torqueLimit;
+}
+
+float KnobSimulator::GetTarget() {
+  return motor->target;
 }
 
 void KnobSimulator::UpdateConf(const AppKnobConfig *cfg) {

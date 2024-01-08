@@ -101,7 +101,7 @@ void AppWindows::In() {
 void AppWindows::ReView() {
     OLED_CLEAR_BUFFER();
     OLED_DEVICES()->SetDrawColor(1);
-    OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
+    OLED_DEVICES()->SetFont(font_default);
     OLED_DEVICES()->DrawUTF8(10, 10, "↑");
     OLED_DEVICES()->DrawUTF8(4, 24, "任务");
     OLED_DEVICES()->DrawUTF8(4, 38, "视图");

@@ -24,18 +24,25 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/Dev.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/Dev.hpp" afterDir="false" />
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 调整局刷LUT与样例">
       <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/u8g2/cpp/U8g2lib.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/u8g2/cpp/U8g2lib.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/Dev.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/Dev.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/OLED.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/OLED.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,32 +134,32 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "cmake.loaded.for.project": "true",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Ctrl/Motor",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editing.templates",
-    "structure.view.defaults.are.configured": "true",
-    "two.files.diff.last.used.file": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Ctrl/Motor&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
@@ -182,11 +189,6 @@
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
@@ -495,7 +497,13 @@
       <workItem from="1703598583752" duration="1394000" />
       <workItem from="1703863314292" duration="204000" />
       <workItem from="1703864216273" duration="5696000" />
-      <workItem from="1704465394337" duration="11756000" />
+      <workItem from="1704465394337" duration="18371000" />
+      <workItem from="1704552586894" duration="5862000" />
+      <workItem from="1704646294393" duration="81000" />
+      <workItem from="1704699741173" duration="2982000" />
+      <workItem from="1704703258176" duration="79000" />
+      <workItem from="1704729993247" duration="6000" />
+      <workItem from="1704730646992" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -681,7 +689,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701082932250</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="upd:&#10;- 调整局刷LUT与样例">
+      <option name="closed" value="true" />
+      <created>1704514785018</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1704514785018</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -748,7 +764,8 @@
     <MESSAGE value="bug&#10;- 速度模式抖动" />
     <MESSAGE value="fix&#10;- 速度模式抖动(大概)" />
     <MESSAGE value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
-    <option name="LAST_COMMIT_MESSAGE" value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
+    <MESSAGE value="upd:&#10;- 调整局刷LUT与样例" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 调整局刷LUT与样例" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -757,6 +774,11 @@
           <url>file://$PROJECT_DIR$/test/proto/main.cpp</url>
           <line>47</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp</url>
+          <line>529</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

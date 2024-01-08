@@ -38,7 +38,7 @@ public:
 
     void ApplyZeroPos(float _angle = 0);
 
-    void SetMode(Mode_t _mode,const AppKnobConfig *cfg);
+    void SetMode(Mode_t _mode, const AppKnobConfig *cfg);
 
     void SetLimitPos(float _min, float _max);
 
@@ -49,7 +49,9 @@ public:
     int GetEncoderModePos();
 
     int GetEncoderDivides();
+
     float GetZeroPosition();
+
     void SetEncoderModePos(uint32_t encoderDivides);
 
     Mode_t GetMode();
@@ -59,14 +61,17 @@ public:
     void SetVelocityPID(float p, float i, float d);
 
     void SetTorqueLimit(float _val);
+
     float GetTorqueLimit();
 
-    void UpdateConf(const AppKnobConfig* cfg);
+    void UpdateConf(const AppKnobConfig *cfg);
+
+    float GetTarget();
 
     float deviation = -3.7;
     float filterateMax = 0.04;
     float filterateVelocityMax = 0.05;
-    float triggerVelocityMax = 7 ;
+    float triggerVelocityMax = 7;
     float encoderDistance = 0;
     float encoderPosition = 0;
     float lastEncoderPosition = 0;

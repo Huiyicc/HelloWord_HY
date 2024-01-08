@@ -160,13 +160,14 @@ struct OsConfig {
 extern OsConfig g_SysConfig;
 
 // ========== config ==========
+#define font_default u8g2_font_wqy12_t_gb2312
 
 #ifndef SLEEPID_BUTTONPIN
 #define SLEEPID_BUTTONPIN 1
 #endif
 
 #ifndef OLED_CLEAR_BUFFER
-#define OLED_CLEAR_BUFFER() {g_sysCtx->Device.oled->ClearBuffer();g_sysCtx->Device.oled->SetFont(u8g2_font_wqy12_t_gb2312a);}
+#define OLED_CLEAR_BUFFER() {g_sysCtx->Device.oled->ClearBuffer();g_sysCtx->Device.oled->SetFont(font_default);}
 #endif
 #ifndef OLED_SEND_BUFFER
 #define OLED_SEND_BUFFER() g_sysCtx->Device.oled->SendBuffer();
@@ -175,5 +176,7 @@ extern OsConfig g_SysConfig;
 #ifndef OLED_DEVICES
 #define OLED_DEVICES() g_sysCtx->Device.oled
 #endif
+
+void HID_GetKnobStatus();
 
 #endif //HELLOWORD_DYNAMIC_FW_OS_DEFINE_HPP

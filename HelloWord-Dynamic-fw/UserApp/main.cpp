@@ -31,30 +31,29 @@ void regApp() {
 }
 
 void helloWord() {
+  CtrlInit();
+  if (!g_sysCtx->Device.ctrl.Action) {
+    OLED_CLEAR_BUFFER();
+    // logo区域
+    OLED_DEVICES()->SetDrawColor(1);
+    OLED_DEVICES()->SetFont(font_default);
+    OLED_DEVICES()->DrawBox(6, 11, 20, 20);
+    OLED_DEVICES()->DrawUTF8(9, 41, "校");
+    OLED_DEVICES()->DrawUTF8(9, 55, "准");
+    OLED_DEVICES()->DrawUTF8(9, 69, "失");
+    OLED_DEVICES()->DrawUTF8(9, 83, "败");
+    OLED_DEVICES()->SetDrawColor(0);
+    OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
+    OLED_SEND_BUFFER();
+    exit(1);
+  }
+
   g_sysCtx->Device.eink->Init();
   //g_sysCtx->Device.eink->demo();
-
-  CtrlInit();
   ButtonPinInit();
-  // SleepTimerInit();
   xTimerStart(xTimerCreate("SysTimer", pdMS_TO_TICKS(100), pdTRUE, nullptr, SysTask), 0);
-   if (!g_sysCtx->Device.ctrl.Action) {
-     OLED_CLEAR_BUFFER();
-     // logo区域
-     OLED_DEVICES()->SetDrawColor(1);
-     OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
-     OLED_DEVICES()->DrawBox(6, 11, 20, 20);
-     OLED_DEVICES()->DrawUTF8(9, 41, "校");
-     OLED_DEVICES()->DrawUTF8(9, 55, "准");
-     OLED_DEVICES()->DrawUTF8(9, 69, "失");
-     OLED_DEVICES()->DrawUTF8(9, 83, "败");
-     OLED_DEVICES()->SetDrawColor(0);
-     OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
-     OLED_SEND_BUFFER();
-     exit(1);
-   }
 
-
+  RGBInit();
 }
 
 void InitOs() {
@@ -85,8 +84,6 @@ void InitOs() {
   // 初始化存储
   InitStorage();
 
-  RGBInit();
-
   g_sysCtx->Device.eink = static_cast<Eink290BW *> (pvPortMalloc(sizeof(Eink290BW)));
   g_sysCtx->Device.eink = new(g_sysCtx->Device.eink) Eink290BW();
 
@@ -108,10 +105,8 @@ void InitOs() {
   AppChange(APPID_DESKTOP);
 }
 
-#include "Dev.hpp"
-
 void Main(void) {
-  // InitOs();
-  dev_test();
+  InitOs();
+
 }
 
