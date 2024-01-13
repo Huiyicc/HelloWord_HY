@@ -54,6 +54,12 @@ endif ()
 string(TIMESTAMP COMPILE_TIME %Y%m%d)
 set(build_time    ${COMPILE_TIME})
 message(STATUS "build time: ${build_time}")
+# 设置编译版本
+string(TIMESTAMP COMPILE_TIME %Y.%m.%d)
+set(build_version    "v${COMPILE_TIME}")
+message(STATUS "build time: ${build_version}")
+set(build_version_parse_tag    "build_version_parse_tag:{{${build_version}}}:build_version_parse_tag")
+
 find_package(Git REQUIRED)
 # 设置GIT版本信息
 execute_process(

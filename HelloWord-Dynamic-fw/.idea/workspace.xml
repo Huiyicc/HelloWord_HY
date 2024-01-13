@@ -24,25 +24,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 调整局刷LUT与样例">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 更新数据采样相关代码">
       <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/u8g2/cpp/U8g2lib.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/u8g2/cpp/U8g2lib.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/Dev.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/Dev.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/OLED.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/OLED.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/protocols/hid_msg.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/build_info.h.in" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h.in" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,6 +174,11 @@
       <option name="charset" value="UTF-8" />
       <option name="showConsole" value="true" />
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
@@ -503,7 +496,8 @@
       <workItem from="1704699741173" duration="2982000" />
       <workItem from="1704703258176" duration="79000" />
       <workItem from="1704729993247" duration="6000" />
-      <workItem from="1704730646992" duration="41000" />
+      <workItem from="1704730646992" duration="424000" />
+      <workItem from="1705161484532" duration="1831000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -697,7 +691,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704514785018</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="upd:&#10;- 更新数据采样相关代码">
+      <option name="closed" value="true" />
+      <created>1704731062616</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1704731062616</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -765,7 +767,8 @@
     <MESSAGE value="fix&#10;- 速度模式抖动(大概)" />
     <MESSAGE value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
     <MESSAGE value="upd:&#10;- 调整局刷LUT与样例" />
-    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 调整局刷LUT与样例" />
+    <MESSAGE value="upd:&#10;- 更新数据采样相关代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 更新数据采样相关代码" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
