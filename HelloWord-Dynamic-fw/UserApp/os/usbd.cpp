@@ -48,6 +48,8 @@ void HID_SendVersion() {
   version.GitBranch.arg = (void *) GIT_BRANCH;
   version.GitHash.funcs.encode = encode_string;
   version.GitHash.arg = (void *) GIT_HASH;
+  version.BuildVersion.funcs.encode = encode_string;
+  version.BuildVersion.arg = (void *) BUILD_VERSION;
   msg.which_payload = hid_msg_CtrlMessage_version_tag;
   msg.payload.version = version;
   auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);

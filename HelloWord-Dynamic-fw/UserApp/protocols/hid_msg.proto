@@ -58,6 +58,8 @@ message Version {
   required string GitHash = 2;
   // git分支
   required string GitBranch = 3;
+  // 编译时间
+  required string BuildVersion = 4;
 }
 
 message Eink {
