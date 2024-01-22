@@ -65,7 +65,11 @@ enum RGBEffect {
     // 默认渐变
     Default_ = 0,
     // 轮询渐变
-    Gradient,
+    Gradient = 1,
+    // 呼吸渐变
+    Breathe = 2,
+    // 自定义
+    Custom = 3,
 };
 
 struct SysDeviceRGB {
@@ -115,9 +119,36 @@ struct KnobConfig {
     float zeroPosition = -3.7f;
 };
 
+struct RGBConfig {
+    // 亮度
+    float Brightness = 0.4f;
+    // 颜色r
+    uint8_t R = 65;
+    // 颜色g
+    uint8_t G = 208;
+    // 颜色b
+    uint8_t B = 149;
+};
+
+// RGB配置
+struct RGBs {
+    // 编号
+    RGBConfig N0;
+    RGBConfig N1;
+    RGBConfig N2;
+    RGBConfig N3;
+    // 效果
+    RGBEffect Effect = RGBEffect::Default_;
+    // 休眠熄灯
+    bool SleepOff = true;
+    // 休眠后亮度
+    float SleepBrightness = 0.2f;
+};
+
 // 设备配置
 struct DeviceConfig {
     KnobConfig knob;
+    RGBs rgb;
 };
 
 // 应用电机反馈配置

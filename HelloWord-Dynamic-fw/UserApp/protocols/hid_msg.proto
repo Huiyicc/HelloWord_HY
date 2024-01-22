@@ -48,6 +48,20 @@ message PcMessage {
   }
 }
 
+// 插件消息ID
+enum PluginMessageId {
+  // 按钮状态
+  BUTTON_STATUS = 1;
+}
+// 扩展发送的插件端口消息
+message CtrlPluginMessage {
+  required PluginMessageId id = 1;
+  oneof payload {
+    Nil nil = 2;
+    ButtonStatus button_status = 3;
+  }
+}
+
 message Nil {}
 
 // 版本号消息
@@ -87,6 +101,23 @@ enum SetAppType {
   VelocityLimit = 4;
   // 附加值
   AddedValue = 5;
+}
+
+enum ButtonPinCallType {
+  // 左侧按钮短按事件
+  LeftButtonPressed = 1;
+  // 右侧按钮短按事件
+  RightButtonPressed = 2;
+  // 左侧按钮长按事件
+  LeftButtonLongPress = 3;
+  // 右侧按钮长按事件
+  RightButtonLongPress = 4;
+};
+
+// 按钮状态
+message ButtonStatus {
+  // 按钮状态
+  required ButtonPinCallType status = 1;
 }
 
 // 电机消息

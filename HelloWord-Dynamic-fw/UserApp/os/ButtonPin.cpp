@@ -8,6 +8,10 @@
 #include <timers.h>
 #include "ButtonPin.hpp"
 #include "sleep.hpp"
+#include "protocols/hid_msg.pb.h"
+#include "pb_encode.h"
+#include "usb_device.h"
+#include "usbd_customhid.h"
 
 ButtonPinCall ButtonPin;
 //TimerHandle_t g_timer_button;
@@ -94,16 +98,6 @@ bool RegisterButtonPinCall(ButtonPinCall call) {
 
 // 按键回调
 void privateCall(ButtonPinCallType type) {
-//    for (unsigned char i = 0; i < g_sysCtx->ButtonPinsSize; ++i) {
-//        if (g_sysCtx->ButtonPins[i] != nullptr) {
-//            g_sysCtx->ButtonPins[i](type);
-//        }
-//    }
-//    for (auto &it: g_sysCtx->ButtonPins) {
-//        if (it) {
-//            it(type);
-//        }
-//    }
     auto ptr = g_sysCtx->ButtonPins.GetHeadPtr();
     while (ptr) {
         if (ptr->val) {
@@ -126,8 +120,36 @@ void GPIO_Init(void) {
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
+// 延迟休眠
 void ButtonPinDelaySleep(ButtonPinCallType type) {
     OSDelaySleep();
+}
+
+// 上报按钮事件
+void ButtonPinSendButton(ButtonPinCallType type) {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x06;
+  lBuffer[1] = 0;
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlPluginMessage msg = hid_msg_CtrlPluginMessage_init_default;
+  msg.id = hid_msg_PluginMessageId_BUTTON_STATUS;
+  hid_msg_ButtonStatus bs = hid_msg_ButtonStatus_init_default;
+  bs.status = _hid_msg_ButtonPinCallType(type);
+  msg.which_payload = hid_msg_CtrlPluginMessage_button_status_tag;
+  msg.payload.button_status = bs;
+  auto status = pb_encode(&stream, hid_msg_CtrlPluginMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    osDelay(3);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 }
 
 // 初始化按键回调
@@ -135,6 +157,7 @@ void ButtonPinInit() {
     GPIO_Init();
     ButtonPin = privateCall;
     RegisterButtonPinCall(ButtonPinDelaySleep);
+    RegisterButtonPinCall(ButtonPinSendButton);
     // 设置扫描定时器,200ms扫描一次
     //xTimerStart(xTimerCreate("ButtonTimer", pdMS_TO_TICKS(100), pdTRUE, nullptr, ButtonTask), 0);
 }

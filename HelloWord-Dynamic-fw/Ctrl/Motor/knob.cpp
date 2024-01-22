@@ -21,10 +21,10 @@ void KnobSimulator::Init(Motor *_motor) {
   // When motor calibrated, we can replace Init with something like:
   // motor->Init(1.815850, EncoderBase::CW)
   g_sysCtx->Device.ctrl.Action = motor->Init();
+  //g_sysCtx->Device.ctrl.Action = motor->Init(1.815850, EncoderBase::CCW);
   if (!g_sysCtx->Device.ctrl.Action) {
     return;
   }
-
   motor->target = 0;
   motor->SetEnable(false);
 }

@@ -4,8 +4,6 @@
 #include "freertos_os2.h"
 #include "usbd.hpp"
 #include "SDK/utils.hpp"
-#include "usbd_conf.h"
-#include "SDK/git.hpp"
 #include "protocols/pb_decode.h"
 #include "protocols/pb_encode.h"
 #include "protocols/hid_msg.pb.h"

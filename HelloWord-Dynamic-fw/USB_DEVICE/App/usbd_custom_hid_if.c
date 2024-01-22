@@ -210,7 +210,7 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
         /* USER CODE END 0 */
         0xC0,    /*     END_COLLECTION	             */
 
-        // 亮度,没啥卵用
+        // 亮度调节,没啥卵用
         0x05, 0x0C,				/* Usage page (Consumer Control) */
         0x09, 0x01,				/* Usage (Consumer Control) */
         0xA1, 0x01,				/* Collection (Application) */
@@ -223,6 +223,28 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
         0x95, 0x01,				/* Report Count */
         0x81, 0x00,				/* Input (Data,Array,Absolute) */
         0xC0,					/* End Collection (Application) */
+
+        // 插件事件交互
+        0x05, 0x8c, // USAGE_PAGE (Generic Desktop)
+        0x09, 0x06, // USAGE (Pointer)
+        0xa1, 0x01, // COLLECTION (Application) /
+        0x85, 0x06,        //   Report ID (6)
+    // The Input report
+        0x09, 0x03, // USAGE ID - Vendor defined
+        0x15, 0x00, // LOGICAL_MINIMUM (0)
+        0x26, 0x00, 0xFF, // LOGICAL_MAXIMUM (255)
+        0x75, 0x08, // REPORT_SIZE (8)
+        0x95, CUSTOM_HID_EPIN_SIZE, //0x95,0x16, REPORT_COUNT (20)
+        0x81, 0x02, // INPUT (Data,Var,Abs)
+    // The Output report
+        0x09, 0x04, // USAGE ID - Vendor defined
+        0x15, 0x00, // LOGICAL_MINIMUM (0)
+        0x26, 0x00, 0xFF, // LOGICAL_MAXIMUM (255)
+        0x75, 0x08, // REPORT_SIZE (8)
+        0x95, CUSTOM_HID_EPOUT_SIZE, //0x95,0x16, REPORT_COUNT (20)
+        0x91, 0x02, // OUTPUT (Data,Var,Abs)
+    /* USER CODE END 0 */
+        0xC0,    /*     END_COLLECTION	             */
 
 };
 //__ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DESC_SIZE] __ALIGN_END =
