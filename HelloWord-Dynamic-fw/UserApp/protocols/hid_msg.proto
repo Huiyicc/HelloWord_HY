@@ -22,6 +22,8 @@ enum MessageId {
   SET_SYS_CFG = 7;
   // 获取电机状态
   MOTOR_GET_STATUS = 8;
+  // 获取RGB配置
+  GET_RGB_CONFIG = 9;
 }
 
 // 扩展发来的消息
@@ -33,6 +35,7 @@ message CtrlMessage {
     Knob knob = 4;
     SysCfg sys_cfg = 5;
     knobStatus knob_status = 6;
+    rgbConfig rgb_status = 7;
   }
 }
 
@@ -45,6 +48,7 @@ message PcMessage {
     Eink eink = 4;
     Knob knob = 5;
     SysCfg sys_cfg = 6;
+    rgbConfig rgb_status = 7;
   }
 }
 
@@ -189,4 +193,15 @@ message knobStatus {
   required float target_velocity = 6;
   // 目标电压
   required float target_voltage = 7;
+}
+
+message rgbConfig {
+  // 灯ID
+  required uint32 id = 1;
+  // 灯模式
+  required uint32 mode = 2;
+  // 灯亮度
+  required float brightness = 3;
+  // 灯颜色
+  required uint32 color = 4;
 }

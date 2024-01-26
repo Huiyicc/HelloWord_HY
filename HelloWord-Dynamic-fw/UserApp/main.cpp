@@ -136,7 +136,7 @@ void test() {
 }
 
 void Main(void) {
-  //InitOs();
-  test();
+  InitOs();
+  //test();
 }
 

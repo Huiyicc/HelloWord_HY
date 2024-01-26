@@ -119,34 +119,34 @@ void ThreadRGBUpdate(void *argument) {
       }
     }
 
-    if (g_SysConfig.devices.rgb.Effect == RGBEffect::Default_ ||
-        g_SysConfig.devices.rgb.Effect == RGBEffect::Gradient) {
-      // 轮询灯效
-      rgbStatus[i].RGBSeed++;
-      if (rgbStatus[i].RGBSeed >= 360) {
-        rgbStatus[i].RGBSeed = 0;
-      }
-      HSV2RGB(rgbStatus[i].RGBSeed, 1.0, 1.0, &rgbStatus[i].R, &rgbStatus[i].G, &rgbStatus[i].B);  // HSV模型转成RGB三原色
-      color.r = rgbStatus[i].R;
-      color.g = rgbStatus[i].G;
-      color.b = rgbStatus[i].B;
-      rgb.SetRgbBuffer(i, color, 0.4);
-    } else if (g_SysConfig.devices.rgb.Effect == RGBEffect::Breathe) {
-      // 呼吸灯效
-      rgbBrightness = (rgbRunStatus ? rgbBrightness + 0.005 : rgbBrightness - 0.005);
-      if (rgbBrightness >= 1.0) {
-        rgbBrightness = 1.0;
-        rgbRunStatus = false;
-      } else if (rgbBrightness <= 0.0) {
-        rgbBrightness = 0.0;
-        rgbRunStatus = true;
-      }
-      color.r = rgbConfig->R;
-      color.g = rgbConfig->G;
-      color.b = rgbConfig->B;
-      rgb.SetRgbBuffer(i, color, rgbBrightness);
-    }
-    rgb.SyncLights();
+//    if (g_SysConfig.devices.rgb.Effect == RGBEffect::Default_ ||
+//        g_SysConfig.devices.rgb.Effect == RGBEffect::Gradient) {
+//      // 轮询灯效
+//      rgbStatus[i].RGBSeed++;
+//      if (rgbStatus[i].RGBSeed >= 360) {
+//        rgbStatus[i].RGBSeed = 0;
+//      }
+//      HSV2RGB(rgbStatus[i].RGBSeed, 1.0, 1.0, &rgbStatus[i].R, &rgbStatus[i].G, &rgbStatus[i].B);  // HSV模型转成RGB三原色
+//      color.r = rgbStatus[i].R;
+//      color.g = rgbStatus[i].G;
+//      color.b = rgbStatus[i].B;
+//      rgb.SetRgbBuffer(i, color, 0.4);
+//    } else if (g_SysConfig.devices.rgb.Effect == RGBEffect::Breathe) {
+//      // 呼吸灯效
+//      rgbBrightness = (rgbRunStatus ? rgbBrightness + 0.005 : rgbBrightness - 0.005);
+//      if (rgbBrightness >= 1.0) {
+//        rgbBrightness = 1.0;
+//        rgbRunStatus = false;
+//      } else if (rgbBrightness <= 0.0) {
+//        rgbBrightness = 0.0;
+//        rgbRunStatus = true;
+//      }
+//      color.r = rgbConfig->R;
+//      color.g = rgbConfig->G;
+//      color.b = rgbConfig->B;
+//      rgb.SetRgbBuffer(i, color, rgbBrightness);
+//    }
+//    rgb.SyncLights();
   }
 
 }

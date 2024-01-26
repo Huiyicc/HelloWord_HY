@@ -128,6 +128,8 @@ struct RGBConfig {
     uint8_t G = 208;
     // 颜色b
     uint8_t B = 149;
+    // 效果
+    RGBEffect Effect = RGBEffect::Default_;
 };
 
 // RGB配置
@@ -137,8 +139,6 @@ struct RGBs {
     RGBConfig N1;
     RGBConfig N2;
     RGBConfig N3;
-    // 效果
-    RGBEffect Effect = RGBEffect::Default_;
     // 休眠熄灯
     bool SleepOff = true;
     // 休眠后亮度

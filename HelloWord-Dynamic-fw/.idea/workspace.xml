@@ -24,17 +24,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 更新构建模板&#10;- 更新版本号相关协议&#10;refactor:&#10;- 调整eink代码结构&#10;fix:&#10;- 调整uf2conv.py使能编译为二进制文件">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信">
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/Color.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/Color.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/Target/usbd_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ButtonPin.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ButtonPin.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/RGB.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/RGB.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/usbd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/usbd.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
@@ -130,32 +127,32 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "cmake.loaded.for.project": "true",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "D:/SDK/anconda3/Scripts/conda.exe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propDebugger",
-    "structure.view.defaults.are.configured": "true",
-    "two.files.diff.last.used.file": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/SDK/anconda3/Scripts/conda.exe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
@@ -507,7 +504,9 @@
       <workItem from="1705331625211" duration="341000" />
       <workItem from="1705587929017" duration="1240000" />
       <workItem from="1705763503319" duration="8428000" />
-      <workItem from="1705842067820" duration="18162000" />
+      <workItem from="1705842067820" duration="19819000" />
+      <workItem from="1706275493313" duration="4076000" />
+      <workItem from="1706283943060" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -725,7 +724,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705331940688</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信">
+      <option name="closed" value="true" />
+      <created>1705939500000</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1705939500000</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -771,7 +778,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="暂存" />
     <MESSAGE value="修复encode模式电机抖动的问题" />
     <MESSAGE value="重构大部分内存申请逻辑,优化占用" />
     <MESSAGE value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
@@ -796,7 +802,8 @@
     <MESSAGE value="upd:&#10;- 更新数据采样相关代码" />
     <MESSAGE value="upd:&#10;- 更新构建模板" />
     <MESSAGE value="upd:&#10;- 更新构建模板&#10;- 更新版本号相关协议&#10;refactor:&#10;- 调整eink代码结构&#10;fix:&#10;- 调整uf2conv.py使能编译为二进制文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 更新构建模板&#10;- 更新版本号相关协议&#10;refactor:&#10;- 调整eink代码结构&#10;fix:&#10;- 调整uf2conv.py使能编译为二进制文件" />
+    <MESSAGE value="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -11,7 +11,7 @@
 #include "usb_device.h"
 #include "cmsis_os.h"
 #include "os_define.hpp"
-//#include "eink_290_bw.h"
+#include "SDK/Color.hpp"
 #include "app_desktop.hpp"
 #include "storage.hpp"
 
@@ -21,6 +21,7 @@ unsigned int rec_offset = 0; //EINK偏移量
 unsigned char eink_status = 0;
 unsigned char oled_status = 0;
 extern bool hidApp;
+extern KnobStatus *knobStatus;
 
 bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *arg) {
   char *_str = (char *) *arg;
@@ -30,7 +31,7 @@ bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *a
   return pb_encode_string(stream, (uint8_t *) _str, strlen(_str));
 }
 
-
+namespace HIDFunc {
 void HID_SendVersion() {
   uint8_t lBuffer[65] = {0};
   memset(lBuffer, 0, sizeof(lBuffer));
@@ -257,7 +258,54 @@ void HID_SetSysCong(const _hid_msg_SysCfg *conf) {
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 }
 
-extern KnobStatus *knobStatus;
+void HID_SendRGBConf(uint8_t id) {
+  RGBConfig *rgbConfig = nullptr;
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  switch (id) {
+    case 0:
+      rgbConfig = &g_SysConfig.devices.rgb.N0;
+      break;
+    case 1:
+      rgbConfig = &g_SysConfig.devices.rgb.N1;
+      break;
+    case 2:
+      rgbConfig = &g_SysConfig.devices.rgb.N2;
+      break;
+    case 3:
+      rgbConfig = &g_SysConfig.devices.rgb.N3;
+      break;
+    default:
+      // 数据错误
+      lBuffer[2] = 0;
+      osDelay(3);
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      return;
+  }
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_GET_RGB_CONFIG;
+  hid_msg_rgbConfig conf = hid_msg_rgbConfig_init_default;
+  conf.color = HYSDK::Color::CombineColors(rgbConfig->R, rgbConfig->G, rgbConfig->B);
+  conf.brightness = rgbConfig->Brightness;
+  conf.mode = rgbConfig->Effect;
+  msg.which_payload = hid_msg_CtrlMessage_rgb_status_tag;
+  msg.payload.rgb_status = conf;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    osDelay(3);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  osDelay(3);
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+}
 
 void HID_GetKnobStatus() {
   uint8_t lBuffer[65] = {0};
@@ -291,6 +339,8 @@ void HID_GetKnobStatus() {
   osDelay(3);
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
 }
+}
+
 
 void Usb_DataEvent() {
   // 通信帧首字节为报告id,第二字节为完整性(0为完整,1为单次不够放入),第三字节为数据长度
@@ -387,29 +437,29 @@ void Usb_DataEvent() {
   switch (msg.id) {
     case hid_msg_MessageId_VERSION: {
       //回报版本号
-      HID_SendVersion();
+      HIDFunc::HID_SendVersion();
     }
       break;
     case hid_msg_MessageId_MOTOR_CONFIG : {
       switch (msg.payload.knob.id) {
         case hid_msg_KnobMessage_GetAppConfig:
           // 获取APP配置
-          HID_SendAppConf(msg.payload.knob.appid);
+          HIDFunc::HID_SendAppConf(msg.payload.knob.appid);
           break;
         case hid_msg_KnobMessage_SetAppConfig:
           // 设置APP配置
-          HID_SetAppConf(&msg.payload.knob);
+          HIDFunc::HID_SetAppConf(&msg.payload.knob);
           break;
       }
     }
       break;
     case hid_msg_MessageId_GET_SYS_CFG: {
-      HID_SendSysConf();
+      HIDFunc::HID_SendSysConf();
     }
       break;
     case hid_msg_MessageId_SET_SYS_CFG: {
       // 设置系统配置
-      HID_SetSysCong(&msg.payload.sys_cfg);
+      HIDFunc::HID_SetSysCong(&msg.payload.sys_cfg);
     }
       break;
     case hid_msg_MessageId_DEV_UTILS: {
@@ -422,6 +472,10 @@ void Usb_DataEvent() {
       break;
     case hid_msg_MessageId_MOTOR_GET_STATUS: {
       HID_GetKnobStatus();
+    }
+      break;
+    case hid_msg_MessageId_GET_RGB_CONFIG: {
+      HIDFunc::HID_SendRGBConf(uint8_t(msg.payload.rgb_status.id));
     }
       break;
     default:
