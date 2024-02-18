@@ -12,6 +12,7 @@
 #include "pb_encode.h"
 #include "usb_device.h"
 #include "usbd_customhid.h"
+#include "SDK/usbproto.hpp"
 
 ButtonPinCall ButtonPin;
 //TimerHandle_t g_timer_button;
@@ -143,13 +144,15 @@ void ButtonPinSendButton(ButtonPinCallType type) {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    //osDelay(3);
+    //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65, 3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+//  osDelay(3);
+//  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65, 3);
 }
 
 // 初始化按键回调

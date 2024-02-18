@@ -10,6 +10,7 @@
 #include "usbd_customhid.h"
 #include "SDK/utils.hpp"
 #include "storage.hpp"
+#include "SDK/usbproto.hpp"
 
 
 void appLightButtonPinCallback(enum ButtonPinCallType type) {
@@ -98,12 +99,14 @@ void AppLight::LightUP() {
   uint8_t HID_report[9] = {0};
   HID_report[0] = 0x05;
   HID_report[1] = 0x6F;
-  osDelay(1);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
-  osDelay(1);
+//  osDelay(1);
+//  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 9,1);
+  //osDelay(1);
   HID_report[0] = 0x05;
   HID_report[1] = 0x00;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+  //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 9,1);
 }
 
 void AppLight::LightDOWN() {
@@ -111,10 +114,12 @@ void AppLight::LightDOWN() {
   uint8_t HID_report[9] = {0};
   HID_report[0] = 0x05;
   HID_report[1] = 0x70;
-  osDelay(1);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
-  osDelay(1);
+  //osDelay(1);
+  //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 9,1);
+  //osDelay(1);
   HID_report[0] = 0x05;
   HID_report[1] = 0x00;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+  //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 9);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 9,1);
 }

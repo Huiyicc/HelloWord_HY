@@ -9,6 +9,7 @@
 #include "usb_device.h"
 #include "usbd_customhid.h"
 #include "storage.hpp"
+#include "SDK/usbproto.hpp"
 
 
 void appVolumeButtonPinCallback(enum ButtonPinCallType type) {
@@ -79,12 +80,12 @@ void AppVolume::VolumeUP() {
   uint8_t HID_report[5] = {0};
   HID_report[0] = 0x01;
   HID_report[1] = 0x01;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 5);
-  osDelay(3);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 5,3);
+  //osDelay(3);
   HID_report[0] = 0x01;
   HID_report[1] = 0x00;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 5);
-  osDelay(3);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 5,3);
+  //osDelay(3);
 
 }
 
@@ -93,10 +94,10 @@ void AppVolume::VolumeDOWN() {
   uint8_t HID_report[5] = {0};
   HID_report[0] = 0x01;
   HID_report[1] = 0x02;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 5);
-  osDelay(3);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 5,3);
+  //osDelay(3);
   HID_report[0] = 0x01;
   HID_report[1] = 0x00;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, HID_report, 5);
-  osDelay(3);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, HID_report, 5,3);
+  //osDelay(3);
 }

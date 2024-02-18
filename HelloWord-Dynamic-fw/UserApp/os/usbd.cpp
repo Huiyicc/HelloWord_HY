@@ -11,9 +11,9 @@
 #include "usb_device.h"
 #include "cmsis_os.h"
 #include "os_define.hpp"
-#include "SDK/Color.hpp"
 #include "app_desktop.hpp"
 #include "storage.hpp"
+#include "SDK/usbproto.hpp"
 
 unsigned char USB_Recive_Buffer[65]; //USB接收缓存
 unsigned char USB_Recive_Tmp_Buffer[5000]; //USB发送缓存
@@ -56,13 +56,11 @@ void HID_SendVersion() {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65, 3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65, 3);
 }
 
 void HID_SendAppConf(uint32_t appid) {
@@ -122,13 +120,11 @@ void HID_SendAppConf(uint32_t appid) {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 
 }
 
@@ -156,8 +152,7 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
       break;
 
     default:
-      osDelay(2);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
       return;
   }
 
@@ -195,14 +190,13 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
     }
       break;
     default:
-      osDelay(2);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
       return;
   }
   GetSysConfig(true);
   // 成功标志
   lBuffer[1] = 0x01;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 
 }
 
@@ -224,13 +218,26 @@ void HID_SendSysConf() {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+}
+
+RGBConfig *idGetRgbCfg(char id) {
+  switch (id) {
+    case 0:
+      return &g_SysConfig.devices.rgb.N0;
+    case 1:
+      return &g_SysConfig.devices.rgb.N1;
+    case 2:
+      return &g_SysConfig.devices.rgb.N2;
+    case 3:
+      return &g_SysConfig.devices.rgb.N3;
+    default:
+      return nullptr;
+  }
 }
 
 // 设置APP配置
@@ -246,16 +253,14 @@ void HID_SetSysCong(const _hid_msg_SysCfg *conf) {
     }
       break;
     default: {
-      osDelay(2);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
       return;
     }
   }
   GetSysConfig(true);
   // 成功标志
   lBuffer[1] = 0x01;
-  osDelay(2);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 }
 
 void HID_SendRGBConf(uint8_t id) {
@@ -264,33 +269,23 @@ void HID_SendRGBConf(uint8_t id) {
   memset(lBuffer, 0, sizeof(lBuffer));
   lBuffer[0] = 0x04;
   lBuffer[1] = 0;
-  switch (id) {
-    case 0:
-      rgbConfig = &g_SysConfig.devices.rgb.N0;
-      break;
-    case 1:
-      rgbConfig = &g_SysConfig.devices.rgb.N1;
-      break;
-    case 2:
-      rgbConfig = &g_SysConfig.devices.rgb.N2;
-      break;
-    case 3:
-      rgbConfig = &g_SysConfig.devices.rgb.N3;
-      break;
-    default:
-      // 数据错误
-      lBuffer[2] = 0;
-      osDelay(3);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
-      return;
+  rgbConfig = idGetRgbCfg(id);
+  if (rgbConfig == nullptr) {
+    // 数据错误
+    lBuffer[2] = 0;
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+    return;
   }
   pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
   hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
   msg.id = hid_msg_MessageId_GET_RGB_CONFIG;
   hid_msg_rgbConfig conf = hid_msg_rgbConfig_init_default;
-  conf.color = HYSDK::Color::CombineColors(rgbConfig->R, rgbConfig->G, rgbConfig->B);
+  Color_t tColor = {rgbConfig->R, rgbConfig->G, rgbConfig->B};
+  conf.color = tColor.GetColor();
   conf.brightness = rgbConfig->Brightness;
   conf.mode = rgbConfig->Effect;
+  conf.sleep_off = g_SysConfig.devices.rgb.SleepOff;
+  conf.sleep_brightness = g_SysConfig.devices.rgb.SleepBrightness;
   msg.which_payload = hid_msg_CtrlMessage_rgb_status_tag;
   msg.payload.rgb_status = conf;
   auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
@@ -298,14 +293,55 @@ void HID_SendRGBConf(uint8_t id) {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 }
+
+// 设置RGB配置
+void HID_SetRGBConf(const _hid_msg_rgbConfig &conf) {
+  uint8_t lBuffer[65] = {0};
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  if (conf.id > 4 || conf.id < 0) {
+    lBuffer[2] = 0;
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+    return;
+  }
+  // id顺序0~3,4为一次性设置1~3
+  auto setCfgFunc = [&](int id) {
+      RGBConfig *rgbConfig = nullptr;
+      rgbConfig = idGetRgbCfg(id);
+      if (rgbConfig == nullptr) {
+        // id错误
+        lBuffer[2] = 0;
+        HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+        return;
+      }
+      rgbConfig->Brightness = conf.brightness;
+      Color_t tColor(conf.color);
+      rgbConfig->R = tColor.r;
+      rgbConfig->G = tColor.g;
+      rgbConfig->B = tColor.b;
+      rgbConfig->Effect = RGBEffect(conf.mode);
+      g_SysConfig.devices.rgb.SleepOff = conf.sleep_off;
+      g_SysConfig.devices.rgb.SleepBrightness = conf.sleep_brightness;
+  };
+  if (conf.id != 4) {
+    setCfgFunc(conf.id);
+  } else {
+    setCfgFunc(1);
+    setCfgFunc(2);
+    setCfgFunc(3);
+  }
+  GetSysConfig(true);
+  // 成功标志
+  lBuffer[1] = 0x01;
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+}
+
 
 void HID_GetKnobStatus() {
   uint8_t lBuffer[65] = {0};
@@ -331,13 +367,11 @@ void HID_GetKnobStatus() {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 }
 }
 
@@ -407,7 +441,7 @@ void Usb_DataEvent() {
     lBuffer[1] = 0x02;
     lBuffer[2] = 0x02;
     lBuffer[3] = 0x02;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer),3);
     return;
   } else if (oled_status == 1) {
     if (!hidApp) {
@@ -426,7 +460,7 @@ void Usb_DataEvent() {
     lBuffer[1] = 0x02;
     lBuffer[2] = 0x02;
     lBuffer[3] = 0x02;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer),3);
     return;
   } else {
     return;
@@ -471,11 +505,15 @@ void Usb_DataEvent() {
     }
       break;
     case hid_msg_MessageId_MOTOR_GET_STATUS: {
-      HID_GetKnobStatus();
+      HIDFunc::HID_GetKnobStatus();
     }
       break;
     case hid_msg_MessageId_GET_RGB_CONFIG: {
       HIDFunc::HID_SendRGBConf(uint8_t(msg.payload.rgb_status.id));
+    }
+      break;
+    case hid_msg_MessageId_SET_RGB_CONFIG: {
+      HIDFunc::HID_SetRGBConf(msg.payload.rgb_status);
     }
       break;
     default:

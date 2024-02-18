@@ -142,7 +142,7 @@ struct RGBs {
     // 休眠熄灯
     bool SleepOff = true;
     // 休眠后亮度
-    float SleepBrightness = 0.2f;
+    float SleepBrightness = 0.05f;
 };
 
 // 设备配置

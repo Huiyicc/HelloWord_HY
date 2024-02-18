@@ -41,10 +41,12 @@ void appWindowsKNobCallback(KnobStatus *status) {
                 // LWIN+TAB
                 keyBoardData[1] = ((1 << ((0x84 & 0x0f) - 1)));
                 keyBoardData[3] = HYSDK::USB::KeyCode_t::TAB;
-                USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardData,9);
-                HAL_Delay(3);
-                USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardDataEmpty,9);
-                HAL_Delay(3);
+//                USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardData,9);
+//                HAL_Delay(3);
+//                USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardDataEmpty,9);
+//                HAL_Delay(3);
+                HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, (uint8_t *) &keyBoardData, 9,2);
+                HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, (uint8_t *) &keyBoardDataEmpty, 9,2);
 
                 break;
             case 2:
@@ -52,10 +54,12 @@ void appWindowsKNobCallback(KnobStatus *status) {
                 // LWIN+D
                 keyBoardData[1] = ((1 << ((0x84 & 0x0f) - 1)));
                 keyBoardData[3] = HYSDK::USB::KeyCode_t::D;
-                USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardData,9);
-                HAL_Delay(3);
-                USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardDataEmpty,9);
-                HAL_Delay(3);
+            HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, (uint8_t *) &keyBoardData, 9,2);
+                //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardData,9);
+                //HAL_Delay(3);
+                //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS,(uint8_t*)&keyBoardDataEmpty,9);
+                //HAL_Delay(3);
+            HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, (uint8_t *) &keyBoardDataEmpty, 9,2);
 
                 break;
             default:

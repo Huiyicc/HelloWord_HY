@@ -24,6 +24,8 @@ enum MessageId {
   MOTOR_GET_STATUS = 8;
   // 获取RGB配置
   GET_RGB_CONFIG = 9;
+  // 设置RGB配置
+  SET_RGB_CONFIG = 10;
 }
 
 // 扩展发来的消息
@@ -204,4 +206,8 @@ message rgbConfig {
   required float brightness = 3;
   // 灯颜色
   required uint32 color = 4;
+  // 休眠熄灯
+  required bool sleep_off = 5;
+  // 休眠灯最大亮度
+  required float sleep_brightness = 6;
 }
