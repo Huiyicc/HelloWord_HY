@@ -24,9 +24,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport">
+      <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Sensor/Encoder/encoder_base.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/build_info.h" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/build_info.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,10 +78,26 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/../.." value="main" />
+        <entry key="$PROJECT_DIR$/.." value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Ctrl/Motor/knob.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Ctrl/Motor/motor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Platform/Utils/time_utils.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/os/app_updown.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/os/ctrl.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UserApp/os/storage.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -105,22 +122,25 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Ctrl/Motor&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -153,16 +173,12 @@
       <option name="showConsole" value="true" />
       <method v="2" />
     </configuration>
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -184,6 +200,7 @@
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -203,6 +220,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Autodetect">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -217,6 +235,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -235,6 +254,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -250,6 +270,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Twisted Trial">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -264,6 +285,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -278,6 +300,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <module name="HelloWord-Dynamic-fw" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -298,6 +321,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
         <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
       </list>
     </recent_temporary>
@@ -446,6 +470,40 @@
       <workItem from="1701066575756" duration="13964000" />
       <workItem from="1701098137472" duration="1485000" />
       <workItem from="1701129830976" duration="779000" />
+      <workItem from="1701672971405" duration="54000" />
+      <workItem from="1701673098234" duration="49000" />
+      <workItem from="1701680976633" duration="153000" />
+      <workItem from="1701772831029" duration="730000" />
+      <workItem from="1701870113837" duration="19000" />
+      <workItem from="1701870184240" duration="601000" />
+      <workItem from="1701872268739" duration="644000" />
+      <workItem from="1701963563567" duration="319000" />
+      <workItem from="1701963909987" duration="328000" />
+      <workItem from="1702310682876" duration="883000" />
+      <workItem from="1703598583752" duration="1394000" />
+      <workItem from="1703863314292" duration="204000" />
+      <workItem from="1703864216273" duration="5696000" />
+      <workItem from="1704465394337" duration="18371000" />
+      <workItem from="1704552586894" duration="5862000" />
+      <workItem from="1704646294393" duration="81000" />
+      <workItem from="1704699741173" duration="2982000" />
+      <workItem from="1704703258176" duration="79000" />
+      <workItem from="1704729993247" duration="6000" />
+      <workItem from="1704730646992" duration="424000" />
+      <workItem from="1705161484532" duration="1868000" />
+      <workItem from="1705250294215" duration="8141000" />
+      <workItem from="1705328211814" duration="1073000" />
+      <workItem from="1705330044806" duration="923000" />
+      <workItem from="1705331625211" duration="341000" />
+      <workItem from="1705587929017" duration="1240000" />
+      <workItem from="1705763503319" duration="8428000" />
+      <workItem from="1705842067820" duration="19819000" />
+      <workItem from="1706275493313" duration="4076000" />
+      <workItem from="1706283943060" duration="655000" />
+      <workItem from="1706708918710" duration="3844000" />
+      <workItem from="1706714615598" duration="695000" />
+      <workItem from="1708254900804" duration="11809000" />
+      <workItem from="1708309891900" duration="9000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -631,17 +689,83 @@
       <option name="project" value="LOCAL" />
       <updated>1701082932250</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="upd:&#10;- 调整局刷LUT与样例">
+      <option name="closed" value="true" />
+      <created>1704514785018</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1704514785018</updated>
+    </task>
+    <task id="LOCAL-00025" summary="upd:&#10;- 更新数据采样相关代码">
+      <option name="closed" value="true" />
+      <created>1704731062616</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1704731062616</updated>
+    </task>
+    <task id="LOCAL-00026" summary="upd:&#10;- 更新构建模板">
+      <option name="closed" value="true" />
+      <created>1705167299633</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1705167299633</updated>
+    </task>
+    <task id="LOCAL-00027" summary="upd:&#10;- 更新构建模板&#10;- 更新版本号相关协议&#10;refactor:&#10;- 调整eink代码结构&#10;fix:&#10;- 调整uf2conv.py使能编译为二进制文件">
+      <option name="closed" value="true" />
+      <created>1705331940688</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1705331940688</updated>
+    </task>
+    <task id="LOCAL-00028" summary="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信">
+      <option name="closed" value="true" />
+      <created>1705939500000</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1705939500000</updated>
+    </task>
+    <task id="LOCAL-00029" summary="upd:&#10;- 预更新rgb灯效">
+      <option name="closed" value="true" />
+      <created>1706283957438</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1706283957438</updated>
+    </task>
+    <task id="LOCAL-00030" summary="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport">
+      <option name="closed" value="true" />
+      <created>1708278662114</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1708278662114</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
-    <isAutomaticEditVcpkgJson value="false" />
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
-    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -667,9 +791,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="暂存" />
-    <MESSAGE value="修复encode模式电机抖动的问题" />
-    <MESSAGE value="重构大部分内存申请逻辑,优化占用" />
     <MESSAGE value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
     <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
     <MESSAGE value="更新墨水屏推送协议,增加屏幕睡眠指令" />
@@ -688,7 +809,14 @@
     <MESSAGE value="bug&#10;- 速度模式抖动" />
     <MESSAGE value="fix&#10;- 速度模式抖动(大概)" />
     <MESSAGE value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
-    <option name="LAST_COMMIT_MESSAGE" value="new:&#10;- StorageTask事件&#10;- 超时保存配置&#10;- 微调惯性模式电机手感" />
+    <MESSAGE value="upd:&#10;- 调整局刷LUT与样例" />
+    <MESSAGE value="upd:&#10;- 更新数据采样相关代码" />
+    <MESSAGE value="upd:&#10;- 更新构建模板" />
+    <MESSAGE value="upd:&#10;- 更新构建模板&#10;- 更新版本号相关协议&#10;refactor:&#10;- 调整eink代码结构&#10;fix:&#10;- 调整uf2conv.py使能编译为二进制文件" />
+    <MESSAGE value="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信" />
+    <MESSAGE value="upd:&#10;- 预更新rgb灯效" />
+    <MESSAGE value="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -713,6 +841,7 @@
         <watch expression="USB_Recive_Tmp_Buffer" />
         <watch expression="msg" />
         <watch expression="g_sysCtx" />
+        <watch expression="g_SysConfig" />
       </configuration>
     </watches-manager>
   </component>

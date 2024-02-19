@@ -111,7 +111,7 @@ void AppDesktop::ReView() {
     y += m_shifting;
 
     OLED_DEVICES()->SetDrawColor(1);
-    OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
+    OLED_DEVICES()->SetFont(font_default);
     OLED_DEVICES()->DrawUTF8(5, 0, m_menuList[m_menuIndex].name);
 
     OLED_DEVICES()->SetDrawColor(2);

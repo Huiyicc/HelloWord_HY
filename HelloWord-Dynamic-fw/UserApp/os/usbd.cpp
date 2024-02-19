@@ -4,8 +4,6 @@
 #include "freertos_os2.h"
 #include "usbd.hpp"
 #include "SDK/utils.hpp"
-#include "usbd_conf.h"
-#include "SDK/git.hpp"
 #include "protocols/pb_decode.h"
 #include "protocols/pb_encode.h"
 #include "protocols/hid_msg.pb.h"
@@ -13,9 +11,9 @@
 #include "usb_device.h"
 #include "cmsis_os.h"
 #include "os_define.hpp"
-//#include "eink_290_bw.h"
 #include "app_desktop.hpp"
 #include "storage.hpp"
+#include "SDK/usbproto.hpp"
 
 unsigned char USB_Recive_Buffer[65]; //USB接收缓存
 unsigned char USB_Recive_Tmp_Buffer[5000]; //USB发送缓存
@@ -23,6 +21,7 @@ unsigned int rec_offset = 0; //EINK偏移量
 unsigned char eink_status = 0;
 unsigned char oled_status = 0;
 extern bool hidApp;
+extern KnobStatus *knobStatus;
 
 bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *arg) {
   char *_str = (char *) *arg;
@@ -32,7 +31,7 @@ bool encode_string(pb_ostream_t *stream, const pb_field_t *field, void *const *a
   return pb_encode_string(stream, (uint8_t *) _str, strlen(_str));
 }
 
-
+namespace HIDFunc {
 void HID_SendVersion() {
   uint8_t lBuffer[65] = {0};
   memset(lBuffer, 0, sizeof(lBuffer));
@@ -48,6 +47,8 @@ void HID_SendVersion() {
   version.GitBranch.arg = (void *) GIT_BRANCH;
   version.GitHash.funcs.encode = encode_string;
   version.GitHash.arg = (void *) GIT_HASH;
+  version.BuildVersion.funcs.encode = encode_string;
+  version.BuildVersion.arg = (void *) BUILD_VERSION;
   msg.which_payload = hid_msg_CtrlMessage_version_tag;
   msg.payload.version = version;
   auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
@@ -55,13 +56,11 @@ void HID_SendVersion() {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65, 3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65, 3);
 }
 
 void HID_SendAppConf(uint32_t appid) {
@@ -121,13 +120,11 @@ void HID_SendAppConf(uint32_t appid) {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 
 }
 
@@ -155,8 +152,7 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
       break;
 
     default:
-      osDelay(2);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
       return;
   }
 
@@ -194,14 +190,13 @@ void HID_SetAppConf(const _hid_msg_Knob *conf) {
     }
       break;
     default:
-      osDelay(2);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
       return;
   }
   GetSysConfig(true);
   // 成功标志
   lBuffer[1] = 0x01;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 
 }
 
@@ -223,13 +218,26 @@ void HID_SendSysConf() {
   if (message_length > 62 || !status) {
     // 数据错误
     lBuffer[2] = 0;
-    osDelay(3);
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
     return;
   }
   lBuffer[2] = message_length + 1;
-  osDelay(3);
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+}
+
+RGBConfig *idGetRgbCfg(char id) {
+  switch (id) {
+    case 0:
+      return &g_SysConfig.devices.rgb.N0;
+    case 1:
+      return &g_SysConfig.devices.rgb.N1;
+    case 2:
+      return &g_SysConfig.devices.rgb.N2;
+    case 3:
+      return &g_SysConfig.devices.rgb.N3;
+    default:
+      return nullptr;
+  }
 }
 
 // 设置APP配置
@@ -245,16 +253,128 @@ void HID_SetSysCong(const _hid_msg_SysCfg *conf) {
     }
       break;
     default: {
-      osDelay(2);
-      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+      HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
       return;
     }
   }
   GetSysConfig(true);
   // 成功标志
   lBuffer[1] = 0x01;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, 65);
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
 }
+
+void HID_SendRGBConf(uint8_t id) {
+  RGBConfig *rgbConfig = nullptr;
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  rgbConfig = idGetRgbCfg(id);
+  if (rgbConfig == nullptr) {
+    // 数据错误
+    lBuffer[2] = 0;
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+    return;
+  }
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_GET_RGB_CONFIG;
+  hid_msg_rgbConfig conf = hid_msg_rgbConfig_init_default;
+  Color_t tColor = {rgbConfig->R, rgbConfig->G, rgbConfig->B};
+  conf.color = tColor.GetColor();
+  conf.brightness = rgbConfig->Brightness;
+  conf.mode = rgbConfig->Effect;
+  conf.sleep_off = g_SysConfig.devices.rgb.SleepOff;
+  conf.sleep_brightness = g_SysConfig.devices.rgb.SleepBrightness;
+  msg.which_payload = hid_msg_CtrlMessage_rgb_status_tag;
+  msg.payload.rgb_status = conf;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+}
+
+// 设置RGB配置
+void HID_SetRGBConf(const _hid_msg_rgbConfig &conf) {
+  uint8_t lBuffer[65] = {0};
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  if (conf.id > 4 || conf.id < 0) {
+    lBuffer[2] = 0;
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+    return;
+  }
+  // id顺序0~3,4为一次性设置1~3
+  auto setCfgFunc = [&](int id) {
+      RGBConfig *rgbConfig = nullptr;
+      rgbConfig = idGetRgbCfg(id);
+      if (rgbConfig == nullptr) {
+        // id错误
+        lBuffer[2] = 0;
+        HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+        return;
+      }
+      rgbConfig->Brightness = conf.brightness;
+      Color_t tColor(conf.color);
+      rgbConfig->R = tColor.r;
+      rgbConfig->G = tColor.g;
+      rgbConfig->B = tColor.b;
+      rgbConfig->Effect = RGBEffect(conf.mode);
+      g_SysConfig.devices.rgb.SleepOff = conf.sleep_off;
+      g_SysConfig.devices.rgb.SleepBrightness = conf.sleep_brightness;
+  };
+  if (conf.id != 4) {
+    setCfgFunc(conf.id);
+  } else {
+    setCfgFunc(1);
+    setCfgFunc(2);
+    setCfgFunc(3);
+  }
+  GetSysConfig(true);
+  // 成功标志
+  lBuffer[1] = 0x01;
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+}
+
+
+void HID_GetKnobStatus() {
+  uint8_t lBuffer[65] = {0};
+  memset(lBuffer, 0, sizeof(lBuffer));
+  lBuffer[0] = 0x04;
+  lBuffer[1] = 0;
+  pb_ostream_t stream = pb_ostream_from_buffer(&lBuffer[3], 62);
+  hid_msg_CtrlMessage msg = hid_msg_CtrlMessage_init_default;
+  msg.id = hid_msg_MessageId_MOTOR_GET_STATUS;
+  hid_msg_knobStatus conf = hid_msg_knobStatus_init_default;
+  conf.timestamp = HAL_GetTick();
+  conf.knobMode = g_sysCtx->Device.ctrl.knob.GetMode();
+  conf.current_angle = knobStatus->Angle;
+  conf.target_angle = g_sysCtx->Device.ctrl.knob.GetTarget();
+  conf.current_velocity = knobStatus->Velocity;
+  conf.target_velocity = g_sysCtx->Device.ctrl.knob.GetTarget();
+  conf.target_voltage = sqrt(g_sysCtx->Device.ctrl.motor.voltage.q * g_sysCtx->Device.ctrl.motor.voltage.q +
+                             g_sysCtx->Device.ctrl.motor.voltage.d * g_sysCtx->Device.ctrl.motor.voltage.d);
+  msg.which_payload = hid_msg_CtrlMessage_knob_status_tag;
+  msg.payload.knob_status = conf;
+  auto status = pb_encode(&stream, hid_msg_CtrlMessage_fields, &msg);
+  auto message_length = stream.bytes_written;
+  if (message_length > 62 || !status) {
+    // 数据错误
+    lBuffer[2] = 0;
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+    return;
+  }
+  lBuffer[2] = message_length + 1;
+  HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, 65,3);
+}
+}
+
 
 void Usb_DataEvent() {
   // 通信帧首字节为报告id,第二字节为完整性(0为完整,1为单次不够放入),第三字节为数据长度
@@ -321,7 +441,7 @@ void Usb_DataEvent() {
     lBuffer[1] = 0x02;
     lBuffer[2] = 0x02;
     lBuffer[3] = 0x02;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer),3);
     return;
   } else if (oled_status == 1) {
     if (!hidApp) {
@@ -340,7 +460,7 @@ void Usb_DataEvent() {
     lBuffer[1] = 0x02;
     lBuffer[2] = 0x02;
     lBuffer[3] = 0x02;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer));
+    HYSDK::USB::USBDHIDSendReport(&hUsbDeviceFS, lBuffer, sizeof(lBuffer),3);
     return;
   } else {
     return;
@@ -351,29 +471,29 @@ void Usb_DataEvent() {
   switch (msg.id) {
     case hid_msg_MessageId_VERSION: {
       //回报版本号
-      HID_SendVersion();
+      HIDFunc::HID_SendVersion();
     }
       break;
     case hid_msg_MessageId_MOTOR_CONFIG : {
       switch (msg.payload.knob.id) {
         case hid_msg_KnobMessage_GetAppConfig:
           // 获取APP配置
-          HID_SendAppConf(msg.payload.knob.appid);
+          HIDFunc::HID_SendAppConf(msg.payload.knob.appid);
           break;
         case hid_msg_KnobMessage_SetAppConfig:
           // 设置APP配置
-          HID_SetAppConf(&msg.payload.knob);
+          HIDFunc::HID_SetAppConf(&msg.payload.knob);
           break;
       }
     }
       break;
     case hid_msg_MessageId_GET_SYS_CFG: {
-      HID_SendSysConf();
+      HIDFunc::HID_SendSysConf();
     }
       break;
     case hid_msg_MessageId_SET_SYS_CFG: {
       // 设置系统配置
-      HID_SetSysCong(&msg.payload.sys_cfg);
+      HIDFunc::HID_SetSysCong(&msg.payload.sys_cfg);
     }
       break;
     case hid_msg_MessageId_DEV_UTILS: {
@@ -382,6 +502,18 @@ void Usb_DataEvent() {
         auto app = (AppDesktop *) g_sysCtx->Apps.AppsMap[APPID_DESKTOP];
         app->EasingType = msg.payload.utils.uData;
       }
+    }
+      break;
+    case hid_msg_MessageId_MOTOR_GET_STATUS: {
+      HIDFunc::HID_GetKnobStatus();
+    }
+      break;
+    case hid_msg_MessageId_GET_RGB_CONFIG: {
+      HIDFunc::HID_SendRGBConf(uint8_t(msg.payload.rgb_status.id));
+    }
+      break;
+    case hid_msg_MessageId_SET_RGB_CONFIG: {
+      HIDFunc::HID_SetRGBConf(msg.payload.rgb_status);
     }
       break;
     default:

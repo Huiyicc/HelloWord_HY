@@ -65,7 +65,11 @@ enum RGBEffect {
     // 默认渐变
     Default_ = 0,
     // 轮询渐变
-    Gradient,
+    Gradient = 1,
+    // 呼吸渐变
+    Breathe = 2,
+    // 自定义
+    Custom = 3,
 };
 
 struct SysDeviceRGB {
@@ -115,9 +119,36 @@ struct KnobConfig {
     float zeroPosition = -3.7f;
 };
 
+struct RGBConfig {
+    // 亮度
+    float Brightness = 0.4f;
+    // 颜色r
+    uint8_t R = 65;
+    // 颜色g
+    uint8_t G = 208;
+    // 颜色b
+    uint8_t B = 149;
+    // 效果
+    RGBEffect Effect = RGBEffect::Default_;
+};
+
+// RGB配置
+struct RGBs {
+    // 编号
+    RGBConfig N0;
+    RGBConfig N1;
+    RGBConfig N2;
+    RGBConfig N3;
+    // 休眠熄灯
+    bool SleepOff = true;
+    // 休眠后亮度
+    float SleepBrightness = 0.05f;
+};
+
 // 设备配置
 struct DeviceConfig {
     KnobConfig knob;
+    RGBs rgb;
 };
 
 // 应用电机反馈配置
@@ -160,13 +191,14 @@ struct OsConfig {
 extern OsConfig g_SysConfig;
 
 // ========== config ==========
+#define font_default u8g2_font_wqy12_t_gb2312
 
 #ifndef SLEEPID_BUTTONPIN
 #define SLEEPID_BUTTONPIN 1
 #endif
 
 #ifndef OLED_CLEAR_BUFFER
-#define OLED_CLEAR_BUFFER() {g_sysCtx->Device.oled->ClearBuffer();g_sysCtx->Device.oled->SetFont(u8g2_font_wqy12_t_gb2312a);}
+#define OLED_CLEAR_BUFFER() {g_sysCtx->Device.oled->ClearBuffer();g_sysCtx->Device.oled->SetFont(font_default);}
 #endif
 #ifndef OLED_SEND_BUFFER
 #define OLED_SEND_BUFFER() g_sysCtx->Device.oled->SendBuffer();
@@ -175,5 +207,7 @@ extern OsConfig g_SysConfig;
 #ifndef OLED_DEVICES
 #define OLED_DEVICES() g_sysCtx->Device.oled
 #endif
+
+void HID_GetKnobStatus();
 
 #endif //HELLOWORD_DYNAMIC_FW_OS_DEFINE_HPP

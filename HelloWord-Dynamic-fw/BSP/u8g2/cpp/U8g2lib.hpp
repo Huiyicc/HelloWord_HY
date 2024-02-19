@@ -608,7 +608,7 @@ public:
         SetPowerSave(0);
 
         EnableUTF8Print();
-        SetFont(u8g2_font_wqy12_t_gb2312a);
+        SetFont(u8g2_font_wqy12_t_gb2312);
         SetFontMode(1);
         SetFontDirection(0);
         SetFontPosTop();

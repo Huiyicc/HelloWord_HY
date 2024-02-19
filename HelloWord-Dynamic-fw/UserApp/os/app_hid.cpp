@@ -54,7 +54,7 @@ void AppHID::ReView() {
 // 绘制界面(无上位机版本)
 void AppHID::drawA() {
     OLED_DEVICES()->SetDrawColor(1);
-    OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312a);
+    OLED_DEVICES()->SetFont(font_default);
     OLED_DEVICES()->DrawUTF8(6, 30, "无");
     OLED_DEVICES()->DrawUTF8(6, 45, "上");
     OLED_DEVICES()->DrawUTF8(6, 60, "位");

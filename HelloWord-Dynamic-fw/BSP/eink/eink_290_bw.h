@@ -14,6 +14,7 @@
 #define DISPLAY_UPDATE_CONTROL_2                    0x22 // 显示更新控制 2
 #define WRITE_RAM                                   0x24 // 写入 RAM
 #define WRITE_VCOM_REGISTER                         0x2C // 写入 VCOM 寄存器
+#define LOAD_WS_OTP                                 0x31
 #define WRITE_LUT_REGISTER                          0x32 // 写入 LUT 寄存器
 #define SET_DUMMY_LINE_PERIOD                       0x3A // 设置虚拟行周期
 #define SET_GATE_TIME                               0x3B // 设置门时间
@@ -29,33 +30,43 @@
 #define SCREEN_BUFFER_SIZE   (EPD_WIDTH * EPD_HEIGHT / 8)
 
 
-class Eink290BW
-{
+class Eink290BW {
 public:
-    Eink290BW()
-    = default;
+  Eink290BW()
+  = default;
 
-    void Init();
-    void Update();
-    void DeepSleep();
-    void DrawBitmap(const unsigned char* datas);
+  void Init();
 
-    void SetFrameMemory(const unsigned char* image_buffer,int x,int y,int image_width,int image_height);
-    void HalLcd_Partial_Update(void);
-    void ClearFrameMemory(unsigned char color);
+  void Update();
 
-    void demo();
+  void DeepSleep();
+
+  void DrawBitmap(const unsigned char *datas,int size=SCREEN_BUFFER_SIZE);
+
+  void SetFrameMemory(const unsigned char *image_buffer, int x, int y, int image_width, int image_height);
+
+  void HalLcd_Partial_Update(void);
+
+  void ClearFrameMemory(unsigned char color);
+
+  void demo();
+
 private:
-    void SendCommand(unsigned char command);
-    void SendData(unsigned char data);
-    void WaitUntilIdle();
-    void SpiTransfer(unsigned char data);
-    void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
-    void SetMemoryPointer(int x, int y);
-    void SetLut(const unsigned char *lut,int size);
+  void SendCommand(unsigned char command);
 
-    const unsigned char* lut;
+  void SendData(unsigned char data);
+
+  void WaitUntilIdle();
+
+  void SpiTransfer(unsigned char data);
+
+  void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
+  void ReSetMemoryArea();
+  void SetMemoryPointer(int x, int y);
+
+  void SetLut(const unsigned char *lut, int size);
+
+  const unsigned char *lut;
 };
-
 
 #endif

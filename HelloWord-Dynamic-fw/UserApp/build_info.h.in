@@ -3,6 +3,15 @@
 
 // 构建时间
 #define BUILD_TIMESTAMP @build_time@
+constexpr const int build_timestamp = BUILD_TIMESTAMP;
+// 构建版本
+#define BUILD_VERSION "@build_version@"
+constexpr const char* build_version = BUILD_VERSION;
+// 构建版本标志
+#define BUILD_VERSION_PARSE_TAG "@build_version_parse_tag@"
+constexpr const char* build_version_parse_tag = BUILD_VERSION_PARSE_TAG;
+
+
 
 // 构建版本
 #define GIT_VERSION "@GIT_VERSION@"
