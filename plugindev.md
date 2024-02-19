@@ -96,13 +96,14 @@
 
 #### 组件Type说明
 
-| 类型       | 注释   |
-|----------|------|
-| text     | 标签   |
-| input    | 输入框  |
-| checkbox | 多选框  |
-| divider  | 分隔条  |
-| submit   | 提交按钮 |
+| 类型       | 注释    |
+|----------|-------|
+| text     | 标签    |
+| input    | 输入框   |
+| input_ml | 多行输入框 |
+| checkbox | 多选框   |
+| divider  | 分隔条   |
+| submit   | 提交按钮  |
 
 ---
 
