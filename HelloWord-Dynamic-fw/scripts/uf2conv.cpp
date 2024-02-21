@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <cstdint>
 #include <filesystem>
 
 auto UF2_MAGIC_START0 = 0x0A324655; // "UF2\n"
@@ -68,6 +69,6 @@ int main(int argc, char *argv[]) {
   std::string binFile = argv[1];
   std::string uf2File = argv[2];
   std::cout << "Converting " << binFile << " to " << uf2File << std::endl;
-  std::cout << "Written "<< BinToUf2(binFile, uf2File) <<" bytes.";
+  std::cout << "Written "<< BinToUf2(binFile, uf2File) <<" bytes." << std::endl;
   return 0;
 }

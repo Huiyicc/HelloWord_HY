@@ -136,10 +136,16 @@ target_compile_options(${PROJECT_NAME}.elf PRIVATE -O0)
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
 
+set(SUFFIX "")
+if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
+    set(SUFFIX ".exe")
+endif ()
+
 add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -Oihex $<TARGET_FILE:${PROJECT_NAME}.elf> ${HEX_FILE}
         COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${PROJECT_NAME}.elf> ${BIN_FILE}
-        COMMAND python ${CMAKE_HOME_DIRECTORY}/scripts/uf2conv.py -b 0x8010000 -c -f 0x57755a57 -o ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.uf2 ${BIN_FILE}
+        COMMAND g++ -O3 -std=c++14 -o ${PROJECT_BINARY_DIR}/uf2conv${SUFFIX} ${CMAKE_HOME_DIRECTORY}/scripts/uf2conv.cpp
+        COMMAND ${PROJECT_BINARY_DIR}/uf2conv${SUFFIX} ${BIN_FILE} ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.uf2
         COMMENT "Building ${HEX_FILE}
 Building ${BIN_FILE}")
 
