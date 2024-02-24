@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -18,16 +22,18 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
+      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
       <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 按钮增加双按钮短按与双按钮长按事件&#10;- 增加菜单模式下双按钮长按清屏(存放模式)">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport">
       <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/RGB.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/RGB.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/uf2conv.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/uf2conv.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +83,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/../.." value="main" />
-        <entry key="$PROJECT_DIR$/.." value="master" />
+        <entry key="$PROJECT_DIR$/.." value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -132,14 +138,15 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -147,11 +154,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\BSP\eink" />
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\BSP" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
@@ -171,6 +178,11 @@
       <option name="charset" value="UTF-8" />
       <option name="showConsole" value="true" />
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
@@ -320,6 +332,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
+        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
+        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
         <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
         <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
       </list>
@@ -503,11 +518,9 @@
       <workItem from="1706714615598" duration="695000" />
       <workItem from="1708254900804" duration="11809000" />
       <workItem from="1708309891900" duration="9000" />
-      <workItem from="1708614843433" duration="879000" />
-      <workItem from="1708703677309" duration="1159000" />
-      <workItem from="1708771257291" duration="4427000" />
-      <workItem from="1708785229839" duration="2565000" />
-      <workItem from="1708790458293" duration="910000" />
+      <workItem from="1708334965963" duration="626000" />
+      <workItem from="1708336070201" duration="4000" />
+      <workItem from="1708448499639" duration="6390000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -749,15 +762,7 @@
       <option name="project" value="LOCAL" />
       <updated>1708278662114</updated>
     </task>
-    <task id="LOCAL-00031" summary="upd:&#10;- 按钮增加双按钮短按与双按钮长按事件&#10;- 增加菜单模式下双按钮长按清屏(存放模式)">
-      <option name="closed" value="true" />
-      <created>1708775734581</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1708775734581</updated>
-    </task>
-    <option name="localTasksCounter" value="32" />
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -803,6 +808,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="优化电机逻辑,优化菜单动画&#10;菜单动画待修复" />
     <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
     <MESSAGE value="更新墨水屏推送协议,增加屏幕睡眠指令" />
     <MESSAGE value="优化协议,电机部分待解决" />
@@ -827,8 +833,7 @@
     <MESSAGE value="upd:&#10;- 预更新rgb灯效&#10;- 增加一个io端口用以plugin通信" />
     <MESSAGE value="upd:&#10;- 预更新rgb灯效" />
     <MESSAGE value="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport" />
-    <MESSAGE value="upd:&#10;- 按钮增加双按钮短按与双按钮长按事件&#10;- 增加菜单模式下双按钮长按清屏(存放模式)" />
-    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 按钮增加双按钮短按与双按钮长按事件&#10;- 增加菜单模式下双按钮长按清屏(存放模式)" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
