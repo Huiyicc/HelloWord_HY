@@ -32,41 +32,46 @@
 
 class Eink290BW {
 public:
-  Eink290BW()
-  = default;
+    Eink290BW()
+    = default;
 
-  void Init();
+    void Init();
 
-  void Update();
+    void Update();
 
-  void DeepSleep();
+    void DeepSleep();
 
-  void DrawBitmap(const unsigned char *datas,int size=SCREEN_BUFFER_SIZE);
+    void DrawBitmap(const unsigned char *datas, int size = SCREEN_BUFFER_SIZE);
 
-  void SetFrameMemory(const unsigned char *image_buffer, int x, int y, int image_width, int image_height);
+    void SetFrameMemory(const unsigned char *image_buffer, int x, int y, int image_width, int image_height);
 
-  void HalLcd_Partial_Update(void);
+    void HalLcd_Partial_Update();
 
-  void ClearFrameMemory(unsigned char color);
+    void ClearFrameMemory(unsigned char color);
 
-  void demo();
+    void demo();
+
+    // 刷全白
+    void SendWhite();
 
 private:
-  void SendCommand(unsigned char command);
+    void SendCommand(unsigned char command);
 
-  void SendData(unsigned char data);
+    void SendData(unsigned char data);
 
-  void WaitUntilIdle();
+    void WaitUntilIdle();
 
-  void SpiTransfer(unsigned char data);
+    void SpiTransfer(unsigned char data);
 
-  void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
-  void ReSetMemoryArea();
-  void SetMemoryPointer(int x, int y);
+    void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
 
-  void SetLut(const unsigned char *lut, int size);
+    void ReSetMemoryArea();
 
-  const unsigned char *lut;
+    void SetMemoryPointer(int x, int y);
+
+    void SetLut(const unsigned char *lut, int size);
+
+    const unsigned char *lut;
 };
 
 #endif

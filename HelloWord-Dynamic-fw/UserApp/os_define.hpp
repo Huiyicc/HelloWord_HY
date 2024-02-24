@@ -27,6 +27,10 @@ enum ButtonPinCallType {
     LeftButtonLongPress = 3,
     // 右侧按钮长按事件
     RightButtonLongPress = 4,
+    // 双键短按事件
+    DoubleButtonPressed = 5,
+    // 双键长按事件
+    DoubleButtonLongPress = 6,
     Default = 0,
 };
 
