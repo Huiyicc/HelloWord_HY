@@ -3,3 +3,4 @@ UserApp/protocols/hid_msg.pb.*
 test
 test/*
 /UserApp/build_info.h
+.idea/workspace.xml
