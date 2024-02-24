@@ -49,7 +49,7 @@ void helloWord() {
   }
 
   g_sysCtx->Device.eink->Init();
-  g_sysCtx->Device.eink->demo();
+  //g_sysCtx->Device.eink->demo();
   ButtonPinInit();
   xTimerStart(xTimerCreate("SysTimer", pdMS_TO_TICKS(100), pdTRUE, nullptr, SysTask), 0);
 

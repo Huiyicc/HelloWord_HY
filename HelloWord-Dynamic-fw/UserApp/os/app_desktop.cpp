@@ -122,6 +122,7 @@ void AppDesktop::ReView() {
         OLED_DEVICES()->DrawStr(4, y, m_menuList[arrs[i]].icon);
         y += 43;
     }
+  vPortFree(arrs);
     OLED_SEND_BUFFER();
 }
 

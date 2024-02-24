@@ -134,6 +134,13 @@ void Eink290BW::DrawBitmap(const unsigned char *datas, int size) {
     SendData(PGM_READ_BYTES(&datas[i]));
 }
 
+void Eink290BW::SendWhite() {
+  SendCommand(WRITE_RAM); //write RAM for black(0)/white (1)
+  for (int i = 0; i < EPD_WIDTH / 8 * EPD_HEIGHT; i++) {
+    SendData(0xff);
+  }
+}
+
 void Eink290BW::DeepSleep() {
   SendCommand(DEEP_SLEEP_MODE); //enter deep sleep
   //SendData(0x01);
