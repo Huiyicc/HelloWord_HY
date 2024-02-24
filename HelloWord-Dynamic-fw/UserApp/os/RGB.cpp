@@ -74,6 +74,7 @@ float rgbBrightness = 0.4f;
 bool rgbRunStatus = false;
 
 RGB rgb(&hspi3);
+uint16_t rgb_index = 0;
 rgbs RgbStatus[4] = {
     {0,   0, 0, 0},
     {100, 0, 0, 0},
@@ -87,13 +88,13 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
 }
 
 // 轮询渐变
-void RGBEffectGradient(char index, RGBConfig *c, rgbs *s,  float maxBrightness) {
-  s->RGBSeed++;
-  if (s->RGBSeed >= 360) {
-    s->RGBSeed = 0;
+void RGBEffectGradient(char index, RGBConfig *c, rgbs *s, float maxBrightness) {
+  auto i = rgb_index + s->RGBSeed;
+  if (i >= 360) {
+    i -= 360;
   }
   Color_t color = {0, 0, 0};
-  HSV2RGB(s->RGBSeed, 1.0, 1.0, &s->R, &s->G, &s->B);  // HSV模型转成RGB三原色
+  HSV2RGB(i, 1.0, 1.0, &s->R, &s->G, &s->B);  // HSV模型转成RGB三原色
   color.r = s->R;
   color.g = s->G;
   color.b = s->B;
@@ -142,7 +143,7 @@ void ThreadRGBUpdate(void *argument) {
         continue;
     }
     Color_t color = {0, 0, 0};
-    float maxBrightness = GetSleepStatus()? g_SysConfig.devices.rgb.SleepBrightness : rgbConfig->Brightness;
+    float maxBrightness = GetSleepStatus() ? g_SysConfig.devices.rgb.SleepBrightness : rgbConfig->Brightness;
     if (GetSleepStatus()) {
       if (g_SysConfig.devices.rgb.SleepOff) {
         color.r = rgbConfig->R;
@@ -171,6 +172,10 @@ void ThreadRGBUpdate(void *argument) {
       continue;
     }
 
+  }
+  rgb_index++;
+  if (rgb_index > 360) {
+    rgb_index = 0;
   }
   rgb.SyncLights();
 
