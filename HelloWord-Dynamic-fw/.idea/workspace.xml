@@ -28,33 +28,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 代码格式化">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 更新菜单动画与角度捕捉逻辑&#10;- 将缓动类函数导出声明&#10;- 调整knob的callback&#10;- 电机增加encode target预测&#10;fix:&#10;- 增加懒汉休眠机制,不会出现重复休眠唤醒的问题">
       <change afterPath="$PROJECT_DIR$/../.idea/2.Firmware.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.clang-format" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/math.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserApp/SDK/math.hpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/screen.psd" beforeDir="false" afterPath="$PROJECT_DIR$/assets/screen.psd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +161,7 @@
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "CMakeSettings",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "structure.view.defaults.are.configured": "true",
     "two.files.diff.last.used.file": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
     "vue.rearranger.settings.migration": "true"
@@ -569,7 +546,7 @@
       <workItem from="1709395292444" duration="37000" />
       <workItem from="1709395366088" duration="88000" />
       <workItem from="1709395468460" duration="29000" />
-      <workItem from="1709395543094" duration="22735000" />
+      <workItem from="1709395543094" duration="22953000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -819,7 +796,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708791721956</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="upd:&#10;- 更新菜单动画与角度捕捉逻辑&#10;- 将缓动类函数导出声明&#10;- 调整knob的callback&#10;- 电机增加encode target预测&#10;fix:&#10;- 增加懒汉休眠机制,不会出现重复休眠唤醒的问题">
+      <option name="closed" value="true" />
+      <created>1709486916764</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1709486916764</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -865,7 +850,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
     <MESSAGE value="更新墨水屏推送协议,增加屏幕睡眠指令" />
     <MESSAGE value="优化协议,电机部分待解决" />
     <MESSAGE value="调整协议" />
@@ -890,7 +874,8 @@
     <MESSAGE value="upd:&#10;- 预更新rgb灯效" />
     <MESSAGE value="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport" />
     <MESSAGE value="fix:&#10;- 修复菜单内存泄漏问题&#10;upd:&#10;- 统一同步rgb种子" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix:&#10;- 修复菜单内存泄漏问题&#10;upd:&#10;- 统一同步rgb种子" />
+    <MESSAGE value="upd:&#10;- 更新菜单动画与角度捕捉逻辑&#10;- 将缓动类函数导出声明&#10;- 调整knob的callback&#10;- 电机增加encode target预测&#10;fix:&#10;- 增加懒汉休眠机制,不会出现重复休眠唤醒的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 更新菜单动画与角度捕捉逻辑&#10;- 将缓动类函数导出声明&#10;- 调整knob的callback&#10;- 电机增加encode target预测&#10;fix:&#10;- 增加懒汉休眠机制,不会出现重复休眠唤醒的问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
