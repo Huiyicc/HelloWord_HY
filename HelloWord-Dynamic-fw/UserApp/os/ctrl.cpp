@@ -1,11 +1,11 @@
 //
 // Created by 19254 on 2023/8/28.
 //
-#include <string>
 #include "ctrl.hpp"
-#include "timers.h"
-#include "sleep.hpp"
 #include "SDK/utils.hpp"
+#include "sleep.hpp"
+#include "timers.h"
+#include <string>
 
 Timer timerCtrlLoop(&htim7, 5000);
 osThreadId_t ctrlLoopTaskHandle;
@@ -16,7 +16,6 @@ void ThreadCtrlLoop(void *) {
     // Suspended here until got Notification.
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     g_sysCtx->Device.ctrl.knob.Tick();
-
   }
 }
 
@@ -40,45 +39,63 @@ bool RegisterKNobCallback(KnobCallback callback) {
 
 osThreadId_t taskCtrlLoopHandle;
 double lastPosition = 0;
+double lastPositionCache = 0;
 int lastEncodePosition = 0;
 KnobStatus *knobStatus = nullptr;
 double lastAgent = 0;
+char ctrSleep = 0;
 //char knob_reenable = 0;
 
+int ctrlKnobSleepWait(SysContext *ctx) {
+  ctrSleep = 2;
+  lastPositionCache = lastPosition;
+  lastPosition = ctx->Device.ctrl.knob.GetPosition();
+  return true;
+}
+
+int ctrlKnobSleepWakeUp(SysContext *ctx) {
+  ctrSleep = 0;
+  lastPosition = lastPositionCache;
+  lastPositionCache = 0;
+  return true;
+}
+
 void taskCtrlLoop(void *) {
-  float filterateMax = 0.1;
+  float filterateMax = 0.03;
   for (;;) {
     osDelay(50);
     if (!g_sysCtx->Device.ctrl.Action) {
       // 校准失败需要重新上电
       return;
     }
-    //Println("%f\n", g_sysCtx->Device.ctrl.knob.GetVelocity());
-//        if (knob_reenable>0) {
-//            // 延迟100毫秒唤醒电机
-//           // 效果太差了,暂时不要
-//            if (knob_reenable==1) {
-//                knob_reenable++;
-//                continue;
-//            } else if (knob_reenable==2) {
-//                knob_reenable=0;
-//                if (!g_sysCtx->Device.ctrl.motor.GetEnable()) {
-//                    g_sysCtx->Device.ctrl.knob.SetEnable(true);
-//                }
-//            }
-//        }
+
+    auto l = g_sysCtx->Device.ctrl.knob.GetPosition();
+    if (ctrSleep > 1) {
+      if (ctrSleep < 20) {
+        ctrSleep++;
+        lastPosition = l;
+        continue;
+      } else {
+        ctrSleep = 1;
+      }
+    }
     // 限幅滤波法
     // 后续优化吧,懒得写了
-    auto l = g_sysCtx->Device.ctrl.knob.GetPosition();
     // 抖动容错
     if (std::abs(l - knobStatus->LastPositionRaw) < filterateMax) {
       if (std::fabs(lastPosition - l) < filterateMax) {
         continue;
       }
     }
-    if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER
-        || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_JINLUNENCODER
-        || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_INTELLIGENT) {
+    // 唤醒事件
+    if (GetSleepStatus()) {
+      if (std::fabs(lastPosition - l) > 0.1){
+        OSDelaySleep();
+      } else {
+        continue;
+      }
+    }
+    if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_JINLUNENCODER || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_INTELLIGENT) {
       knobStatus->LastEncoderPosition = lastEncodePosition;
       knobStatus->EncoderPosition = g_sysCtx->Device.ctrl.knob.encoderPosition;
       lastEncodePosition = knobStatus->EncoderPosition;
@@ -91,13 +108,11 @@ void taskCtrlLoop(void *) {
     // 步数 6.3
     // 角度 = (步数 / 步数每圈) * 360°
     knobStatus->Angle = (knobStatus->Position / _2PI) * 360;
-    // 唤醒事件
-    OSDelaySleep();
     knobStatus->Velocity = g_sysCtx->Device.ctrl.knob.GetVelocity();
     auto ptr = g_sysCtx->Device.ctrl.CallBacks.GetHeadPtr();
     while (ptr) {
       if (ptr->val) {
-        ptr->val(knobStatus);
+        ptr->val(true, knobStatus);
       }
       ptr = ptr->pNext;
     }
@@ -111,13 +126,39 @@ void CtrlInit() {
   g_sysCtx->Device.ctrl.knob.Init(&g_sysCtx->Device.ctrl.motor);
   g_sysCtx->Device.ctrl.knob.SetEnable(true);
   g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_INERTIA, nullptr);
+
+  if (!g_sysCtx->Device.ctrl.Action) {
+    OLED_CLEAR_BUFFER();
+    // logo区域
+    OLED_DEVICES()->SetDrawColor(1);
+    OLED_DEVICES()->SetFont(font_default);
+    OLED_DEVICES()->DrawBox(6, 11, 20, 20);
+    OLED_DEVICES()->DrawUTF8(9, 41, "校");
+    OLED_DEVICES()->DrawUTF8(9, 55, "准");
+    OLED_DEVICES()->DrawUTF8(9, 69, "失");
+    OLED_DEVICES()->DrawUTF8(9, 83, "败");
+    OLED_DEVICES()->SetDrawColor(0);
+    OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
+    OLED_SEND_BUFFER();
+    exit(1);
+#ifdef _D_DEBUG_
+    g_sysCtx->Device.ctrl.knob.SetMode(KnobSimulator::Mode_t::MODE_DAMPED, nullptr);
+    g_sysCtx->Device.ctrl.motor.target = g_sysCtx->Device.ctrl.knob.deviation;
+    while (g_sysCtx->Device.ctrl.knob.GetPosition() != g_sysCtx->Device.ctrl.knob.deviation) {
+      g_sysCtx->Device.ctrl.knob.Tick();
+    }
+    NVIC_SystemReset();
+#endif
+  }
+
+
   g_sysCtx->Device.ctrl.knob.Tick();
   knobStatus = (KnobStatus *) pvPortMalloc(sizeof(KnobStatus));
-  knobStatus = new(knobStatus) KnobStatus();
+  knobStatus = new (knobStatus) KnobStatus();
   const osThreadAttr_t controlLoopTask_attributes = {
       .name = "ControlLoopTask",
       .stack_size = 4096,
-      .priority = (osPriority_t) osPriorityRealtime, // robot control thread is critical, should be the highest
+      .priority = (osPriority_t) osPriorityRealtime,// robot control thread is critical, should be the highest
   };
   ctrlLoopTaskHandle = osThreadNew(ThreadCtrlLoop, nullptr, &controlLoopTask_attributes);
   timerCtrlLoop.SetCallback(OnTimerCallback);
@@ -132,9 +173,11 @@ void CtrlInit() {
       .priority = (osPriority_t) osPriorityNormal,
   };
   taskCtrlLoopHandle = osThreadNew(taskCtrlLoop, nullptr, &taskCtrlLoop_attributes);
-
+  RegisterSleepCallBack(ctrlKnobSleepWait);
+  RegisterWakeUpCallBack(ctrlKnobSleepWakeUp);
 }
 
 void InitLastAgent() {
-  lastAgent = (g_sysCtx->Device.ctrl.knob.GetPosition() / _2PI) * 360;;
+  lastAgent = (g_sysCtx->Device.ctrl.knob.GetPosition() / _2PI) * 360;
+  ;
 }

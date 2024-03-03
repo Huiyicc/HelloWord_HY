@@ -54,7 +54,7 @@ struct KnobStatus {
     double Velocity = 0;
 };
 
-typedef void (*KnobCallback)(KnobStatus *status);
+typedef void (*KnobCallback)(bool move,KnobStatus *status);
 
 struct SysDeviceCtrl {
     bool Action = false;

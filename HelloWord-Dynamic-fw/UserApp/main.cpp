@@ -32,21 +32,6 @@ void regApp() {
 
 void helloWord() {
   CtrlInit();
-  if (!g_sysCtx->Device.ctrl.Action) {
-    OLED_CLEAR_BUFFER();
-    // logo区域
-    OLED_DEVICES()->SetDrawColor(1);
-    OLED_DEVICES()->SetFont(font_default);
-    OLED_DEVICES()->DrawBox(6, 11, 20, 20);
-    OLED_DEVICES()->DrawUTF8(9, 41, "校");
-    OLED_DEVICES()->DrawUTF8(9, 55, "准");
-    OLED_DEVICES()->DrawUTF8(9, 69, "失");
-    OLED_DEVICES()->DrawUTF8(9, 83, "败");
-    OLED_DEVICES()->SetDrawColor(0);
-    OLED_DEVICES()->DrawStr(6 + 3, 15, "HY");
-    OLED_SEND_BUFFER();
-    exit(1);
-  }
 
   g_sysCtx->Device.eink->Init();
   //g_sysCtx->Device.eink->demo();

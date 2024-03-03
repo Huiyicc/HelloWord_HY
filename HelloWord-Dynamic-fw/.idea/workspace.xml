@@ -24,13 +24,37 @@
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
       <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
-      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
+      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="GccArm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 代码格式化">
+      <change afterPath="$PROJECT_DIR$/../.idea/2.Firmware.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.clang-format" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/math.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserApp/SDK/math.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ctrl/Motor/knob.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ctrl/Motor/knob.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/SDK/Easingcpp.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_desktop.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_hid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_leftright.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_light.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_light.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_updown.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_volume.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/app_windows.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os/ctrl.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/screen.psd" beforeDir="false" afterPath="$PROJECT_DIR$/assets/screen.psd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +65,6 @@
     <option name="groupingKeys">
       <option value="directory" />
     </option>
-  </component>
-  <component name="ClangdSettings">
-    <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddedSvdWindowState">
     <option name="columnWidths">
@@ -86,12 +107,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Huiyicc"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Huiyicc&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -114,6 +135,9 @@
     <setting file="file://$PROJECT_DIR$/UserApp/os/app_updown.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UserApp/os/ctrl.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UserApp/os/storage.cpp" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="0z8iyfb8" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -138,6 +162,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "CMake 调试.HelloWord-Dynamic-fw.executor": "Debug",
     "OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
@@ -146,16 +171,18 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "true",
+    "cf.advertisement.text.overridden": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "cmake.loaded.for.project": "true",
     "git-widget-placeholder": "dev",
-    "last_opened_file_path": "F:/Engcode/hw/HelloWord_HY/2.Firmware",
+    "last_opened_file_path": "F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "CMakeSettings",
     "structure.view.defaults.are.configured": "true",
@@ -189,6 +216,11 @@
       <option name="charset" value="UTF-8" />
       <option name="showConsole" value="true" />
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
     </configuration>
     <configuration name="HelloWord-Dynamic-fw" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory" temporary="true">
       <method v="2" />
@@ -530,6 +562,14 @@
       <workItem from="1708791759075" duration="53000" />
       <workItem from="1708793550250" duration="8000" />
       <workItem from="1708831691115" duration="606000" />
+      <workItem from="1709311238220" duration="113000" />
+      <workItem from="1709311359843" duration="44000" />
+      <workItem from="1709393379536" duration="226000" />
+      <workItem from="1709393615401" duration="1661000" />
+      <workItem from="1709395292444" duration="37000" />
+      <workItem from="1709395366088" duration="88000" />
+      <workItem from="1709395468460" duration="29000" />
+      <workItem from="1709395543094" duration="22735000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -869,15 +909,6 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="USB_Recive_Buffer" language="ObjectiveC" />
-        <watch expression="USB_Recive_Tmp_Buffer" />
-        <watch expression="msg" />
-        <watch expression="g_sysCtx" />
-        <watch expression="g_SysConfig" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

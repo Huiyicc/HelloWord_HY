@@ -25,8 +25,8 @@ void appVolumeButtonPinCallback(enum ButtonPinCallType type) {
   }
 }
 
-void appVolumeKNobCallback(KnobStatus *status) {
-  if (g_sysCtx->Apps.Status != APPID_VOLUME) {
+void appVolumeKNobCallback(bool move,KnobStatus *status) {
+  if (g_sysCtx->Apps.Status != APPID_VOLUME||!move) {
     return;
   }
   auto _this = ((AppVolume *) (g_sysCtx->Apps.AppsMap[APPID_VOLUME]));

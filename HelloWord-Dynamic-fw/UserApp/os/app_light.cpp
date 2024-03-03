@@ -29,8 +29,8 @@ void appLightButtonPinCallback(enum ButtonPinCallType type) {
   }
 }
 
-void appLightKNobCallback(KnobStatus *status) {
-  if (g_sysCtx->Apps.Status != APPID_LIGHT) {
+void appLightKNobCallback(bool move,KnobStatus *status) {
+  if (g_sysCtx->Apps.Status != APPID_LIGHT||!move) {
     return;
   }
   auto x = status->PositionRaw - status->LastPositionRaw;

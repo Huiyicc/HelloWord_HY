@@ -22,8 +22,8 @@ void appWindowsButtonPinCallback(enum ButtonPinCallType type){
     }
 }
 
-void appWindowsKNobCallback(KnobStatus *status) {
-    if (g_sysCtx->Apps.Status != APPID_WINDOW) {
+void appWindowsKNobCallback(bool move,KnobStatus *status) {
+    if (g_sysCtx->Apps.Status != APPID_WINDOW||!move) {
         return;
     }
     auto _this = ((AppWindows *) (g_sysCtx->Apps.AppsMap[APPID_WINDOW]));

@@ -22,7 +22,7 @@ private:
     //std::vector<desktopCallType> *m_menuList;
     unsigned char m_menuNum = 0;
     desktopCallType* m_menuList= nullptr;
-    unsigned char m_dividesNum = 10;
+    unsigned char m_dividesNum = 8;
 
     float m_shifting = 0;
     unsigned char* getIndexArr(unsigned char*size);
@@ -39,6 +39,7 @@ public:
 
     // 刷新事件
     void ReView() override;
+    void ReViewToMove(bool move,KnobStatus *status, float_t targetEncoderPosition);
 
     // 退出事件
     void Out() override;
