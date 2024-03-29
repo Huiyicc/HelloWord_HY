@@ -132,7 +132,7 @@ void AppDesktop::ReView() {
   OLED_DEVICES()->DrawUTF8(5, 0, m_menuList[m_menuIndex].name);
 
   OLED_DEVICES()->SetDrawColor(2);
-  OLED_DEVICES()->SetFont(hwd_hy_U24);
+  OLED_DEVICES()->SetFont(font_icon);
   unsigned char maxs = 0;
   auto arrs = getIndexArr(&maxs);
   for (unsigned i = 0; i < maxs; i++) {
@@ -221,7 +221,7 @@ void AppDesktop::ReViewToMove(bool move, KnobStatus *status, float_t targetEncod
   OLED_CLEAR_BUFFER();
 
   OLED_DEVICES()->SetDrawColor(2);
-  OLED_DEVICES()->SetFont(hwd_hy_U24);
+  OLED_DEVICES()->SetFont(font_icon);
   y += m_shifting;
 
   for (unsigned i = 0; i < maxs; i++) {
@@ -251,31 +251,8 @@ void AppDesktop::ReViewToMove(bool move, KnobStatus *status, float_t targetEncod
 
   vPortFree(arrs);
   m_status = 0;
-  // OLED_DEVICES()->SetFont(u8g2_font_wqy12_t_gb2312);
-  //  static int c = 8 , x = 55 , y = 52, r = 50;
-  //
-  //  auto n = float(m_menuNum+c) / _2PI;
-  //  for (uint8_t i = 0; i < m_menuNum; i++) {
-  //    auto point = HYSDK::calculateCirclePoint(x,62,r,n*float(i)+_PI+status->Position);
-  //    OLED_DEVICES()->DrawStr(point.x, point.y, m_menuList[i].icon);
-  //    Println("x:%f y:%f i:%s n:%f",point.x,point.y,m_menuList[i].icon,n);
-  //  }
   OLED_SEND_BUFFER();
 
-  //  m_status = 0;
-  //  m_shifting = 0;
-  //  if (status->EncoderPosition != targetEncoderPosition) {
-  //    auto pro = (status->Position - g_sysCtx->Device.ctrl.knob.deviation - g_sysCtx->Device.ctrl.knob.lastAngle) /
-  //               g_sysCtx->Device.ctrl.knob.encoderDistance;
-  //    auto cValue = _EasingType_CircularCurve_Out(std::fabs(pro), 0, 1);
-  //    if (status->EncoderPosition > targetEncoderPosition) {
-  //      m_shifting = float(0 - MenuIconHeight) + float(MenuIconHeight) * cValue;
-  //    } else {
-  //      m_shifting = float(0) - float(MenuIconHeight) * cValue;
-  //    }
-  //
-  //  }
-  //  ReView();
 }
 
 // 退出事件

@@ -196,6 +196,7 @@ extern OsConfig g_SysConfig;
 
 // ========== config ==========
 #define font_default u8g2_font_wqy12_t_gb2312
+#define font_icon hwd_hy_U24
 
 #ifndef SLEEPID_BUTTONPIN
 #define SLEEPID_BUTTONPIN 1

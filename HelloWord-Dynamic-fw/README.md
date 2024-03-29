@@ -58,6 +58,7 @@
 - 制作导出map
 - 命令行进入scripts文件夹
 - `"./u8g2/tools/font/bdfconv/bdfconv.exe"  -v -b 0 -f 1 <bdf文件>  -M "../font/hwd_hy.map" -n hwd_hy_U24 -o  -o "../font/hwd_hy_U24.c" -d <bdf文件>`
+- 将生成的`hwd_hy_U24.c`的主要内容复制到`BSP/u8g2/u8g2_fonts_custom.c`中替换
 
 # 相关链接
 

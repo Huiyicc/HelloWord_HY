@@ -10,6 +10,7 @@
 // 窗口切换引用
 class AppWindows: public AppBase {
 private:
+  uint8_t m_model = 'M'; // W:windows M:mac
 
 public:
 
@@ -29,6 +30,10 @@ public:
 
     // 退出事件
     void Out() override;
+
+    // 切换模式
+    void SwitchMode(uint8_t mode=0);
+    uint8_t GetMode();
 
 };
 

@@ -90,7 +90,7 @@ public:
     float lastAngle = 0;
     float lastVelocity = 0;
     float maxVelocity = 0;
-
+    float paddle = 0;
     bool reset = false;
     bool pStatus = false;
 

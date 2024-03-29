@@ -89,11 +89,13 @@ void taskCtrlLoop(void *) {
     }
     // 唤醒事件
     if (GetSleepStatus()) {
-      if (std::fabs(lastPosition - l) > 0.1){
+      if (std::fabs(lastPosition - l) > 0.1) {
         OSDelaySleep();
       } else {
         continue;
       }
+    } else {
+      OSDelaySleep();
     }
     if (g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_ENCODER || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_JINLUNENCODER || g_sysCtx->Device.ctrl.knob.GetMode() == KnobSimulator::Mode_t::MODE_INTELLIGENT) {
       knobStatus->LastEncoderPosition = lastEncodePosition;
