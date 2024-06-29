@@ -6,7 +6,7 @@
 
 ## 上位机
 
-[瀚文助手下载](https://www.123pan.com/s/fygRVv-JFWI3.html)
+[瀚文助手](https://github.com/Huiyicc/hw75-tools/)
 
 ### 插件
 #### 天气生活插件
