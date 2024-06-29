@@ -21,8 +21,8 @@ void appLeftRightButtonPinCallback(enum ButtonPinCallType type) {
   }
 }
 
-void appLeftRightKNobCallback(KnobStatus *status) {
-  if (g_sysCtx->Apps.Status != APPID_LEFTRIGHT) {
+void appLeftRightKNobCallback(bool move,KnobStatus *status) {
+  if (g_sysCtx->Apps.Status != APPID_LEFTRIGHT||!move) {
     return;
   }
   auto ffa = status->Angle - lastAgent;

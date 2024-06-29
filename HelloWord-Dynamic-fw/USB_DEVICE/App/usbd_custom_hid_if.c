@@ -190,7 +190,7 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
 
         // 自定义通信
         0x05, 0x8c, // USAGE_PAGE (Generic Desktop)
-        0x09, 0x01, // USAGE (Pointer)
+        0x09, 0x04, // USAGE (Pointer)
         0xa1, 0x01, // COLLECTION (Application) /
         0x85, 0x04,        //   Report ID (4)
         // The Input report

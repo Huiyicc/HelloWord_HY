@@ -48,6 +48,7 @@ elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
 else ()
     message(STATUS "Minimal optimization, debug info included")
     add_compile_options(-Og -g)
+    add_definitions(-D_D_DEBUG_)
 endif ()
 
 # 设置编译时间戳
@@ -125,6 +126,20 @@ set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F405RGTx_FLASH.ld)
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
+
+# 原装屏
+option(Eink290BW "Enable feature Eink290BW" OFF)
+
+if(Eink290BW)
+    add_definitions(-D_Eink290BW_)
+endif()
+
+# 咸鱼屏
+option(WF0290CZ0LP "Enable feature WF0290CZ0LP" OFF)
+
+if(WF0290CZ0LP)
+    add_definitions(-D_WF0290CZ0LP_)
+endif()
 
 link_directories("Drivers/CMSIS/Lib")
 link_libraries("arm_cortexM4lf_math.a")

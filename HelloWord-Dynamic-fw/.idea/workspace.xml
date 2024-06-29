@@ -24,12 +24,24 @@
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
       <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
-      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-arm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" />
+      <configuration PROFILE_NAME="Debug_arm" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="GccArm" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot; -DEink290BW=ON" />
+      <configuration PROFILE_NAME="Debug_arm_xy" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="GccArm" GENERATION_OPTIONS="-DWF0290CZ0LP=ON" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="">
+    <list default="true" id="064cb8dd-c74c-418a-a862-af96d67ded4c" name="Changes" comment="upd:&#10;- 统一font&#10;- 调整窗口app">
+      <change afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw_xy.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw_xy.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BSP/eink/eink_def.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Keyboard-fw98/.idea/Keyboard-fw.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/stm32f4flash/.idea/stm32f4flash.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/REF-STM32F4-fw.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/2.Firmware.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/eink/eink_290_bw.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" beforeDir="false" afterPath="$PROJECT_DIR$/USB_DEVICE/App/usbd_custom_hid_if.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserApp/os_define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/UserApp/os_define.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,9 +52,6 @@
     <option name="groupingKeys">
       <option value="directory" />
     </option>
-  </component>
-  <component name="ClangdSettings">
-    <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddedSvdWindowState">
     <option name="columnWidths">
@@ -60,7 +69,7 @@
       </list>
     </option>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug_arm" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug_arm_xy" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -85,13 +94,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Huiyicc&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Huiyicc/HelloWord_HY&quot;,
+    &quot;accountId&quot;: &quot;14c89f3c-d023-4fe9-8f4a-56325a3e54c5&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Documents/WeChat Files/wxid_80buxyrw347m12/FileStorage/File/2024-03/eink_290_bw.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BSP/eink/eink_290_bw.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink/eink_290_bw.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BSP/u8g2/u8g2_fonts_custom.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Ctrl/Motor/knob.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Ctrl/Motor/motor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Platform/Utils/time_utils.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -99,6 +117,9 @@
     <setting file="file://$PROJECT_DIR$/UserApp/os/app_updown.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UserApp/os/ctrl.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/UserApp/os/storage.cpp" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="0z8iyfb8" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -123,6 +144,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;CMake 调试.HelloWord-Dynamic-fw.executor&quot;: &quot;Debug&quot;,
     &quot;OpenOCD 下载并运行.HelloWord-Dynamic-fw.elf.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
@@ -131,16 +153,19 @@
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Engcode/hw/HelloWord_HY/2.Firmware/HelloWord-Dynamic-fw/BSP/eink&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon&quot;: &quot;&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
@@ -150,11 +175,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\BSP\eink" />
+      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\BSP" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\Ctrl\Motor" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\SDK" />
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\protocols" />
-      <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Engcode\hw\HelloWord_HY\2.Firmware\HelloWord-Dynamic-fw\UserApp\os" />
@@ -323,10 +348,6 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
-        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
-        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
-        <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
         <item itemvalue="CMake 调试.HelloWord-Dynamic-fw" />
       </list>
     </recent_temporary>
@@ -515,6 +536,32 @@
       <workItem from="1708791759075" duration="53000" />
       <workItem from="1708793550250" duration="8000" />
       <workItem from="1708831691115" duration="606000" />
+      <workItem from="1709311238220" duration="113000" />
+      <workItem from="1709311359843" duration="44000" />
+      <workItem from="1709393379536" duration="226000" />
+      <workItem from="1709393615401" duration="1661000" />
+      <workItem from="1709395292444" duration="37000" />
+      <workItem from="1709395366088" duration="88000" />
+      <workItem from="1709395468460" duration="29000" />
+      <workItem from="1709395543094" duration="23085000" />
+      <workItem from="1709540886774" duration="13106000" />
+      <workItem from="1709641021631" duration="634000" />
+      <workItem from="1709814866550" duration="3000" />
+      <workItem from="1710763925136" duration="13000" />
+      <workItem from="1711634089835" duration="1981000" />
+      <workItem from="1711708252562" duration="1820000" />
+      <workItem from="1711723792498" duration="123000" />
+      <workItem from="1712032487431" duration="46000" />
+      <workItem from="1712244442560" duration="768000" />
+      <workItem from="1712754688061" duration="935000" />
+      <workItem from="1712761985237" duration="53000" />
+      <workItem from="1712845814845" duration="1720000" />
+      <workItem from="1713183373846" duration="2662000" />
+      <workItem from="1713191621720" duration="27000" />
+      <workItem from="1713192094773" duration="1302000" />
+      <workItem from="1713194866488" duration="1611000" />
+      <workItem from="1713265961550" duration="47000" />
+      <workItem from="1713934541629" duration="139000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <option name="closed" value="true" />
@@ -764,7 +811,31 @@
       <option name="project" value="LOCAL" />
       <updated>1708791721956</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="upd:&#10;- 更新菜单动画与角度捕捉逻辑&#10;- 将缓动类函数导出声明&#10;- 调整knob的callback&#10;- 电机增加encode target预测&#10;fix:&#10;- 增加懒汉休眠机制,不会出现重复休眠唤醒的问题">
+      <option name="closed" value="true" />
+      <created>1709486916764</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1709486916764</updated>
+    </task>
+    <task id="LOCAL-00033" summary="none">
+      <option name="closed" value="true" />
+      <created>1709486979207</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1709486979207</updated>
+    </task>
+    <task id="LOCAL-00034" summary="upd:&#10;- 统一font&#10;- 调整窗口app">
+      <option name="closed" value="true" />
+      <created>1711723903378</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1711723903378</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -810,9 +881,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="完善HID描述符与协议&#10;除亮度调节以外的功能都实现" />
-    <MESSAGE value="更新墨水屏推送协议,增加屏幕睡眠指令" />
-    <MESSAGE value="优化协议,电机部分待解决" />
     <MESSAGE value="调整协议" />
     <MESSAGE value="app增加滑动模式&#10;app增加亮度调节&#10;电机支持休眠" />
     <MESSAGE value="微调pid&#10;调整存储代码" />
@@ -835,7 +903,10 @@
     <MESSAGE value="upd:&#10;- 预更新rgb灯效" />
     <MESSAGE value="upd:&#10;- 增加rgb相关代码&#10;fix:&#10;- 所有hid相关代码走HYSDK::USB::USBDHIDSendReport" />
     <MESSAGE value="fix:&#10;- 修复菜单内存泄漏问题&#10;upd:&#10;- 统一同步rgb种子" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix:&#10;- 修复菜单内存泄漏问题&#10;upd:&#10;- 统一同步rgb种子" />
+    <MESSAGE value="upd:&#10;- 更新菜单动画与角度捕捉逻辑&#10;- 将缓动类函数导出声明&#10;- 调整knob的callback&#10;- 电机增加encode target预测&#10;fix:&#10;- 增加懒汉休眠机制,不会出现重复休眠唤醒的问题" />
+    <MESSAGE value="none" />
+    <MESSAGE value="upd:&#10;- 统一font&#10;- 调整窗口app" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd:&#10;- 统一font&#10;- 调整窗口app" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -854,15 +925,6 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="USB_Recive_Buffer" language="ObjectiveC" />
-        <watch expression="USB_Recive_Tmp_Buffer" />
-        <watch expression="msg" />
-        <watch expression="g_sysCtx" />
-        <watch expression="g_SysConfig" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

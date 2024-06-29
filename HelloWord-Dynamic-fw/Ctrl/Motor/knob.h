@@ -48,6 +48,10 @@ public:
 
     int GetEncoderModePos();
 
+    int GetEncoderModePos(float p);
+
+    float GetPositionFromEncoderModePos(int pos);
+
     int GetEncoderDivides();
 
     float GetZeroPosition();
@@ -75,7 +79,7 @@ public:
     float encoderDistance = 0;
     float encoderPosition = 0;
     float lastEncoderPosition = 0;
-private:
+
     Motor *motor{};
     Mode_t mode = MODE_DISABLE;
 
@@ -86,7 +90,7 @@ private:
     float lastAngle = 0;
     float lastVelocity = 0;
     float maxVelocity = 0;
-
+    float paddle = 0;
     bool reset = false;
     bool pStatus = false;
 

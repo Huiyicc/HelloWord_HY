@@ -84,6 +84,7 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode, const AppKnobConfig *cf
       motor->config.pidAngle.d = 3.5f;
       motor->target = zeroPosition;
       lastAngle = zeroPosition;
+      encoderDistance = _2PI / float(encoderDivides);
     }
       break;
     case MODE_SPRING: {
@@ -132,7 +133,9 @@ void KnobSimulator::SetMode(KnobSimulator::Mode_t _mode, const AppKnobConfig *cf
       motor->config.pidAngle.p = 100;
       motor->config.pidAngle.i = 0;
       motor->config.pidAngle.d = 3.5f;
-      motor->target = zeroPosition;
+      auto lp = GetPosition();
+      paddle=lp-std::fmod(lp,_2PI)+deviation;
+      motor->target = paddle;
     }
       break;
     case MODE_INTELLIGENT: {
@@ -464,7 +467,7 @@ void KnobSimulator::Tick() {
         if (fa > filterateMax) {
           reset = true;
           motor->config.controlMode = Motor::ControlMode_t::ANGLE;
-          motor->target = zeroPosition;
+          motor->target = paddle;
           break;
         }
         if (reset && fa < 0.01) {
@@ -476,7 +479,7 @@ void KnobSimulator::Tick() {
         break;
       }
       motor->config.controlMode = Motor::ControlMode_t::ANGLE;
-      motor->target = zeroPosition;
+      motor->target = paddle;
     }
       break;
   }
@@ -513,6 +516,14 @@ float KnobSimulator::GetZeroPosition() {
 
 int KnobSimulator::GetEncoderModePos() {
   return std::lround(GetPosition() / (_2PI / (float) encoderDivides));
+}
+
+int KnobSimulator::GetEncoderModePos(float p) {
+  return std::lround(p / (_2PI / (float) encoderDivides));
+}
+
+float KnobSimulator::GetPositionFromEncoderModePos(int pos) {
+  return pos * (_2PI / (float) encoderDivides);
 }
 
 int KnobSimulator::GetEncoderDivides() {

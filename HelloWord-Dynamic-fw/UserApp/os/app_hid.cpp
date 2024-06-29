@@ -21,8 +21,8 @@ void appHIDButtonPinCallback(enum ButtonPinCallType type) {
     }
 }
 
-void appHIDKNobCallback(KnobStatus *status) {
-    if (g_sysCtx->Apps.Status != APPID_HID) {
+void appHIDKNobCallback(bool move,KnobStatus *status) {
+    if (g_sysCtx->Apps.Status != APPID_HID||!move) {
         return;
     }
 

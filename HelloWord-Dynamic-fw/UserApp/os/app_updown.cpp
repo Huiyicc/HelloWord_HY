@@ -21,8 +21,8 @@ void appUpDownButtonPinCallback(enum ButtonPinCallType type) {
   }
 }
 
-void appUpDownKNobCallback(KnobStatus *status) {
-  if (g_sysCtx->Apps.Status != APPID_UPDOWN) {
+void appUpDownKNobCallback(bool move,KnobStatus *status) {
+  if (g_sysCtx->Apps.Status != APPID_UPDOWN||!move) {
     return;
   }
   auto x = status->PositionRaw - status->LastPositionRaw;

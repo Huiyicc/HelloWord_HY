@@ -14,7 +14,7 @@
 #include "Platform/Driver/driver.h"
 #include "Ctrl/Motor/motor.h"
 #include "Ctrl/Motor/knob.h"
-#include "eink_290_bw.h"
+#include "eink_def.h"
 #include "U8g2lib.hpp"
 #include "rgb_light.h"
 
@@ -54,7 +54,7 @@ struct KnobStatus {
     double Velocity = 0;
 };
 
-typedef void (*KnobCallback)(KnobStatus *status);
+typedef void (*KnobCallback)(bool move,KnobStatus *status);
 
 struct SysDeviceCtrl {
     bool Action = false;
@@ -196,6 +196,7 @@ extern OsConfig g_SysConfig;
 
 // ========== config ==========
 #define font_default u8g2_font_wqy12_t_gb2312
+#define font_icon hwd_hy_U24
 
 #ifndef SLEEPID_BUTTONPIN
 #define SLEEPID_BUTTONPIN 1
