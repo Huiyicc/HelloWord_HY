@@ -6,9 +6,9 @@
 #include "spi.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
-#include "os_define.hpp"
+//#include "os_define.hpp"
 
-
+#ifdef  _Eink290BW_
 extern const unsigned char resources_data[];
 extern const unsigned char LUT_PARTIAL_UPDATE[101];
 extern const unsigned char i_0[640];
@@ -894,3 +894,4 @@ const unsigned char resources_data[] = {
     resources_data_tage_end,
 };
 
+#endif

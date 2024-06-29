@@ -14,7 +14,7 @@
 #include "Platform/Driver/driver.h"
 #include "Ctrl/Motor/motor.h"
 #include "Ctrl/Motor/knob.h"
-#include "eink_290_bw.h"
+#include "eink_def.h"
 #include "U8g2lib.hpp"
 #include "rgb_light.h"
 

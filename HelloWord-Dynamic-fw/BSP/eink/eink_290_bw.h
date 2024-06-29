@@ -1,6 +1,8 @@
 #ifndef __DEPG0290BxS75AFxX_BW_H__
 #define __DEPG0290BxS75AFxX_BW_H__
 
+#ifdef  _Eink290BW_
+
 /* EPD commands */
 #define DRIVER_OUTPUT_CONTROL                       0x01 // 驱动器输出控制
 #define BOOSTER_SOFT_START_CONTROL                  0x0C // 动力放大器软启动控制
@@ -75,3 +77,5 @@ private:
 };
 
 #endif
+
+#endif //__DEPG0290BxS75AFxX_BW_H__

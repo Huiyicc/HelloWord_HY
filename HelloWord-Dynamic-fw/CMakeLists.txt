@@ -127,6 +127,20 @@ add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR
 add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
+# ‘≠◊∞∆¡
+option(Eink290BW "Enable feature Eink290BW" OFF)
+
+if(Eink290BW)
+    add_definitions(-D_Eink290BW_)
+endif()
+
+# œÃ”„∆¡
+option(WF0290CZ0LP "Enable feature WF0290CZ0LP" OFF)
+
+if(WF0290CZ0LP)
+    add_definitions(-D_WF0290CZ0LP_)
+endif()
+
 link_directories("Drivers/CMSIS/Lib")
 link_libraries("arm_cortexM4lf_math.a")
 
